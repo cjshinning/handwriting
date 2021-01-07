@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型和原型链</title>
+</head>
+<body>
+    <script>
+        // 1、构造函数
+        // 构造函数有实例成员和静态成员
+        // 实例成员：在构造函数内部，通过this添加的成员。只能通过实例化的对象来访问。
+        // 静态成员：在构造函数本身添加的成员，只能通过构造函数来访问。
+        // function Star(name, age){
+        //     // 实例成员
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // // 静态成员
+        // Star.sex = '女';
+
+        // let stars = new Star('小红', 18);
+        // console.log(stars); //Star {name: "小红", age: 18}
+        // console.log(stars.sex); //undefined
+
+        // console.log(Star.name); //Star 构造函数无法直接访问实例成员
+        // console.log(Star.sex);  //女    构造函数可以直接访问静态成员
+
+        // 2、通过构造函数创建对象(实例化)
+        // function Father(name){
+        //     this.name = name;
+        // }
+        // let son = new Father('Lisa');
+        // console.log(son);   //Father {name: "Lisa"}
+
+        // new一个新对象的过程，发生了什么？
+        // （1）创建一个控对象 son{}
+        // （2）为son准备用原型链链接 son.__proto = Father.prototype
+        // （3）重新绑定this,使构造函数指向新对象 Father.call(this)
+        // （4）为新对象熟悉赋值 son.name
+        // （5）返回this return this;此时新对象就拥有了构造函数的方法和属性了
+
+        // 实例的方法是否共享？
+        // 方式一：在构造函数上直接定义方法（不共享）
+        // function Star(){
+        //     this.sing = function(){
+        //         console.log('I love singing');
+        //     }
+        // }
+        // let stu1 = new Star();
+        // let stu2 = new Star();
+        // stu1.sing();
+        // stu2.sing();
+        // console.log(stu1.sing === stu2.sing);   //false
+
+        // 方式二：通过原型添加方法（共享）
+        // function Star(name){
+        //     this.name = name;
+        // }
+        // Star.prototype.sing = function(){
+        //     console.log('我哎唱歌', this.name);
+        // }
+        // let stu1 = new Star('小红');
+        // let stu2 = new Star('小蓝');
+        // stu1.sing();
+        // stu2.sing();
+        // console.log(stu1.sing === stu2.sing);   //true
+
+        // 定制构造函数规则：
+        // 公共属性定义到构造函数里面，公共方法放到原型对象上
+
+        
+        // 二、原型
+        // 1、什么是原型
+        // Father.prototype就是原型，它是一个对象
+
+        // 2、原型的作用是什么？
+        // 共享方法，通过Father.prototype.method可以共享方法，不会开辟空间存储方法
+
+        // 3、原型中this指向什么？
+        // this指向实例
+
+
+        // 三、原型链
+        // 1、什么是原型链
+        // 原型与原型层层相连的过程即为原型链
+
+        // 2、应用？
+        // 实例对象可以使用构造函数prototype原型对象的属性和方法，就是对象有__proto__隐式原型的存在
+        // function Star(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Star.prototype.dance = function(){
+        //     console.log('我在跳舞', this.name);
+        // }
+        // let obj = new Star('小红', 18);
+        // console.log(obj.__proto__ === Star.prototype);  //true
+        
+        // 3、原型的构造器指向构造函数
+        // function Star(name){
+        //     this.name = name;
+        // }
+        // let obj = new Star('小红');
+        // console.log(Star.prototype.constructor === Star);  //true
+        // console.log(obj.__proto__.constructor === Star);    //true
+
+        // 4.1、在原型上添加方法一：构造函数.prototype.方法在原型上直接添加方法，此时原型对象是有constructor构造器的，构造器指向函数本身
+        // function Star(name){
+        //     this.name = name;
+        // }
+        // Star.prototype.dance = function(){
+        //     console.log(this.name);
+        // }
+        // let obj = new Star('小红');
+        // console.log(obj.__proto__); //{dance: ƒ, constructor: ƒ}
+        // console.log(obj.__proto__.constructor); //Star
+
+        // 4.2、在原型上添加方法二：构造函数.prototype = {}给原型重新复制，此时会丢失构造器，需要手动定义构造器，指回函数本身
+        // function Star(name){
+        //     this.name = name;
+        // }
+        // Star.prototype = {
+        //     dance: function(){
+        //         console.log(this.name);
+        //     }
+        // }
+        // let obj = new Star('小红');
+        // console.log(obj.__proto__); //{dance: ƒ}
+        // console.log(obj.__proto__.constructor); //ƒ Object() { [native code] }
+        // Star.prototype.constructor = Star;
+        // console.log(obj.__proto__); //{dance: ƒ, constructor: ƒ}
+        // console.log(obj.__proto__.constructor); //Star
+
+        // 5、一般不允许直接改版原型的prototype指向
+        // Array.prototype.getSum = function(arr){
+        //     let sum = 0;
+        //     for(let i = 0; i < this.length; i++){
+        //         sum += this[i];
+        //     }
+        //     return sum;
+        // }
+        // let arr = [1,2,3,4,5,6,7,8,9];
+        // console.log(arr.getSum());  //45
+
+        // 如果改变prototype指向，会报错
+        // Array.prototype = {
+        //     getSum: function(arr){
+        //         let sum = 0;
+        //         for(let i = 0; i < this.length; i++){
+        //             sum += this[i];
+        //         }
+        //         return sum;
+        //     }
+        // }
+        // let arr = [1,2,3,4,5,6,7,8,9];
+        // console.log(arr.getSum());  //Uncaught TypeError: arr.getSum is not a function
+
+        // 五、继承-ES5
+        // 通过构造函数+原型对象模拟实现
+        // function Father(name){
+        //     this.name = name;
+        // }
+        // Father.prototype.dance = function(){
+        //     console.log('I am dancing');
+        // }
+        // function Son(name, age){
+        //     Father.call(this, name);
+        //     this.age = age;
+        // }
+        // let son = new Son('小红', 100);
+        // son.dance();    //报错
+
+        // 解决方法1:利用Son.prototype = Father.prototype改变原型指向
+        // 缺点：此时给子类增加原型方法，同样会影响到父类
+        // function Father(name){
+        //     this.name = name;
+        // }
+        // Father.prototype.dance = function(){
+        //     console.log('I am dancing');
+        // }
+        // function Son(name, age){
+        //     Father.call(this, name);
+        //     this.age = age;
+        // }
+        // Son.prototype = Father.prototype;
+        // // 为子类添加方法
+        // Son.prototype.sing = function(){
+        //     console.log('I am singing');
+        // }
+        // let son = new Son('小红', 100);
+        // son.dance();    //I am dancing
+        // // 此时父类也被影响了
+        // console.log(Father.prototype);  //{dance: ƒ, sing: ƒ, constructor: ƒ}
+
+        // 解决方法2：子类原型指向父类实例
+        // function Father(name){
+        //     this.name = name;
+        // }
+        // Father.prototype.dance = function(){
+        //     console.log('I am dancing');
+        // }
+        // function Son(name, age){
+        //     Father.call(this, name);
+        //     this.age = age;
+        // }
+        // Son.prototype = new Father();
+        // Son.prototype.sing = function(){
+        //     console.log('I am singing');
+        // }
+        // let son = new Son('小红', 100);
+        // console.log(Father.prototype); //{dance: ƒ, constructor: ƒ}
+
+        // 七、类
+        // 类的本质是一个函数，类就是构造函数的另一种写法。
+        // function Star(){}
+        // console.log(typeof Star);   //function
+
+        // class Star{}
+        // console.log(typeof Star);   //function
+
+        // class Father {
+        //     constructor(){
+        //         this.name = name;
+        //     }
+        //     sing(){
+        //         return this.name;
+        //     }
+        // }
+        // let red = new Father('小红');
+        // let green = new Father('小绿');
+        // console.log(red.sing === green.sing);   //true
+        
+        // 向类添加方法
+        // class Father {
+        //     constructor(){
+        //         this.name = name;
+        //     }
+        //     sing(){
+        //         return this.name;
+        //     }
+        // }
+        // Object.assign(Father.prototype, {
+        //     dance(){
+        //         return '我爱跳舞';
+        //     }
+        // })
+        // let red = new Father('小红');
+        // let green = new Father('小绿');
+        // console.log(red.dance());   //我爱跳舞
+        // console.log(red.dance === green.dance);   //true
+
+        // 九、继承-ES6
+        // class Father {
+        //     constructor(name){
+        //         this.name = name;
+        //     }
+        //     dance(){
+        //         return '我在跳舞';
+        //     }
+        // }
+        // class Son extends Father{
+        //     constructor(name, score){
+        //         super(name);
+        //         this.score = score;
+        //     }
+        //     sing(){
+        //         return this.name + ',' + this.dance();
+        //     }
+        // }
+        // let obj = new Son('小红', 100);
+        // console.log(obj.sing());
+
+        // 十、总结
+        // 构造函数特点：
+        // 1、构造函数有原型对象prototype
+        // 2、构造函数原型对象prototype里面有constructor,指向构造函数本身
+        // 3、构造函数可以通过原型对象添加方法
+        // 4、构造函数创建的实例对象有__proto__原型，指向构造函数的原型对象
+
+        // 类：
+        // 1、class本质还是function
+        // 2、类的所有方法都定义在类的prototype属性上
+        // 3、类创建的实例，里面也有__proto__指向累的prototype原型对象
+        // 4、新的class写法，只是让对象原型的写法更加清晰，更像面向对象编程的语法而已
+        // 5、ES6的类其实就是语法糖
+
+        // 试题一：
+        // 按照如下要求实现Person 和 Student 对象
+        // a)Student 继承Person 
+        // b)Person 包含一个实例变量 name， 包含一个方法 printName
+        // c)Student 包含一个实例变量 score， 包含一个实例方法printScore
+        // d)所有Person和Student对象之间共享一个方法
+        
+        // ES5方法
+        function Person(name){
+            this.name = name;
+            this.printName = function(){
+                console.log(this.name);
+            }
+        }
+        Person.prototype.commonMethods = function(){
+            console.log('我是共享方法');
+        }
+        function Student(name, score){
+            Person.call(this, name);
+            this.score = score;
+            this.printScore = function(){
+                console.log(this.score);
+            }
+        }
+        Student.prototype = new Person();
+        var person = new Person('小紫', 80);
+        let stu = new Student('小红', 100);
+        console.log(stu.printName === person.printName);    //false
+        console.log(stu.commonMethods === person.commonMethods);    //true
+
+    </script>   
+</body>
+</html>

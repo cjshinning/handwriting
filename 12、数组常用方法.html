@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组常用方法</title>
+</head>
+<body>
+    <script>
+        // 1、slice
+        // slice()方法返回一个新的数组对象，这一对象是由一个begin和end决定的原数组的浅拷贝（包括begin，不包括end）。
+        // const animal = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+        // console.log(animal.slice(2));   //['camel', 'duck', 'elephant']
+        // console.log(animal.slice(-2));  //['duck', 'elephant']
+
+        // 语法：arr.slice([begin[, end]])
+        // begin为正数，从该索引开始取原数组元素。
+        // 如果该参数为负数，则表示从原数组中的倒数第几个开始提取，slice(-2)表示提取原数组中的倒数第二个元素到最后一个元素（包含最后一个元素）
+        // 如果省略begin，则slice从索引0开始。
+        // 如果begin大于原数组长度，则返回空数组。
+
+        // end提取终止处的索引（从0开始），从该索引结束提取原数组元素。slice会提取原数组中索引从begin到end的所有元素（包括begin，但不包括end）
+        // 如果end被省略，则slice会一直提取到原数组的末尾。
+        // 如果end大于数组的长度，slice也会一直提取到原数组的末尾。
+        // const animal = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+        // console.log(animal.slice(1,4));     //['bison', 'camel', 'duck']
+        // console.log(animal.slice(-2,-1));   //['duck']
+        // console.log(animal.slice(2));   //["camel", "duck", "elephant"]
+        // console.log(animal.slice(2,5));     //["camel", "duck", "elephant"]
+
+        // 描述
+        // slice不会修改原数组，只会返回一个浅复制了原数组中的元素的一个新数组
+
+        // 返回现有数组的一部分
+        // var fruits = ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'];
+        // var citrus = fruits.slice(1, 3);
+        // console.log(fruits);    //["Banana", "Orange", "Lemon", "Apple", "Mango"]
+        // console.log(citrus);    //["Orange", "Lemon"]
+
+        // var myHonda = {
+        //     color: 'red',
+        //     wheels: 4,
+        //     engine: {
+        //         cylinders: 4,
+        //         size: 2.2
+        //     }
+        // }
+        // var myCar = [myHonda, 2, 'cherry condition', 'purchased 1997'];
+        // var newCar = myCar.slice(0, 2);
+
+        // console.log('myCar = ' + JSON.stringify(myCar));
+        // console.log('newCar = ' + JSON.stringify(newCar));
+
+        // 类数组对象
+        // slice方法可以用来将一个类数组对象转换成一个新数组
+        // function list(){
+        //     return Array.prototype.slice.call(arguments);
+        // }
+
+        // var list1 = list(1,2,3);
+        // console.log(list1); //[1, 2, 3]
+
+        // 2、splice
+        // splice()方法通过删除或替换现有元素或者原地天津新的元素来修改数组，并且以数组形式法牛被修改的内容。此方法会改变愿数组。
+        // const months = ['Jan', 'March', 'April', 'June'];
+        // months.splice(1, 0, 'Feb');
+        // console.log(months);    //"Jan", "Feb", "March", "April", "June"]
+        // months.splice(4, 1, 'May');
+        // console.log(months);    //["Jan", "Feb", "March", "April", "May"]
+
+        // 语法
+        // array.splice(start[, deleteCount[, item1[, item2[, ...]]]]);
+        // start指定修改的开始位置（从0计数）。如果超出了数组的长度，则从数组末尾开始添加元素内容；如果是负值，则表示从末尾第几位开始；如果负值的绝对值大于数组的长度，则表示开始位置为0。
+        // deleteCount表示要移除的数组元素个数。如果deleteCount大于start之后的元素的总数，则从start后面的元素都将被删除。如果deleteCount被省略，那么start后面的数都会被省略。如果deleteCount是0或者负数，则不移除元素。这种情况下，至少应该天津一个新元素。
+        // item1,item2,...（可选）：要添加进数组的元素，从start位置开始。如果不指定，则splice()将之删除数组元素。
+
+        function fn1(){
+            var a = 2, b = 3;
+            return function fn2(){
+                debugger;
+                console.log(a);
+            }
+        }
+    </script>
+</body>
+</html>

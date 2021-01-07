@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>new</title>
+</head>
+<body>
+    <script>
+        // function Student(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Student.prototype.id = '110';
+
+        // let hanson = new Student('hanson', 18);
+        // console.log(hanson.name);
+        // console.log(hanson.id);
+
+        function new2(Obj, ...args){
+            // let obj = Object.create(Obj.prototype);
+            let obj = {};
+            Obj.apply(obj, args);
+            obj.__proto__ = Obj.prototype;
+            return obj;
+        }
+
+        function Student(name, age){
+            this.name = name;
+            this.age = age;
+        }
+        Student.prototype.id = '110';
+
+        let hanson = new2(Student, 'hanson', 18);
+        console.log(hanson.name);
+        console.log(hanson.id);
+    </script>
+</body>
+</html>

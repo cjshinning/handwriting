@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包</title>
+    <style>
+        body{
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+        h1{
+            font-size: 1.5em;
+        }
+        h2{
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1>我们的文本尺寸调整按钮可以修改 body 元素的 font-size 属性，由于我们使用相对单位，页面中的其它元素也会相应地调整。</h1>
+    <h2>我们的文本尺寸调整按钮可以修改 body 元素的 font-size 属性，由于我们使用相对单位，页面中的其它元素也会相应地调整。</h2>
+    <a href="#" id="size-12">12</a>
+    <a href="#" id="size-14">14</a>
+    <a href="#" id="size-16">16</a> -->
+    <p id="help">Helpful notes will appear here</p>
+    <p>E-mail: <input type="text" id="email" name="email"></p>
+    <p>Name: <input type="text" id="name" name="name"></p>
+    <p>Age: <input type="text" id="age" name="age"></p>
+    <script>
+        // mdn对闭包的定义：能够访问到自由变量的函数。
+        // 自由变量是指在函数中使用的，但既不是函数参数也不是函数局部变量的变量。
+        // 闭包 = 函数 + 函数能够访问的自由变量
+        // var a = 1;
+        // function foo(){
+        //     console.log(a);
+        // }
+        // foo();  //1
+        // foo函数可以访问变量a，但是a既不是foo函数的局部变量，也不是foo函数的参数，所以a就是自由变量。
+        // 函数foo + foo函数访问的自由变量就构成了一个闭包
+        // 《JavaScript权威指南》中讲到：从技术角度讲，所有的Javascript函数都是闭包。
+        // 上面是理论上的闭包，其实还有一个实践角度的闭包。
+        // 1、从理论角度：所有的函数。因为他们都在创建时就将上层上下文的数据保存起来了，哪怕是简单的全局变量也是如此，因为函数中访问全局变量就相当于在访问自由辩论，这个时候使用最外层的作用域。
+        // 2、从实践角度：以下函数才算闭包：
+        // （1）及时创建它的上下文一件销毁，它仍然存在（比如，内部函数从父函数中返回）
+        // （2）再代码中引用了自由变量
+        // var scope = 'gloabal scope';
+        // function checkscope(){
+        //     var scope = 'local scope';
+        //     function f(){
+        //         // return scope;
+        //         console.log(scope);
+        //     }
+        //     return f;
+        // }
+
+        // var foo = checkscope();
+        // foo();
+
+        // function add(){
+        //     var num = 0;
+        //     return num++;
+        // }
+
+        // console.log(add());
+        // console.log(add());
+        // console.log(add());
+
+        // function add(){
+        //     var num = 0;
+        //     function f(){
+        //         return num++;
+        //     }
+        //     return f;
+        // }
+
+        // var result = add();
+        // console.log(result());
+        // console.log(result());
+        // console.log(result());
+
+        // 必刷题：
+        // var data = [];
+        // for(var i = 0; i < 3; i++){
+        //     data[i] = function(){
+        //         console.log(i);
+        //     }
+        // }
+        // data[0]();
+        // data[1]();
+        // data[2]();
+        // 答案都是3
+        // 解析：当执行到data[0]函数之前，此时全局上下文为
+        // globalContxt = {
+        //     VO: {
+        //         data: [...],
+        //         i: 3
+        //     }
+        // }
+
+        // 当执行data[0]函数的时候，data[0]函数的作用域为：
+        // data[0]Context的AO并没有i值，所以会从globalContxt.VO中查找，i为3，所以打印结果为3
+
+        // 改成闭包：
+        // var data = [];
+
+        // for(var i=0;i<3;i++){
+        //     data[i] = (function(i){
+        //         return function(){
+        //             console.log(i)
+        //         }
+        //     })(i);
+        // }
+
+        // data[0]()
+        // data[1]()
+        // data[2]()
+        // data[0]并没有i值，所以沿着作用域从匿名函数中查找，这时候找到i为0，找到了就不会往globalContext中查找了，所以打印结果为0
+
+        // function init(){
+        //     var name = 'Mozilla';
+        //     function displayName(){
+        //         alert(name);
+        //     }
+        //     displayName();
+        // }
+        // init(); 
+
+        // init()创建了一个局部变量name和一个名为displayName()的函数。displayName()是定义在init()里的内部函数，并且在init()函数内可用。注意，displayName()没有自己的局部变量。然而，因为它可用访问到外部函数的变量，所以displayName()可用使用府函数init()中生命的变量name.
+
+        // function makeFunc(){
+        //     var name = 'Mozilla';
+        //     function displayName(){
+        //         alert(name);
+        //     }
+        //     return displayName;
+        // }
+
+        // var myFunc = makeFunc();
+        // myFunc();
+        // 这段代码和之前的init()函数示例完全一样。其中不同的地方在于内部函数displayName()在执行前，从外部函数返回。
+
+        // function makeAdder(x){
+        //     return function(y){
+        //         return x + y;
+        //     }
+        // }
+
+        // var add5 = makeAdder(5);
+        // var add10 = makeAdder(10);
+
+        // console.log(add5(2));   //7
+        // console.log(add10(2));  //12
+
+        // function makeSizer(size){
+        //     return function(){
+        //         document.body.style.fontSize = size + 'px';
+        //     }
+        // }
+
+        // var size12 = makeSizer(12);
+        // var size14 = makeSizer(14);
+        // var size16 = makeSizer(16);
+
+        // document.getElementById('size-12').onclick = size12;
+        // document.getElementById('size-14').onclick = size14;
+        // document.getElementById('size-16').onclick = size16;
+
+        // 用闭包模拟私有变量
+        // 模块模式
+        // var Counter = (function(){
+        //     var privateCounter = 0;
+        //     function changeBy(val){
+        //         privateCounter += val;
+        //     }
+        //     return {
+        //         increment: function(){
+        //             changeBy(1);
+        //         },
+        //         decrement: function(){
+        //             changeBy(-1);
+        //         },
+        //         value: function(){
+        //             return privateCounter;
+        //         }
+        //     }
+        // })();
+
+        // console.log(Counter.value());
+        // Counter.increment();
+        // Counter.increment();
+        // console.log(Counter.value());
+        // Counter.decrement();
+        // console.log(Counter.value());
+
+        // var makeCounter = (function(){
+        //     var privateCounter = 0;
+        //     function changeBy(val){
+        //         privateCounter += val;
+        //     }
+        //     return {
+        //         increment: function(){
+        //             changeBy(1);
+        //         },
+        //         decrement: function(){
+        //             changeBy(-1);
+        //         },
+        //         value: function(){
+        //             return privateCounter;
+        //         }
+        //     }
+        // })
+
+        // var Counter1 = makeCounter();
+        // var Counter2 = makeCounter();
+
+        // console.log(Counter1.value());
+        // Counter1.increment();
+        // Counter1.increment();
+        // console.log(Counter1.value());
+        // Counter1.decrement();
+        // console.log(Counter1.value());
+        // console.log(Counter2.value());
+
+        // function showHelp(help){
+        //     document.getElementById('help').innerHTML = help;
+        // }
+
+        // function setupHelp(){
+        //     var helpText = [
+        //         {id: 'email', help: 'You email address'},
+        //         {id: 'name', help: 'You full name'},
+        //         {id: 'age', help: 'You age(you must be over 16)'},
+        //     ]
+
+        //     for(var i=0;i<helpText.length;i++){
+        //         var item = helpText[i];
+        //         document.getElementById(item.id).onfocus = function(){
+        //             showHelp(item.help);
+        //         }
+        //     }
+        // }
+
+        // setupHelp();
+
+        // 循环在事件触发前早已执行完毕，变量对象item已经指向了helpText的最后一项。
+        // 解决该问题的方案一：使用更多的闭包
+        // function showHelp(help){
+        //     document.getElementById('help').innerHTML = help;
+        // }
+
+        // function makeHelpCallback(help){
+        //     return function(){
+        //         showHelp(help);
+        //     }
+        // }
+
+        // function setupHelp(){
+        //     var helpText = [
+        //         {id: 'email', help: 'You email address'},
+        //         {id: 'name', help: 'You full name'},
+        //         {id: 'age', help: 'You age(you must be over 16)'},
+        //     ]
+
+        //     for(var i=0;i<helpText.length;i++){
+        //         var item = helpText[i];
+        //         document.getElementById(item.id).onfocus = makeHelpCallback(item.help);
+        //     }
+        // }
+
+        // setupHelp();
+
+        // 解决方案二使用匿名闭包
+        // function showHelp(help){
+        //     document.getElementById('help').innerHTML = help;
+        // }
+
+        // function setupHelp(){
+        //     var helpText = [
+        //         {id: 'email', help: 'You email address'},
+        //         {id: 'name', help: 'You full name'},
+        //         {id: 'age', help: 'You age(you must be over 16)'},
+        //     ]
+
+        //     for(var i=0;i<helpText.length;i++){
+        //         (function(){
+        //             var item = helpText[i];
+        //             document.getElementById(item.id).onfocus = function(){
+        //                 showHelp(item.help);
+        //             }
+        //         })()
+        //     }
+        // }
+
+        // setupHelp();
+
+        // 解决方案三，不使用过多闭包，可以使用ES6的let关键词
+        function showHelp(help){
+            document.getElementById('help').innerHTML = help;
+        }
+
+        function setupHelp(){
+            var helpText = [
+                {id: 'email', help: 'You email address'},
+                {id: 'name', help: 'You full name'},
+                {id: 'age', help: 'You age(you must be over 16)'},
+            ]
+
+            for(var i=0;i<helpText.length;i++){
+                let item = helpText[i];
+                document.getElementById(item.id).onfocus = function(){
+                    showHelp(item.help);
+                }
+            }
+        }
+
+        setupHelp();
+    </script>
+</body>
+</html>

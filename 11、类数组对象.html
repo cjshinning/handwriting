@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类数组对象</title>
+</head>
+<body>
+    <script>
+        var array = ['name', 'age', 'sex'];
+        var arrayLike = {
+            0: 'name',
+            1: 'age',
+            2: 'sex',
+            length: 3
+        };
+        // // 读写
+        // console.log(array[0]);  //name
+        // console.log(arrayLike[0]);  //name
+        // // 长度
+        // console.log(array.length);  //3
+        // console.log(arrayLike.length);  //3
+        // 遍历
+        // for(var i=0;i<array.length;i++){
+        //     console.log(array[i]);
+        // }
+        // for(var i=0;i<arrayLike.length;i++){
+        //     console.log(arrayLike[i]);
+        // }
+        
+        // array.push('4');
+        // arrayLike.push('4');    //Uncaught TypeError: arrayLike.push is not a function
+        
+        // 使用call调用数组的方法
+
+        // 类数组转数组
+        var arrayLike = {0: 'name', 1: 'age', 2: 'sex', length: 3 }
+        // 1.slice
+        Array.prototype.slice.call(arrayLike);
+        // 2.splice
+        Array.prototype.splice.call(arrayLike, 0);
+        // 3.ES6 Array from
+        Array.from(arrayLike);
+        // 4.apply
+        Array.prototype.concat.apply([], arrayLike);
+
+        // Arguments对象
+        // function foo(name, age, sex){
+        //     console.log(arguments);
+        // }
+
+        // foo('name', 'age', 'sex');
+
+        // length属性
+        // Arguments对象的length属性，表示实参的长度
+        // function foo(b,c,d){
+        //     console.log('实参的长度为：' + arguments.length);
+        // }
+
+        // console.log('形参的长度为：' + foo.length);
+        // foo(1);
+
+        // callee属性
+        // Arguments对象的callee属性，通过它可以调用函数自身。
+        var data = [];
+
+        for(var i = 0; i< 3; i++){
+            (data[i] = function(){
+                console.log(arguments.callee.i);
+            }).i = i;
+        }
+
+        data[0]();  //0
+        data[1]();  //1
+        data[2]();  //2
+    </script>
+</body>
+</html>

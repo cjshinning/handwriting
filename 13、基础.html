@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js基础</title>
+    <style>
+        /* div{
+            border: 1px solid #ccc;
+            padding: 50px;
+            width: 100px;
+        } */
+    </style>
+</head>
+<body>
+    <!-- 1、元素dom操作 -->
+    <!-- <div id="dom1">元素 1</div>
+    <div class="dom2">元素 2</div>
+
+    <button class="btn">点我</button> -->
+    
+    <!-- 2、事件 -->
+    <!-- <table id="outside">
+        <tr>
+            <td id="t1">one</td>
+            <td id="t2">two</td>
+        </tr>
+    </table> -->
+    
+    <!-- 3、自定义事件 -->
+    <!-- <ul class="ul">
+        <li class="li">
+            <button class="btn">点我</button>
+        </li>
+    </ul> -->
+
+    <!-- 4、事件执行顺序 -->
+    <!-- <input type="text" id="txt"> -->
+    <script>
+        
+
+        // for (let i = 0; i < 5; i++) {
+        //     requestAnimationFrame(() => {
+        //         console.log(i);
+        //     });
+        // }
+        // let arr = [ , 2, , 3, , 4];
+        // // arr = arr.map(i => ++i);
+        // arr = arr.filter(i => ++i);
+        // console.log(arr);
+
+        // 数组去重
+        // 方案一：使用includes
+        // function unique(arr){
+        //     let result = [];
+        //     for(let i=0;i<arr.length;i++){
+        //         if(!result.includes(arr[i])){
+        //             result.push(arr[i]);
+        //         }
+        //     }
+        //     return result;
+        // }
+
+        // 方案二：使用set
+        // function unique(arr){
+        //     return Array.from(new Set(arr));
+        // }
+
+        // let arr = [1,3,5,5,12,8,18,3,3,3,1];
+        // console.log(unique(arr));
+
+        // 实现sleep函数
+        // 方法一：普通版
+        // function sleep(sleepTime) {
+        //     for(var start = new Date; new Date - start <= sleepTime;) {}
+        // }
+
+        // var t1 = new Date();
+        // sleep(3000);
+        // var t2 = new Date();
+        // console.log(t2 - t1);
+
+        // 方式二：Promise版本
+        // function sleep(time){
+        //     return new Promise(resolve => setTimeout(resolve, time));
+        // }
+
+        // const t1 = +new Date();
+        // sleep(3000).then(() => {
+        //     const t2 = +new Date();
+        //     console.log(t2 - t1);
+        // })
+
+        // 方式三：Async,Await版本
+        // function sleep(delay){
+        //     return new Promise(resolve => {
+        //         setTimeout(resolve, delay);
+        //     })
+        // }
+
+        // (async function(){
+        //     const t1 = new Date();
+        //     await sleep(3000);
+        //     const t2 = new Date();
+        //     console.log(t2 - t1);
+        // })()
+
+        // const txt = document.getElementById('txt');
+
+        // txt.onclick = function(e){
+        //     console.log('onclick');
+        // };
+
+        // txt.onfocus = function(e){
+        //     console.log('onfocus');
+        // };
+
+        // txt.onmousedown = function(e){
+        //     console.log('onmousedown');
+        // };
+
+        // txt.onmouseenter = function(e){
+        //     console.log('onmouseenter');
+        // };
+
+        // txt.onmouseup = function(e){
+        //     console.log('onmouseup');
+        // };
+
+        // 打印顺序：onmouseenter，onmousedown，onfocus，onmouseup，onclick
+
+        // window.onload = function(){
+        //     const myEvent = document.createEvent('CustomEvent');
+        //     myEvent.initEvent('myEvent', true, true);
+
+        //     const btn = document.querySelector('.btn');
+        //     btn.addEventListener('myEvent', (e) => {
+        //         e.stopPropagation();
+        //         console.log('button');
+        //     })
+
+        //     const li = document.querySelector('li');
+        //     li.addEventListener('myEvent', (e) => {
+        //         console.log('li');
+        //     })
+
+        //     const ul = document.querySelector('ul');
+        //     ul.addEventListener('myEvent', (e) => {
+        //         console.log('ul');
+        //     })
+
+        //     document.addEventListener('myEvent', (e) => {
+        //         console.log('document');
+        //     })
+
+        //     window.addEventListener('myEvent', (e) => {
+        //         console.log('window');
+        //     })
+
+        //     setTimeout(() => {
+        //         btn.dispatchEvent(myEvent);
+        //     })
+        // }
+        
+        // (function(){
+        //     const modifyTxt = (text) => {
+        //         const t2 = document.querySelector('#t2');
+        //         console.log(t2.firstChild.nodeValue);
+        //         if(t2.firstChild.nodeValue === text) {
+        //             t2.firstChild.nodeValue = 'two';
+        //         }else{
+        //             t2.firstChild.nodeValue = text;
+        //         }
+        //     }
+
+        //     const element = document.querySelector('#outside');
+        //     element.addEventListener('click', function(){
+        //         modifyTxt('four');
+        //     }, false);
+        // })()
+
+        // (function(){
+        //     const btn = document.querySelector('.btn');
+            
+        //     btn.onclick = function(){
+        //         const dom1 = document.getElementById('dom1');
+
+        //         // 元素添加方式一
+        //         const newDom1 = document.createElement('p');
+        //         newDom1.innerHTML = '<a href="#">js文档</a>';
+        //         dom1.appendChild(newDom1);
+
+        //         // 元素添加方式二
+        //         const newDom2 = document.createElement('ul');
+        //         newDom2.innerHTML = `
+        //             <li>aaa</li>
+        //             <li>bbb</li>
+        //         `;
+        //         document.body.appendChild(newDom2);
+
+        //         // 移除元素
+        //         const dom2 = document.querySelector('.dom2');
+        //         document.body.removeChild(dom2);
+        //     }
+        // })()
+    </script>
+</body>
+</html>

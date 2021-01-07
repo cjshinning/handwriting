@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浅拷贝和深拷贝</title>
+</head>
+<body>
+    <script>
+        // 假如数组是基础类型，可以使用concat或者slice来复制
+        // var arr = ['old', 1, true, null, undefined];
+        // // var new_arr = arr.concat();
+        // var new_arr = arr.slice();
+
+        // new_arr[0] = 'new';
+
+        // console.log(arr);   //["old", 1, true, null, undefined]
+        // console.log(new_arr);   //["new", 1, true, null, undefined]
+
+        // 假如数组嵌套了对象或者数组的话，克隆并不彻底
+        // var arr = [{old: 'old'}, ['old']];
+        // var new_arr = arr.concat();
+
+        // arr[0].old = 'new';
+        // arr[1][0] = 'new';
+
+        // console.log(arr);   //[{old: 'new'}, ['new']]
+        // console.log(new_arr);   //[{old: 'new'}, ['new']]
+
+        // 总结：如果数组元素是基本类型，就会拷贝一份，互不影响；而如果是对象或者数组，就只会拷贝对象和数组的引用，这样我们无论在新旧数组进行了修改，两者都会发生变化。
+        // 使用concat或者slice是一种浅拷贝
+
+        // var arr = ['old', 1, true, ['old1', 'old2'], {old: 1}];
+        // var new_arr = JSON.parse(JSON.stringify(arr));
+
+        // new_arr[3][0] = 'new';
+        // console.log(arr);
+        // console.log(new_arr);
+
+        // 浅拷贝：
+        // var shallowCopy = function(obj){
+        //     if(typeof obj !== 'object') return;
+        //     var newObj = obj instanceof Array ? [] : {};
+        //     for(var key in obj){
+        //         if(obj.hasOwnProperty(key)){
+        //             newObj[key] = obj[key];
+        //         }
+        //     }
+        //     return newObj;
+        // }
+        // var arr = [{old: 'old'}, ['old']];
+        // var new_arr = shallowCopy(arr);
+
+        // arr[0].old = 'new';
+        // arr[1][0] = 'new';
+
+        // console.log(arr);   //[{old: 'new'}, ['new']]
+        // console.log(new_arr);   //[{old: 'new'}, ['new']]
+
+        // var arr = ['old', 1, true, null, undefined];
+        // var new_arr = shallowCopy(arr);
+
+        // new_arr[0] = 'new';
+
+        // console.log(arr);   //["old", 1, true, null, undefined]
+        // console.log(new_arr);   //["new", 1, true, null, undefined]
+
+        // var arr = {
+        //     a: 1,
+        //     b: 'like',
+        //     c: {
+        //         d: true
+        //     }
+        // };
+
+        // var newArr = shallowCopy(arr);
+
+        // // arr.b = 'like2';
+        // arr.c.a = false;
+
+        // console.log(arr);   //{a: 1, b: "like2"}
+        // console.log(newArr);    //{a: 1, b: "like"}
+
+        // 深拷贝：拷贝的时候判断一下属性值的类型，如果是对象，就递归调用深拷贝函数
+        var deepCopy = function(obj){
+            if(typeof obj !== 'object') return;
+            var newObj = obj instanceof Array ? [] : {};
+            for(var key in obj){
+                if(!newObj.hasOwnProperty(key)){
+                    newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
+                }
+            }
+            return newObj;
+        }
+
+        var arr = {
+            a: 1,
+            b: 'like',
+            c: {
+                d: true
+            }
+        };
+
+        var newArr = deepCopy(arr);
+        arr.c.a = false;
+        
+        console.log(arr);
+        console.log(newArr);
+    </script>
+</body>
+</html>

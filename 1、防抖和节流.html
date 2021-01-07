@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>防抖和节流</title>
+</head>
+<body>
+    <div>
+        没有防抖的input：<input type="text" id="unDebounce" /><br/>
+        加了防抖的input：<input type="text" id="debounce" /><br/>
+        加了节流的input：<input type="text" id="throttle" /><br/>
+    </div>
+    <!-- <p style="line-height:30px;">举个栗子，我们知道目前的一种说法是当 1 秒内连续播放 24 张以上的图片时，在人眼的视觉中就会形成一个连贯的动画，所以在电影的播放（以前是，现在不知道）中基本是以每秒 24 张的速度播放的，为什么不 100 张或更多是因为 24 张就可以满足人类视觉需求的时候，100 张就会显得很浪费资源。再举个栗子，假设电梯一次只能载一人的话，10 个人要上楼的话电梯就得走 10 次，是一种浪费资源的行为；而实际生活正显然不是这样的，当电梯里有人准备上楼的时候如果外面又有人按电梯的话，电梯会再次打开直到满载位置，从电梯的角度来说，这时一种节约资源的行为（相对于一次只能载一个人）。
+
+    函数节流: 指定时间间隔内只会执行一次任务；
+    函数防抖: 任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行。</p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <p style="line-height:30px;">举个栗子，我们知道目前的一种说法是当 1 秒内连续播放 24 张以上的图片时，在人眼的视觉中就会形成一个连贯的动画，所以在电影的播放（以前是，现在不知道）中基本是以每秒 24 张的速度播放的，为什么不 100 张或更多是因为 24 张就可以满足人类视觉需求的时候，100 张就会显得很浪费资源。再举个栗子，假设电梯一次只能载一人的话，10 个人要上楼的话电梯就得走 10 次，是一种浪费资源的行为；而实际生活正显然不是这样的，当电梯里有人准备上楼的时候如果外面又有人按电梯的话，电梯会再次打开直到满载位置，从电梯的角度来说，这时一种节约资源的行为（相对于一次只能载一个人）。
+
+    函数节流: 指定时间间隔内只会执行一次任务；
+    函数防抖: 任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行。</p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <p style="line-height:30px;">举个栗子，我们知道目前的一种说法是当 1 秒内连续播放 24 张以上的图片时，在人眼的视觉中就会形成一个连贯的动画，所以在电影的播放（以前是，现在不知道）中基本是以每秒 24 张的速度播放的，为什么不 100 张或更多是因为 24 张就可以满足人类视觉需求的时候，100 张就会显得很浪费资源。再举个栗子，假设电梯一次只能载一人的话，10 个人要上楼的话电梯就得走 10 次，是一种浪费资源的行为；而实际生活正显然不是这样的，当电梯里有人准备上楼的时候如果外面又有人按电梯的话，电梯会再次打开直到满载位置，从电梯的角度来说，这时一种节约资源的行为（相对于一次只能载一个人）。
+
+    函数节流: 指定时间间隔内只会执行一次任务；
+    函数防抖: 任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行。</p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <p style="line-height:30px;">举个栗子，我们知道目前的一种说法是当 1 秒内连续播放 24 张以上的图片时，在人眼的视觉中就会形成一个连贯的动画，所以在电影的播放（以前是，现在不知道）中基本是以每秒 24 张的速度播放的，为什么不 100 张或更多是因为 24 张就可以满足人类视觉需求的时候，100 张就会显得很浪费资源。再举个栗子，假设电梯一次只能载一人的话，10 个人要上楼的话电梯就得走 10 次，是一种浪费资源的行为；而实际生活正显然不是这样的，当电梯里有人准备上楼的时候如果外面又有人按电梯的话，电梯会再次打开直到满载位置，从电梯的角度来说，这时一种节约资源的行为（相对于一次只能载一个人）。
+
+    函数节流: 指定时间间隔内只会执行一次任务；
+    函数防抖: 任务频繁触发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行。</p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br /> -->
+    <script>
+        // 1、函数节流：指定时间间隔内只会执行一次任务；
+        // 2、函数防抖：任务频繁出发的情况下，只有任务触发的间隔超过指定间隔的时候，任务才会执行
+
+        // 函数节流
+        // 案例：判断是否滚动到底部
+        // 网页可视区高度：document.documentElement.clientHeight
+        // 网页正文全高度：document.documentElement.scrollHeight
+        // 网页被卷去的滚动高度：document.documentElement.scrollTop
+        // window.addEventListener('scroll', function(){
+            // console.log('scroll');
+            // var clientHeight = document.documentElement.clientHeight;
+            // var scrollHeight = document.documentElement.scrollHeight;
+            // var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            // if(scrollTop + clientHeight >= scrollHeight){
+            //     console.log('到达底部')
+            // }
+        // },false)
+
+        // function throttle(fn, delay){
+        //     var prev = Date.now();
+        //     return function(){
+        //         var now = Date.now();
+        //         if(now - prev >= delay){
+        //             fn.apply(this, arguments);
+        //             prev = Date.now();
+        //         }
+        //     }
+        // }
+
+        // function throttle(fn, delay=300){
+        //     let canRun = true;
+        //     return function(){
+        //         if(!canRun) return;
+        //         canRun = false;
+        //         setTimeout(() => {
+        //             fn.apply(this, arguments);
+        //             canRun = true;
+        //         }, delay);
+        //     }
+        // }
+        
+        // function toBottom(){
+        //     console.log(123);
+        //     var clientHeight = document.documentElement.clientHeight;
+        //     var scrollHeight = document.documentElement.scrollHeight;
+        //     var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        //     if(scrollTop + clientHeight >= scrollHeight){
+        //         console.log('到达底部')
+        //     }
+        // }
+        // window.addEventListener('scroll', throttle(toBottom, 300))
+            
+        // 节流函数
+        var throttle = function(fn, delay){
+            var prev = Date.now();
+            return function(){
+                var now = Date.now();
+                if(now - prev >= delay){
+                    fn.apply(this, arguments);
+                    prev = Date.now();
+                }
+            }
+        }
+
+        // function handle(){
+        //     console.log(Math.random());
+        // }
+        // window.addEventListener('scroll', throttle(handle, 1000));
+
+        // 防抖函数
+        var debounce = function(fn, wait){
+            var timer = null;
+            return function(){
+                if(timer) {
+                    clearTimeout(timer)
+                };
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments)
+                }, wait);
+            }
+        }
+
+        // function handle(){
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener('scroll', debounce(handle, 1000))
+        // window.addEventListener('resize', debounce(handle, 1000));
+
+        function ajax(content){
+            console.log('ajax request:' + content);
+        }
+
+        let input = document.getElementById('unDebounce');
+
+        input.addEventListener('keyup', function(e){
+            ajax(e.target.value);
+        })
+
+        let inputD = document.getElementById('debounce');
+
+        let debounceAjax = debounce(ajax, 1000);
+
+        inputD.addEventListener('keyup', function(e){
+            debounceAjax(e.target.value);
+        }, 1000);
+
+        let inputT = document.getElementById('throttle');
+
+        let throttleAjax = throttle(ajax, 1000);
+
+        inputT.addEventListener('keyup', function(e){
+            throttleAjax(e.target.value);
+        }, 1000);
+    </script>
+</body>
+</html>

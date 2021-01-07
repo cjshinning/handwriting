@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bind</title>
+</head>
+<body>
+   <script>
+        // bind()方法会创建一个新函数。当这个函数被调用时，bind()的第一个参数将座位它运行时的this，之后的一序列参数将会在传递的实参前传入作为它的参数。
+        // bind函数特点：
+        // （1）返回一个函数
+        // （2）可以传入参数
+        // var foo = {
+        //    value: 1
+        // }
+        // function bar(){
+        //     console.log(this.value);
+        // }
+        // var bindFoo = bar.bind(foo);
+        // bindFoo();
+            
+        // 第一版
+        // Function.prototype.bind2 = function(context){
+        //     var self = this;
+        //     return function(){
+        //         return self.apply(context);
+        //     }
+        // }
+
+        // var foo = {
+        //    value: 1
+        // }
+        // function bar(){
+        //     // console.log(this.value);
+        //     return this.value;
+        // }
+        // var bindFoo = bar.bind2(foo);
+        // // bindFoo();
+        // console.log(bindFoo());
+
+        // 第二版
+        // Function.prototype.bind2 = function(context){
+        //     var self = this;
+        //     var args = Array.prototype.slice.call(arguments, 1);
+
+        //     return function(){
+        //         var bindArgs = Array.prototype.slice.call(arguments);
+        //         return self.apply(context, args.concat(bindArgs));
+        //     }
+        // }
+
+        // var foo = {
+        //     value: 1
+        // }
+
+        // function bar(name, age){
+        //     console.log(this.value);
+        //     console.log(name);
+        //     console.log(age);
+        // }
+
+        // var bindFoo = bar.bind2(foo, 'daizy');
+        // bindFoo('18');
+
+        var value = 2;
+        
+        var foo = {
+            value: 1
+        };
+
+        function bar(name, age){
+            this.habit = 'shopping';
+            console.log(this.value);
+            console.log(name);
+            console.log(age);
+        }
+
+        bar.prototype.friend = 'kevin';
+
+        var bindFoo = bar.bind(foo, 'daizy');
+
+        var obj = new bindFoo('18');
+
+        console.log(obj.habit);
+        console.log(obj.friend);
+   </script> 
+</body>
+</html>

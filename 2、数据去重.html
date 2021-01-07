@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组去重</title>
+</head>
+<body>
+    <script>
+        // 数组中根据对象中指定的属性去重（比如根据下面的value值）
+        // var arr = [{ value: 1, name: '1' },{ value: 2, name: '2' },{ value: 1, name: '3' }];
+        
+        // function unique(arr, name){
+        //     let obj = {};
+        //     arr.reduce((prev, next) => {
+        //         console.log(next)
+        //         console.log(prev)
+        //         // obj[next[name]] ? '' : obj[next[name]] = true && prev.push(next);
+        //         prev.push(next)
+        //         return prev;
+        //     }, [])
+        // }
+
+        // unique(arr, 'value')
+
+        // const array1 = [1,2,3,4];
+        // const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+        // console.log(array1.reduce(reducer));
+
+        // [0,1,2,3,4].reduce((prev, curr) => prev + curr);
+
+        // var sum = [0,1,2,3].reduce((accumulator, currentValue) => {
+        //     return accumulator + currentValue;
+        // }, 0);
+        // console.log(sum);   //6
+
+        // var total = [0,1,2,3].reduce((acc, cur) => acc + cur, 0)
+        // console.log(total);
+
+        // var initialValue = 0;
+        // var sum = [{x: 1}, {x: 2}, {x: 3}].reduce(function(acc, cur){
+        //     return acc + cur.x;
+        // }, initialValue);
+
+        // console.log(sum);   //6
+
+        // 将二维数组转化为一维数组
+        // var flattened = [[0,1],[2,3],[4,5]].reduce((acc, cur) => {
+        //     return acc.concat(cur);
+        // }, []);
+        
+        // console.log(flattened);
+
+        // 计算数组中每个元素出现的次数
+        // var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+        // var countNames = names.reduce(function(allNames, name){
+        //     if(name in allNames){
+        //         allNames[name]++;
+        //     }else{
+        //         allNames[name] = 1;
+        //     }
+        //     return allNames;
+        // }, {})
+        // console.log(countNames);    //{Alice: 2, Bob: 1, Tiff: 1, Bruce: 1}
+
+        // 按属性对Object分类
+        // var people = [
+        //     {name: 'Alice', age: 21},
+        //     {name: 'Max', age: 20},
+        //     {name: 'Jane', age: 20}
+        // ];
+
+        // function groupBy(objectArray, property){
+        //     return objectArray.reduce(function(acc, obj) {
+        //         var key = obj[property];
+        //         if(!acc[key]){
+        //             acc[key] = [];
+        //         }
+        //         acc[key].push(obj);
+        //         return acc;
+        //     }, {});
+        // }
+
+        // var groupedPeople = groupBy(people, 'age');
+        // console.log(groupedPeople);
+        // { 
+        //     20: [
+        //         { name: 'Max', age: 20 }, 
+        //         { name: 'Jane', age: 20 }
+        //     ], 
+        //     21: [{ name: 'Alice', age: 21 }] 
+        // }
+
+        // 数组去重
+        // let myArray = ['a', 'b', 'a', 'b', 'c', 'e', 'c'];
+        // let myOrderArray = myArray.reduce(function(accumulator, currentValue){
+        //     if(accumulator.indexOf(currentValue) === -1){
+        //         accumulator.push(currentValue);
+        //     }
+        //     return accumulator;
+        // }, []);
+        // console.log(myOrderArray);  //["a", "b", "c", "e"]
+
+        // 根据指定对象去重
+        var arr = [{ value: 1, name: '1' },{ value: 2, name: '2' },{ value: 1, name: '3' }];
+
+        function unique(arr, name){
+            let obj = {};
+            return arr.reduce((prev, next) => {
+                if(!obj[next[name]]){
+                    obj[next[name]] = true;
+                    prev.push(next);
+                };
+                return prev;
+            }, [])
+        }
+
+        let result = unique(arr, 'value');
+        console.log(result);
+    </script>
+</body>
+</html>
