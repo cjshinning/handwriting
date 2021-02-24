@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js变量</title>
+</head>
+<body>
+    <script>
+        // 一、var/let/const
+        // var:
+        // 1、var可以重复声明
+        // 2、作用域：全局作用域和函数作用域
+        // 3、会进行预解析
+
+        // let:
+        // 1、统一作用域下不能重复声明
+        // 2、作用域：全局作用域和块级作用域
+        // 3、不能进行预解析
+
+        // let和var比较
+        // 1、var声明的变量只是全局或者整个函数块的
+        // 2、let允许声明一个在作用域限制在块级的变量、语句或者表达式
+        // 3、let不能重复声明
+        // 4、let存在临时死区
+        // 5、let不会被预解析
+
+        // const:
+        // 1、let有的它也有
+        // 2、初始化必须赋值
+        // 3、赋值后不能改动类型
+
+        // let a = 1;
+        // let test = function(){
+        //     console.log(a);
+        //     a++;
+        // }
+        // test();
+        // // 打印1
+
+        // let a = 1;
+        // let test = function(){
+        //     console.log(a);
+        //     let a = 2;
+        //     a++;
+        // }
+        // test();
+        // // Uncaught ReferenceError: Cannot access 'a' before initialization
+        // // 原因：在同一个block中，let在后面重新定义的，那么就不能在之前引用该变量。同时，也不能取嵌套外面的值。
+        
+
+        // 二、函数作用域和块级作用域
+        // 函数作用域：在javascript中定义一个函数，函数内部的变量只能通过函数内部访问，同时它可以修改和影响外部变量。
+        // 块级作用域：变量在离开定义的块级作用域代码后立即被回收，存在暂时性死区的特性。
+
+        // // 内层变量覆盖外层变量
+        // var tmp = new Date();
+
+        // function f(){
+        //     console.log(tmp);
+        //     if(false){
+        //         var tmp = 'hello';
+        //     }
+        // }
+
+        // f();
+
+        // // 循环的变量泄漏为全局变量
+        // for(var i=0;i<3;i++){
+        // }
+        // console.log(i); //3
+
+        // var x = 1;
+        // {
+        //     var x = 2;
+        // }
+        // console.log(x); //2
+
+        // 为了解决上述问题，ES6新增了块级作用域
+        // 块语句用于组合领个或者多个语句，这个块由一对大括号{}界定
+        // // ES5形成块级作用域
+        // (function(){})()
+
+        // // ES6通过{}界定
+        // {
+        //     let x = 1;
+        // }
+
+        // 三、变量提升和函数提升
+        // console.log(a);
+        // var a = 10;
+        // // undefined
+        
+        // javascript解析过程，将a提升到上面进行声明
+        // var a;
+        // console.log(a)
+        // a = 10;
+
+        // console.log(a);
+        // let a = 10;
+        // // Uncaught ReferenceError: Cannot access 'a' before initialization
+
+        // var foo = 3;
+
+        // function getFoo(){
+        //     var foo = foo || 5;
+        //     console.log(foo);
+        // }
+
+        // getFoo();   //5
+
+        // // 函数是一等公民
+        // // 上面的代码，js解析后变成：
+        // function getFoo(){
+        //     var foo = foo || 5;
+        //     console.log(foo);
+        // }
+
+        // var foo;
+        // foo = 3;
+
+        // getFoo();   
+        // // 这就是函数提升
+
+        // function getFoo(){
+        //     foo();
+
+        //     var foo = function(){
+        //         console.log(1);
+        //     }
+
+        //     foo();
+
+        //     function foo(){
+        //         console.log(2);
+        //     }
+
+        //     foo();
+        // }
+
+        // getFoo();
+        // // 2
+        // // 1
+        // // 1
+
+        // console.log(a);
+
+        // var a = 10;
+        // var a = 100;
+
+        // console.log(a);
+
+        // function a(){
+        //     console.log('a');
+        // }
+        // function a(){
+        //     console.log('aa');
+        // }
+
+        // a();
+        // [Function: a]
+        // 100
+        // Uncaught TypeError: a is not a function
+        
+        // 解析后：
+        // function a(){
+        //     console.log('a');
+        // }
+        // function a(){
+        //     console.log('aa');
+        // }
+        // var a;
+        // console.log(a);
+        // a = 10;
+        // a = 100;
+        // console.log(a);
+        // a();
+
+        // var a = 1;
+        // function b(){
+        //     a = 10;
+        //     return;
+        //     function a(){};
+        // }
+        // b();
+        // console.log(a);
+        // // 1
+
+        // function b(){
+        //     a = 10;
+        //     return;
+        //     function a(){};
+        // }
+
+        // var a;
+        // a = 1;
+        // b();
+        // console.log(a);
+
+        // function foo(){
+        //     function bar(){
+        //         return 3;
+        //     }
+        //     return bar();
+        //     function bar(){
+        //         return 8;
+        //     }
+        // }
+        // console.log(foo());
+        // // 8
+
+        var foo = { n: 1 };
+
+        (function(foo) {
+        console.log(foo.n);
+        foo.n = 3;
+        foo = { n: 2 };
+        console.log(foo.n);
+        })(foo)
+
+        console.log(foo.n);
+
+    </script>
+</body>
+</html>

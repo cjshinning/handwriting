@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>箭头函数和普通函数区别</title>
+</head>
+<body>
+    <script>
+        // https://juejin.cn/post/6844903805960585224
+        // 一、基本语法
+        // // 箭头函数
+        // let fun = (name) => {
+        //     return `Hello ${name}`;
+        // }
+
+        // // 等同于
+        // let fun = function(name){
+        //     return `Hello ${name}`;
+        // }
+
+        // 箭头函数省去了function关键字，采用箭头=>来定义函数。函数的参数放在=>前面的括号中，函数题跟在=>后的花括号中。
+
+        // 关于箭头函数参数：
+        // 1、如果箭头函数没有参数，直接写一个空括号即可。
+        // 2、如果箭头函数的参数只有一个，也可以省去包裹参数的括号。
+        // 3、如果箭头函数有多个参数，将参数一次用逗号分割，包裹在括号中即可。
+
+        // // 没有参数
+        // let fun1 = () => {
+        //     console.log(1);
+        // }
+
+        // // 只有一个参数，可以省去参数括号
+        // let fun2 = name => {
+        //     console.log(`Hello ${name}`);
+        // }
+
+        // // 有多个参数
+        // let fun3 = (val1, val2, val3) => {
+        //     return [val1, val2, val3];
+        // }
+
+        // // 关于箭头函数的函数体
+        // // 1、如果箭头函数的函数体只有一句代码，就是简单返回某个变量或者返回一个简单的js表达式，可以省去函数体大括号
+        // let f = val => val;
+        // // 等同于
+        // let f2 = function(val){
+        //     return val;
+        // }
+
+        // let sum = (num1, num2) => num1 + num2;
+        // // 等同于
+        // let sum2 = function(num1, num2){
+        //     return num1 + num2;
+        // }
+
+        // // 2、如果箭头函数的函数体只有一句代码，就是返回一个对象，可以像下面这样写：
+        // let getTempItem = id => ({id: id, name: 'Temp'});
+
+        // // 不能写成下面这样
+        // let getTempItem2 = id => {id: id, name: 'Temp'}
+
+        // // 3、如果箭头函数的函数体只有一条语句并且不需要返回值，可以给这条语句前面加一个void关键字
+        // let fn = () => void doesNotReturn();
+
+        // 二、箭头函数与普通函数的区别
+        // 1、语法更加简洁、清晰
+        // 2、箭头函数不会创建自己的this（重要！！）
+        // mdn对箭头函数的解释：
+        // 箭头函数不会创建自己的this，所以它没有自己的this，它只会从自己的作用域上一层继承this。
+
+        // var id = 'Global';
+
+        // function fun1(){
+        //     setTimeout(function(){
+        //         console.log(this.id);
+        //     }, 2000)
+        // }
+
+        // function fun2(){
+        //     setTimeout(() => {
+        //         console.log(this.id);
+        //     }, 2000)
+        // }
+
+        // fun1.call({id: 'Obj'});
+        // fun2.call({id: 'Obj'});
+        // // Global
+        // // Obj
+
+        // var id = 'GLOBAL';
+        // var obj = {
+        //     id: 'OBJ',
+        //     a: function(){
+        //         console.log(this.id);
+        //     },
+        //     b: () => {
+        //         console.log(this.id);
+        //     }
+        // }
+
+        // obj.a();    //OBJ
+        // obj.b();    //GLOBAL
+
+        // 3、箭头函数继承来的this指向永远都不会变
+
+        // 4、call,apply,bind无法改变箭头函数中this指向
+        // var id = 'GLOBAL';
+
+        // let fun1 = () => {
+        //     console.log(this.id);
+        // }
+
+        // fun1(); //GLOBAL
+        // fun1.call({id: 'Obj'});     //GLOBAL
+        // fun1.apply({id: 'Obj'});    //GLOBAL
+        // fun1.bind({id: 'Obj'})();   //GLOBAL
+
+        // 5、箭头函数不能作为构造函数使用
+        // let Fun = (name, age) => {
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        
+        // // 报错
+        // let p = new Fun('Jenny', 18);
+        // // Uncaught TypeError: Fun is not a constructor
+
+        // 6、箭头函数没有自己的arguments
+        // let fun = (val) => {
+        //     console.log(val);
+        //     console.log(arguments);
+        // }
+        
+        // fun(123);
+        // // Uncaught ReferenceError: arguments is not defined
+
+        // function outer(val1, val2){
+        //     let argOut = arguments;
+        //     console.log(argOut);
+        //     let fun = () => {
+        //         let argIn = arguments;
+        //         console.log(argIn);
+        //         console.log(argOut === argIn);
+        //     }
+        //     // let fun = function(val3){
+        //     //     let argIn = arguments;
+        //     //     console.log(argIn);
+        //     //     console.log(argOut === argIn);
+        //     // }
+        //     fun(3);
+        // }
+        // outer(1,2);
+
+        // // 7、箭头函数没有原型prototype
+        // let sayHi = () => {
+        //     console.log('Hello world!');
+        // }
+        // console.log(sayHi.prototype);
+        // // undefined
+
+        // 8、箭头函数不能用作Generator函数，不能用yeild关键词
+    </script>
+</body>
+</html>

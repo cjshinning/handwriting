@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js原型和原型链</title>
+</head>
+<body>
+    <script>
+        // function Person(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+
+        // Person.prototype.motherland = 'china';
+        // Person.prototype.hairColor = 'black';
+        // Person.prototype.eat = function(){
+        //     console.log('We usually eat three meals a day.');
+        // }
+
+        // let person1 = new Person('小明', 18);
+        // person1.hairColor = 'yellow';
+        // console.log(person1);
+
+        // let person2 = new Person('小花', 20);
+        // console.log(person2);
+
+        // console.log(Person.prototype.constructor === Person);   //true
+        // console.log(person1.__proto__ === Person.prototype);    //true
+
+        // function Foo(){}
+        // const f1 = new Foo();
+        // const f2 = new Foo();
+
+        // console.log(f1.__proto__ === Foo.prototype);    //true
+        // console.log(f2.__proto__ === Foo.prototype);    //true
+
+        // console.log(Foo.prototype.__proto__ === Object.prototype);
+        // console.log(Object.prototype.__proto__ === null);
+
+        // console.log(Foo.prototype.constructor === Foo);
+
+        // console.log(Foo.__proto__ === Function.prototype);
+        // console.log(Object.prototype.__proto__);    //null
+        
+        // const o1 = new Object();
+        // const o2 = new Object();
+
+        // console.log(o1.__proto__ === Object.prototype);     //true
+        // console.log(o2.__proto__ === Object.prototype);     //true
+
+        // console.log(Object.prototype.__proto__);    //null
+
+        // console.log(Object.prototype.constructor === Object);
+
+        // console.log(Object.__proto__ === Function.prototype);   //true
+        // console.log(Function.prototype.__proto__ === Object.prototype);
+
+        // console.log(Array.prototype.__proto__ === Object.prototype);
+
+        
+        // function Person(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        //     this.eat = function(){
+        //         console.log(age + '岁的' + name + '早吃饭')
+        //     }
+        // }
+
+        // const p1 = new Person('Jenny', 18);
+        // const p2 = new Person('Jane', 20);
+
+        // console.log(p1.eat === p2.eat);     //false
+
+        // function Person(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+
+        // Person.prototype.eat = function(){
+        //     console.log('吃饭');
+        // }
+
+        // const p1 = new Person('Jenny', 18);
+        // const p2 = new Person('Jane', 20);
+
+        // // console.log(p1.eat === p2.eat);     //true
+
+        // console.log(Person.prototype.constructor === Person);
+
+
+        // 手写new
+        // function Student(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Student.prototype.id = '100';
+        // let hanson = new Student('hanson', 18);
+        // console.log(hanson);
+        
+        // function myNew(){
+        //     const obj = new Object();
+        //     Constructor = Array.prototype.shift.call(arguments);
+        //     obj.__proto__ = Constructor.prototype;
+        //     Constructor.apply(obj, arguments);  
+        //     return obj;
+        // }
+
+        // function Student(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Student.prototype.id = '100';
+
+        // const jenny = myNew(Student, 'jenny', 20);
+        // console.log(jenny);
+
+
+        // function Student(name, age){
+        //     this.class = '3.5';
+        //     return {
+        //         name: name,
+        //         age: age
+        //     }
+        // }
+        // Student.prototype.id = '100';
+        // let hanson = new Student('hanson', 18);
+        // console.log(hanson);
+
+        // function myNew(){
+        //     const obj = new Object();
+        //     Constructor = Array.prototype.shift.call(arguments);
+        //     obj.__proto__ = Constructor.prototype;
+        //     const ret = Constructor.apply(obj, arguments);  
+        //     return typeof ret === 'object' ? ret : obj;
+        // }
+
+        // function Student(name, age){
+        //     this.class = '3.5';
+        //     return {
+        //         name: name,
+        //         age: age
+        //     }
+        // }
+        // Student.prototype.id = '100';
+        // let jenny = myNew(Student, 'jenny', 20);
+        // console.log(jenny);
+
+        // 手写new2
+        // function Person(firstName, lastName){
+        //     this.firstName = firstName;
+        //     this.lastName = lastName;
+
+        //     // return {
+        //     //     fullName: `${this.firstName} ${this.lastName}`
+        //     // }
+
+        //     return 'demo';
+        // }
+
+        // Person.prototype.getFullName = function(){
+        //     return `${this.firstName} ${this.lastName}`;
+        // }
+
+        // const jenny = new Person('Chen', 'Jenny');
+        // console.log(jenny);
+
+        // new到底做了什么？
+        //（1）创建一个新的对象
+        //（2）继承父类原型上的方法
+        //（3）添加父类属性到新的对象上并初始化，保存方法的执行结果
+        //（4）如果执行结果返回值是一个对象，返回执行的结果，否则，返回新创建的对象
+
+        // function _new(obj, ...rest){
+        //     // 基于obj的原型创建一个新的对象
+        //     const newObj = Object.create(obj.prototype);
+            
+        //     // 添加属性到新创建的newObj上，并获得obj函数的执行结果
+        //     const result = obj.apply(newObj, rest);
+            
+        //     // 如果执行结果有返回值并且是一个对象，返回执行的结果，否则，返回新的对象
+        //     return typeof result === 'object' ? result : newObj;
+        // }
+
+        // function Person(firstName, lastName){
+        //     this.firstName = firstName;
+        //     this.lastName = lastName;
+        // }
+
+        // Person.prototype.getFullName = function(){
+        //     return `${this.firstName} ${this.lastName}`;
+        // }
+
+        // const jenny = _new(Person, 'Chen', 'Jenny');
+        // console.log(jenny);
+
+        // function Person(){}
+        // const person = new Person();
+
+        // console.log(person.__proto__ === Person.prototype);
+        // console.log(Person.__proto__ === Function.prototype);
+        // console.log(Person.__proto__.__proto__ === Object.prototype);
+
+
+        // 版本二：
+        // https://github.com/mqyqingfeng/Blog/issues/2
+        // 构造函数创建对象
+        // function Person(){
+    
+        // }
+        // var person = new Person();
+        // person.name = 'Jenny';
+        // console.log(person.name);
+
+        // prototype
+        // 每个函数都有一个prototype属性
+        // function Person(){
+
+        // }
+        // Person.prototype.name = 'Jenny';
+        // var person1 = new Person();
+        // var person2 = new Person();
+        // console.log(person1.name);  //Jenny
+        // console.log(person2.name);  //Jenny
+
+        // function Person(){
+            
+        // }
+        // var person = new Person();
+        // console.log(person.__proto__ === Person.prototype);
+
+        // function Person(){
+
+        // }
+        // console.log(Person === Person.prototype.constructor);   //true
+
+        function Person(){
+
+        }
+
+        Person.prototype.name = 'Jenny';
+
+        var person = new Person();
+
+        person.name = 'C.J.';
+        console.log(person.name);   //C.J.
+
+        delete person.name;
+        console.log(person.name);   //Jenny
+    </script>
+</body>
+</html>

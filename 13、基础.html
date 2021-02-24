@@ -38,7 +38,44 @@
     <!-- 4、事件执行顺序 -->
     <!-- <input type="text" id="txt"> -->
     <script>
+        let date = new Date();
+
+        for(var i=0;i<5;i++){
+            setTimeout(function(){
+                console.log(new Date - date, i);
+            }, 1000);
+        }
         
+        console.log(new Date() - date, i);
+
+        // let a = 1;
+        // let test = function(){
+        //     console.log(a);  
+        //     a++;
+        // }
+        // test();
+
+        // 输出：1
+
+        // let a = 1;
+        // let test = function(){
+        //     console.log(a);
+        //     let a = 2;
+        //     a++;
+        // }
+        // test();
+
+        // function sayHi(){
+        //     console.log(name);
+        //     console.log(age);
+        //     var name = 'Lydia';
+        //     let age = 20;
+        // }
+
+        // sayHi();
+        // 答案：undefined、报错
+
+        // 输出：Uncaught ReferenceError: Cannot access 'a' before initialization
 
         // for (let i = 0; i < 5; i++) {
         //     requestAnimationFrame(() => {

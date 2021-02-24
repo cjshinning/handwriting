@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包和柯里化</title>
+</head>
+<body>
+    <ol>
+        <li>第一项</li>
+        <li>第二项</li>
+        <li>第三项</li>
+        <li>第四项</li>
+    </ol>
+    <script>
+        // 1、闭包详解
+        // function A(){
+        //     var a = 2;
+        //     function B(){
+        //         console.log(a);
+        //     }
+        //     return B;
+        // }
+        // A()();
+
+        // var a = 1;
+        // function fn1(){
+        //     var b = 2;
+        //     function fn2(){
+        //         return b;
+        //     }
+        //     return fn2;
+        // }
+
+        // var fn2 = fn1();
+        // fn2();
+
+        // 参考：https://www.jianshu.com/p/d7fbf97a0316
+        // function outter(){
+        //     var private = 'I am private';
+        //     function show(){
+        //         console.log(private);
+        //     }
+        //     return show();
+        // }
+
+        // var ref = outter();
+        // ref();
+
+        // function makeAdder(x){
+        //     return function(y){
+        //         return x + y;
+        //     }
+        // }
+
+        // var add5 = makeAdder(5);
+        // var add10 = makeAdder(10);
+
+        // console.log(add5(2));   //7
+        // console.log(add10(2));  //12
+
+        // var list = document.getElementsByTagName('li');
+
+        // for(var i=0;i<list.length;i++){
+        //     list[i].onclick = function(){
+        //         alert(i);
+        //     }
+        // }
+
+        // 修正
+        // var list = document.getElementsByTagName('li');
+
+        // for(var i=0;i<list.length;i++){
+        //     list[i].onclick = (function(private_i){
+        //         return function(){
+        //             alert(private_i);
+        //         }
+        //     })(i);
+        // }
+
+        // 柯里化
+        function add(x,y){
+            return x + y;
+        }
+
+        // function curriAdd(x){
+        //     return function(y){
+        //         return x + y;
+        //     }
+        // }
+
+        // console.log(curriAdd(1)(3));
+
+        // var increment = curriAdd(1);
+        // console.log(increment(2));  //1
+
+        // var addTen = curriAdd(10);
+        // console.log(addTen(2));  //12
+
+        // function currying(fn, ...args1){
+        //     return function(...args2){
+        //         return fn(...args1, ...args2);
+        //     }
+        // }
+
+        // var increment = currying(add, 1);
+        // console.log(increment(2));
+
+        // var addTen = currying(add, 10);
+        // console.log(addTen(2));
+
+        function trueCurry(fn, ...args){
+            if(args.length >= fn.length){
+                return fn(...args);
+            }
+            return function(...args2){
+                return trueCurry(fn, ...args, ...args2);
+            }
+        }
+
+        // var increment = trueCurry(add, 1);
+        // console.log(increment(2));
+
+        var addTen = trueCurry(add, 10);
+        console.log(addTen(2));
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+</head>
+<body>
+    <script>
+        // 注意：
+        // 普通函数中this的指向，是this执行时的上下文
+        // 箭头函数中this的指向，是this定义时的上下文
+
+        // 执行时上下文分为3种
+        // （1）全局执行上下文
+        // （2）函数执行上下文
+        // （3）eval执行上下文
+        
+        // 一、全局执行上下文
+        // // 全局执行上下文的this指向window
+        // function foo(){
+        //     console.log(this);
+        // }
+        // foo();
+        // // 打印Window，在全局调用foo，实际上相当于window.foo()的调用，那么this就指向window
+
+        // 二、函数执行上下文
+        // this.myName = 'cj';
+        // let foo = function(){
+        //     this.myName = 'shinning';
+        // }
+        // foo();
+        // console.log(window.myName);     //shinning
+        // console.log(foo.myName);        //undefined
+        
+        // 1、通过call/apply/bind改变this
+        // this.myName = 'cj';
+        // let foo = function(){
+        //     this.myName = 'shinning';
+        // }
+        // foo.call(foo);
+        // console.log(window.myName);     //cj
+        // console.log(foo.myName);        //shinning
+
+        // // 2、通过对象调用方法设置
+        // let myObj = {
+        //     name: 'cjshinning',
+        //     showThis: function(){
+        //         console.log(this.name);
+        //     }
+        // }
+        // myObj.showThis();   //cjshinning
+
+        // let myObj = {
+        //     myName: 'cjshinning',
+        //     showThis: function(){
+        //         console.log(this.myName);
+        //     }
+        // }
+        // let foo = myObj.showThis;
+        // foo();   //undefined
+
+        // let myObj = {
+        //     name: 'cjshinning',
+        //     showThis: function(){
+        //         console.log(this.name);
+        //     }
+        // }
+        // let foo = myObj.showThis;
+        // foo();   //''
+        // // window.name是空，打印'' 
+
+        // // 3、通过构造函数中设置
+        // this.name = 'cj';
+        // let Foo = function(){
+        //     this.name = 'shinning';
+        // }
+        // let foo = new Foo();
+        // console.log(foo.name);      //shinning
+        // console.log(window.name);   //cj
+
+        // 看看new Foo()中,js引擎做了什么
+        // 首先创建一个空对象tempObj={}
+        // 接着调用Foo.apply方法，将tempObj作为apply方法的参数，这样当Foo的执行上下文创建时，它的this就指向tempObj对象
+        // 然后执行Foo函数，此时的Foo函数执行时上下文的this指向了tempObj对象
+        // 最后返回tempObj
+
+        // function myNew(func, ...args){
+        //     const tempObj = {};
+        //     func.apply(tempObj, args);
+        //     return tempObj;
+        // }
+
+        // this.name = 'cj';
+        // let Foo = function(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // let foo = myNew(Foo, 'shinning', 18);
+        // console.log(foo.name);      //shinning
+        // console.log(foo.age);       //18
+        // console.log(window.name);   //cj
+
+        // // 完善版的new实现
+        // function myNew(func, ...args){
+        //     if(typeof func !== 'function'){
+        //         throw '第一个参数必须是方法';
+        //     }
+
+        //     const obj = {};
+            
+        //     obj.__proto__ = Object.create(func.prototype);
+
+        //     let result = func.apply(obj, args);
+
+        //     const isObject = typeof result === 'object' && result !== null;
+        //     const isFunction = typeof result === 'function';
+
+        //     return isObject || isFunction ? result : obj;
+        // }
+
+        // // 测试
+        // function Person(name){
+        //     this.name = name;
+        //     return function(){
+        //         console.log('返回引用数据类型');
+        //     }
+        // }
+
+        // Person.prototype.sayName = function(){
+        //     console.log(`My name is ${this.name}`);
+        // }
+
+        // const me = myNew(Person, 'cj');
+        // // const me = new Person('cj');
+        // me.sayName();
+        // console.log(me);
+
+        // 三、this设计缺陷和应对方案
+        // // 1、嵌套函数中的this不会从外层函数中继承
+        // var myObj = {
+        //     myName: 'cjshinning',
+        //     showThis: function(){
+        //         console.log(this.myName);
+        //         function bar(){
+        //             console.log(this.myName);
+        //         }
+        //         bar();
+        //     }
+        // }
+        // myObj.showThis();
+        // // cjshinning
+        // // undefined
+
+        // // 解决方案一：通过that控制this指向
+        // var myObj = {
+        //     myName: 'cjshinning',
+        //     showThis: function(){
+        //         console.log(this.myName);
+        //         let that = this;
+        //         function bar(){
+        //             console.log(that.myName);
+        //         }
+        //         bar();
+        //     }
+        // }
+        // myObj.showThis();
+        // // cjshinning
+        // // cjshinning
+
+        // // 解决方案一：通过ES6的箭头函数解决问题
+        // var myObj = {
+        //     myName: 'cjshinning',
+        //     showThis: function(){
+        //         console.log(this.myName);
+        //         const bar = () => {
+        //             console.log(this.myName);
+        //         }
+        //         bar();
+        //     }
+        // }
+        // myObj.showThis();
+        // // cjshinning
+        // // cjshinning
+
+        // 普通函数中this指向全局对象window
+        // 要让函数执行上下文中的this指向某个对象，最好的方式是通过call方法显示调用。
+        
+        // 四、React中this指向
+        // const test = {
+        //     myName: 'cjshinning',
+        //     getName: function(){
+        //         console.log(this.myName);
+        //     }
+        // }
+        // test.getName();
+        // cjshinning
+
+        // const test = {
+        //     myName: 'cjshinning',
+        //     getName: function(){
+        //         console.log(this.myName);
+        //     }
+        // }
+        // const func = test.getName;
+        // func();
+        // undefined
+            
+        // 解决方案一：提前bind绑定this
+        // const test = {
+        //     myName: 'cjshinning',
+        //     getName: function(){
+        //         console.log(this.myName);   //cjshinning
+        //     }
+        // }
+        // test.getName = test.getName.bind(test);
+        // const func = test.getName;
+        // func();
+
+        // // 解决方案二：调用时bind绑定this
+        // const test = {
+        //     myName: 'cjshinning',
+        //     getName: function(){
+        //         console.log(this.myName);   //cjshinning
+        //     }
+        // }
+        // const func = test.getName.bind(test);
+        // func();
+
+        // // 解决方案三：返回一个箭头函数
+        // const test = {
+        //     myName: 'cjshinning',
+        //     getName: function(){
+        //         console.log(this.myName);   //cjshinning
+        //     }
+        // }
+        // const func = () => test.getName();
+        // func();
+
+        // 五、题目
+        // var name = 'window name';
+        // function a(){
+        //     var name = 'cjshinning';
+        //     console.log(this.name);
+        //     console.log('inner: ' + this);
+        // }
+        // a();
+        // console.log('outer: ' + this);
+        // // window name
+        // // inner: [object Window]
+        // // outer: [object Window]
+
+        // var name = 'window name';
+        // var a = {
+        //     name: 'cjshinning',
+        //     fn: function(){
+        //         console.log(this.name); //cjshinning
+        //     }
+        // }
+        // a.fn();
+
+        // var name = 'window name';
+        // var a = {
+        //     // name: 'cjshinning',
+        //     fn: function(){
+        //         console.log(this.name); //undefined
+        //     }
+        // }
+        // a.fn();
+
+        // var name = 'window name';
+        // var a = {
+        //     name: 'cjshinning',
+        //     fn: function(){
+        //         console.log(this.name); //window name
+        //     }
+        // }
+        // var f = a.fn;
+        // f();
+
+        // var name = 'window name';
+        // function fn(){
+        //     var name = 'cjshinning';
+        //     function innerFn(){
+        //         console.log(this.name); //window name
+        //     };
+        //     innerFn()
+        // }
+        // fn();
+
+        // // let/const中的this
+        // let a = 10;
+        // const b = 20;
+
+        // function foo(){
+        //     console.log(this.a);
+        //     console.log(this.b);
+        // }
+
+        // foo();
+
+        // console.log(window.a);
+        // // undefined
+        // // undefined
+        // // undefined
+        // // 解析：如果把var改成了let或const，变量不会被绑定到window上的，所以此时打印3个undefined
+
+        // // 箭头函数的this
+        // var name = 'window name';
+
+        // var a = {
+        //     name: 'cjshinning',
+        //     fun1: function(){
+        //         console.log(this.name);
+        //     },
+        //     fun2: function(){
+        //         setTimeout(() => {
+        //             this.fun1()
+        //         }, 100);
+        //     }
+        // };
+
+        // a.fun1();
+        // a.fun2();
+        // // cjshinning
+        // // cjshinning
+        // // 解析：尖头函数的this指向函数定义时的this，而非执行时。剪头函数中没有this绑定，必须通过查找作用域来决定其值，如果箭头函数被非箭头函数包含，则this绑定的是最近一层非箭头函数的this，否则，this为undefined。
+        
+        // function foo(){
+        //     console.log(this.a);
+        // }
+        // var obj = {a: 1, foo};
+        // var a = 2;
+        // var foo2 = obj.foo;
+        // var obj2 = {a: 3, foo2: obj.foo};
+
+        // obj.foo();
+        // foo2();
+        // obj2.foo2();
+        // // 1
+        // // 2
+        // // 3
+
+        // function foo(){
+        //     console.log(this.a);
+        // }
+        // function doFoo(fn){
+        //     console.log(this);
+        //     fn();
+        // }
+        // var obj = {a: 1, foo};
+        // var a = 2;
+        // doFoo(obj.foo);
+        // // Window
+        // // 2
+
+        // function foo(){
+        //     console.log(this.a);
+        // }
+        // function doFoo(fn){
+        //     console.log(this);
+        //     fn();
+        // }
+        // var obj = {a: 1, foo};
+        // var a = 2;
+        // var obj2 = {a: 3, doFoo};
+        // obj2.doFoo(obj.foo);
+
+        // function foo(){
+        //     console.log(this.a);
+        // }
+        // var obj = {a: 1};
+        // var a = 2;
+
+        // foo();
+        // foo.call(obj);
+        // foo().call(obj);
+        // // 2
+        // // 1
+        // // 2
+        // // Uncaught TypeError: Cannot read property 'call' of undefined
+
+        // function foo(){
+        //     console.log(this.a);
+        //     return function(){
+        //         console.log(this.a);
+        //     }
+        // }
+        // var obj = {a: 1};
+        // var a = 2;
+        // foo();
+        // foo.call(obj);
+        // foo().call(obj);
+        // // 2
+        // // 1
+        // // 2
+        // // 1
+
+        // function Foo(){
+        //     'use strict';
+        //     console.log(this.location);
+        // }
+        
+        // Foo();
+        // // Uncaught TypeError: Cannot read property 'location' of undefined
+        // // 严格模式下禁止this关键词指向全局对象
+
+        let userInfo = {
+            name: 'cj',
+            age: 25,
+            sex: 'male',
+            updateInfo: function(){
+                // 模拟 XMLHttpRequest 请求延时
+                setTimeout(() => {
+                    console.log(this);
+                    this.name = "shinning"
+                    this.age = 30;
+                    this.sex = 'female';
+                }, 1000);
+            },
+        };
+
+        userInfo.updateInfo();
+    </script>
+</body>
+</html>

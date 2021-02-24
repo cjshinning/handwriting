@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Event Loop</title>
+</head>
+<body>
+    <script>
+        // 第一部分：参考：https://juejin.cn/post/6892164887456251918
+        // 一、Event Loop执行过程：
+        // 1、一开始整个脚本script作为一个宏任务执行
+        // 2、执行过程中，同步代码直接执行，宏任务进入宏任务队列，微任务进入微任务队列
+        // 3、当前宏任务执行完出对，检查微任务列表，有则一次执行，直到全部执行完毕
+        // 4、执行浏览器ui线程的渲染工作
+        // 5、检查是否有web worker任务，有则执行
+        // 6、执行完本轮的宏任务，回到步骤2，依次循环，直到宏任务和微任务队列为空
+
+        // 事件循环中的异步队列有两种，宏任务队列和微任务队列
+        // 宏任务包括：
+        // script
+        // setTimeout
+        // setInterval
+        // setImmediate
+        // I/O
+        // UI rendering
+        // 微任务包括：
+        // MutationObserver
+        // Promise.then()
+        // 以Promise为基础开发的其他技术，例如fetch API
+        // V8的垃圾回收过程
+        // Node独有的process.nextTick
+        
+        // （1）宏任务
+        // function bar(){
+        //     console.log('bar');
+        // }
+
+        // function foo(){
+        //     console.log('foo');
+        //     bar();
+        // }
+
+        // foo();
+        // // foo
+        // // bar
+
+        // // （2）定时器
+        // console.log('1');
+
+        // setTimeout(function(){
+        //     console.log('2');
+        // }, 0);
+
+        // setTimeout(function(){
+        //     console.log('3');
+        // }, 2000);
+
+        // console.log('4');
+        // // 1
+        // // 4
+        // // 2
+        // // 3
+
+        // // （3）定时器+Promise
+        // console.log('script start');
+
+        // setTimeout(function(){
+        //     console.log('setTimeout');
+        // }, 0);
+
+        // Promise.resolve().then(function(){
+        //     console.log('promise1');
+        // }).then(function(){
+        //     console.log('promise2');
+        // });
+
+        // console.log('script end');
+
+        // // script start
+        // // script end
+        // // promise1
+        // // promise2
+        // // setTimeout
+
+        // Promise.resolve().then(function promise1(){
+        //     console.log('promise1');
+        // })
+
+        // setTimeout(function setTimeout1(){
+        //     console.log('setTimeout1');
+        //     Promise.resolve().then(function promise2(){
+        //         console.log('promise2');
+        //     })
+        // }, 0);
+
+        // setTimeout(function setTimeout2(){
+        //     console.log('setTimeout2');
+        // }, 0);
+
+        // // promise1
+        // // setTimeout1
+        // // promise2
+        // // setTimeout2
+
+        // setTimeout(function(){
+        //     console.log(4);
+        // }, 0)
+
+        // const promise = new Promise((resolve) => {
+        //     console.log(1);
+        //     for(var i=0;i<10000;i++){
+        //         i === 9999 && resolve();
+        //     }
+        //     console.log(2);
+        // }).then(function(){
+        //     console.log(5);
+        // })
+
+        // console.log(3);
+        // // 1
+        // // 2
+        // // 3
+        // // 5
+        // // 4
+
+        // 4、综合
+        // setTimeout(function(){
+        //     console.log('timeout1');
+        // }, 1000);
+
+        // console.log('start');
+
+        // Promise.resolve().then(function(){
+        //     console.log('promise1');
+        //     Promise.resolve().then(function(){
+        //         console.log('promise2');
+        //     })
+        //     setTimeout(function(){
+        //         Promise.resolve().then(function(){
+        //             console.log('promise3');
+        //         })
+        //     }, 0);
+        // });
+        
+        // console.log('done');
+
+        // // start
+        // // done
+        // // promise1
+        // // promise2
+        // // promise3（注意：微任务内要执行完毕，才去执行其他的）
+        // // timeout1
+
+        // console.log('script start');
+
+        // setTimeout(function(){
+        //     console.log('setTimeout---0');
+        // }, 0);
+
+        // setTimeout(function(){
+        //     console.log('setTimeout---200');
+        //     setTimeout(function(){
+        //         console.log('inner-setTimeout---0');
+        //     }, 0);
+        //     Promise.resolve().then(function(){
+        //         console.log('promise5');
+        //     });
+        // }, 200);
+
+        // Promise.resolve()
+        //     .then(function(){
+        //         console.log('promise1');
+        //     })
+        //     .then(function(){
+        //         console.log('promise2');
+        //     })
+        
+        // Promise.resolve().then(function(){
+        //     console.log('promise3');
+        // })
+
+        // console.log('script end');
+        // // script start
+        // // script end
+        // // promise1
+        // // promise2（注意：这里是promise3,why?）
+        // // promise3（注意：这里是promise2,why?）
+        // // setTimeout---0
+        // // setTimeout---200
+        // // promise5
+        // // inner-setTimeout---0
+
+        // console.log(1)
+
+        // setTimeout(function(){
+        //     console.log(2);
+
+        //     new Promise((resolve) => {
+        //         console.log(3);
+        //     }).then(() => {
+        //         console.log(4);
+        //     })
+        // }, 200);
+
+        // new Promise((resolve) => {
+        //     console.log(5);
+        //     resolve();
+        // }).then(() => {
+        //     console.log(6);
+        // })
+
+        // setTimeout(() => {
+        //     console.log(7);
+        // }, 0);
+
+        // setTimeout(() => {
+        //     console.log(8);
+
+        //     new Promise(function(resolve){
+        //         console.log(9);
+        //         resolve();
+        //     }).then(() => {
+        //         console.log(10);
+        //     })
+        // }, 100);
+
+        // new Promise(function(resolve){
+        //     console.log(11);
+        //     resolve();
+        // }).then(() => {
+        //     console.log(12);
+        // })
+
+        // console.log(13);
+        // // 1
+        // // 5
+        // // 11
+        // // 13
+        // // 6
+        // // 12
+        // // 7
+        // // 8
+        // // 9
+        // // 10
+        // // 2
+        // // 3
+        // // 4（并没有4，why?）
+
+        // 第二部分：参考https://juejin.cn/post/6844904047271477255
+        // // 题目一：
+        // setTimeout(() => {
+        //     console.log(1);
+        // }, 0)
+
+        // new Promise((resolve) => {
+        //     console.log(2);
+        //     resolve();
+        // }).then(() => {
+        //     console.log(3);
+        // })
+
+        // console.log(4);
+        // // 4
+        // // 2
+        // // 3
+        // // 1
+
+        // // 题目二：
+        // setTimeout(() => {
+        //     console.log(1);
+        // }, 0)
+
+        // new Promise((resolve) => {
+        //     console.log(2);
+        //     setTimeout(() => {
+        //         console.log(5);
+        //     }, 0);
+        //     resolve();
+        // }).then(() => {
+        //     console.log(3);
+        // })
+
+        // console.log(4);
+        // // 2
+        // // 4
+        // // 3
+        // // 1
+        // // 5
+
+        // // 题目三：
+        // setTimeout(() => {
+        //     console.log(1);
+        // }, 0);
+
+        // new Promise((resolve, reject) => {
+        //     console.log(2);
+        //     resolve(3);
+        // }).then((val) => {
+        //     console.log(val);
+        // })
+
+        // console.log(4);
+        // // 2
+        // // 4
+        // // 3
+        // // 1
+
+        // // 题目四：
+        // let a = () => {
+        //     setTimeout(() => {
+        //         console.log('任务队列函数1');
+        //     }, 0)
+        //     for(let i = 0; i < 5; i++){
+        //         console.log('a的for循环');
+        //     }
+        //     console.log('a事件执行完');
+        // }
+
+        // let b = () => {
+        //     setTimeout(() => {
+        //         console.log('任务队列函数2');
+        //     }, 0);
+        //     for(let i = 0; i < 5; i++){
+        //         console.log('b的for循环');
+        //     }
+        //     console.log('b事件执行完');
+        // }
+
+        // let c = () => {
+        //     setTimeout(() => {
+        //         console.log('任务队列函数3');
+        //     }, 0);
+        //     for(let i = 0; i < 5; i++){
+        //         console.log('c的for循环');
+        //     }
+        //     console.log('c事件执行完');
+        // }
+
+        // a();
+        // b();
+        // c();
+        
+        // 浏览器渲染线程一般有以下几种：
+        // JS引擎线程，事件触发线程，定时触发器线程，异步http请求线程，GUI渲染线程
+
+        // 浏览器环境
+        // js作为主要运行在浏览器的脚本语言，主要用途之一是操作DOM。在js高程中举国一个例子，如果js同时有两个线程，同时对一个同一个dom进行操作，这时候浏览器应该听谁的，如何判断优先级？为了避免这种问题，js必须是一门但显示语言，并且在未来这个特点也不会改变。
+
+        // 解决问题
+        // Event Loop就是为了解决这个问题而提出的
+        // 简单说，就是在程序中设置两个线程：一个负责程序本身的运行，称为主线程；另一个负责主线程与其他进程的同学，被称为Event Loop线程。
+
+        // JS异步执行的运行机制
+        // 1)所有任务都在主线程上执行，形成一个执行栈
+        // 2）主线程之外，还存在一个“任务队列”。只要异步任务有了运行结果，就在“任务对了”中放置一个事件
+        // 3）一旦“执行栈”中所有同步任务执行完毕，系统就会读取“任务队列”。那些对应的异步任务，结束等待状态，进入执行栈并开始执行
+        // 主线程不断重复上面的第三步
+
+        // 执行栈具体步骤：
+        // （1）执行主代码块
+        // （2）若遇到Promise，把then之后的内容放入微任务队列
+        // （3）一次宏任务执行完成，检查微任务队列有无任务
+        // （4）有的话执行所有微任务
+        // （5）执行完毕后，开始下一次宏任务
+        
+        // 宏任务和微任务执行顺序：
+        // （1）先执行主线程
+        // （2）遇到宏队列放入宏队列
+        // （3）遇到微队列放入微队列
+        // （4）主线程执行完毕
+        // （5）执行微队列，微队列执行完毕
+        // （6）执行一次宏队列中的一个任务，执行完毕
+        // （7）执行微队列，执行完毕
+        // （8）依次循环
+
+        // async function async1(){
+        //     console.log('async1 start');
+        //     await async2();
+        //     console.log('async1 end');
+        // }
+        // 上面代码相当于：
+        async function async1(){
+            console.log('async1 start');
+            Promise.resolve(async2().then(() => {
+                console.log('async1 end');
+            }))
+        }
+        async function async2(){
+            console.log('async2');
+        }
+        async1();
+        new Promise(function(resolve){
+            console.log('promise1');
+            resolve();
+        }).then(function(){
+            console.log('promise2');
+        })
+        console.log('script end');
+        // async1 start
+        // async2
+        // promise1
+        // script end
+        // async1 end
+        // promise2
+    </script>
+</body>
+</html>
