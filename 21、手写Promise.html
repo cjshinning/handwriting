@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手写Promise</title>
+</head>
+<body>
+    <script>
+        // https://juejin.cn/post/6850037281206566919
+        // 基础版
+        // const p1 = new Promise((resolve, reject) => {
+        //     console.log('create a promise');
+        //     resolve('成功了');
+        // })    
+
+        // console.log('after new promise');
+
+        // const p2 = p1.then(data => {
+        //     console.log(data);
+        //     throw new Error('失败了');
+        // })
+
+        // const p3 = p2.then(data => {
+        //     console.log('success', data);
+        // }, err => {
+        //     console.log('failed', err);
+        // })
+        // // create a promise
+        // // after new promise
+        // // 成功了
+        // // failed Error: 失败了
+
+        const PENDING = 'PENDING';
+        const FUFILLED = 'FUFILLED';
+        const REJECTED = 'REJECTED';
+
+        class Promise {
+            constructor(executor){
+                this.status = PENDING;
+                this.value = undefined;
+                this.reason = undefined;
+                this.onResolvedCallbacks = [];
+                this.onRejectedCallbacks = [];
+
+                let resolve = (value) => {
+                   if(this.status === PENDING){
+                       this.status = FUFILLED;
+                       this.value = value;
+                       this.onResolvedCallbacks.forEach(fn => fn());
+                   }
+                }
+
+                let reject = (reason) => {
+                    if(this.status === PENDING){
+                        this.status = REJECTED;
+                        this.reason = reason;
+                        this.onRejectedCallbacks.forEach(fn => fn());
+                    }
+                }
+
+                try {
+                    executor(resolve, reject);
+                } catch(error) {
+                    reject(error);
+                }
+            }
+
+            then(onFulfilled, onRejcted){
+                if(this.status === FUFILLED){
+                    onFulfilled(this.value);
+                }
+
+                if(this.status === REJECTED){
+                    onRejcted(this.reason);
+                }
+
+                if(this.status === PENDING){
+                    this.onResolvedCallbacks.push(() => {
+                        onFulfilled(this.value);
+                    })
+
+                    this.onRejectedCallbacks.push(() => {
+                        onRejcted(this.reason);
+                    })
+                }
+            }
+        }
+        
+        // 同步任务能处理
+        // const promise = new Promise((resolve, reject) => {
+        //     resolve('成功');
+        // }).then((data) => {
+        //     console.log('succes', data);
+        // }, (err) => {
+        //     console.log('failed', err);
+        // })
+        // // succes 成功
+
+        // 异步呢
+        const promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('成功');
+            }, 1000)
+        }).then((data) => {
+            console.log('success', data);
+        }, (err) => {
+            console.log('failed', err);
+        })
+        // success 成功
+
+    </script>
+</body>
+</html>
