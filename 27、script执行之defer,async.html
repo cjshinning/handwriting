@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>script执行defer,async区别</title>
+</head>
+<body>
+    <div class="container">
+        <h3>defer</h3>
+        <p>我是一大段文字</p>
+    </div>
+    <script src="./js/a.js" defer></script>
+    <script src="./js/b.js" defer></script>
+    <script src="./js/c.js"></script>
+    <script>
+        // 没有aync和defer，浏览器加载并立即执行制定脚本。脚本不执行完，后面的DOM加载全部等着。
+        // async：脚本下载完毕就执行，下载过程不影响DOM加载，但是一旦脚本下载完毕就会立刻同步执行脚本，此时DOM加载还是得等着，适用于没有依赖关系的资源加载。
+        // defer：脚本下载完后不会立即执行，而是等到DOM解析完成才会执行脚本，适用于有依赖关系的资源加载。
+    </script>
+</body>
+</html>

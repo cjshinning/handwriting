@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组扁平化</title>
+</head>
+<body>
+    <script>
+        // 参考：https://juejin.cn/post/6844903597000359944
+        // // 1、reduce
+        // // 遍历数组的每一项，若值为数组则递归遍历，否则concat
+        // function flatten(arr){
+        //     return arr.reduce((result, item) => {
+        //         return result.concat(Array.isArray(item) ? flatten(item) : item);
+        //     }, [])
+        // }
+
+        // const arr = [1, [2, 3, [4, 5]]];
+        // console.log(flatten(arr));
+        // // [1, 2, 3, 4, 5]
+
+        // // reduce包含两个参数：回调函数，传给total的初始值
+        // const arr = [1,2,3,4,5];
+        // console.log(arr.reduce((total, item) => {
+        //     return total + item;
+        // }, 0))
+
+        // // 2、toString & split
+        // function flatten(arr){
+        //     return arr.toString().split(',').map(function(item){
+        //         return Number(item);
+        //     })
+        // }
+
+        // const arr = [1, [2, 3, [4, 5]]];
+        // console.log(flatten(arr));
+
+        // // 3、join & split
+        // function flatten(arr){
+        //     // return arr.join(',').split(',').map(function(item){
+        //     //     return parseInt(item);
+        //     // })
+        // }
+
+        // const arr = [1, [2, 3, [4, 5]]];
+        // console.log(flatten(arr));
+
+        // // 4、递归
+        // function flatten(arr){
+        //     var res = [];
+        //     arr.map(item => {
+        //         if(Array.isArray(item)){
+        //             res = res.concat(flatten(item));
+        //         }else{
+        //             res.push(item);
+        //         }
+        //     })
+        //     return res;
+        // }
+
+        // const arr = [1, [2, 3, [4, 5]]];
+        // console.log(flatten(arr));
+
+        // 5、扩展运算符
+        function flatten(arr){
+            while(arr.some(item => Array.isArray(item))){
+                arr = [].concat(...arr);
+            }
+            return arr;
+        }
+
+        const arr = [1, [2, 3, [4, 5]]];
+        console.log(flatten(arr));
+    </script>
+</body>
+</html>

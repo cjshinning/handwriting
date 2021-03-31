@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS隐藏页面元素的方式</title>
+</head>
+<body>
+    <div class="container">
+        <!-- <h3>CSS隐藏页面元素的方式一：display:none</h3>
+        <p style="display:none" onclick="console.log(1)">我是一大段文字</p>
+        <p>我是另一大段文字</p> -->
+
+        <!-- <h3>CSS隐藏页面元素的方式二：opacity: 0;</h3>
+        <p style="opacity: 0;" onclick="console.log(2)">我是一大段文字</p>
+        <p>我是另一大段文字</p> -->
+
+        <!-- <h3>CSS隐藏页面元素的方式三：visibility: hidden;</h3>
+        <p style="visibility: hidden;" onclick="console.log(3)">我是一大段文字</p>
+        <p>我是另一大段文字</p> -->
+
+        <h3>CSS隐藏页面元素的方式四：transform: scale(0)</h3>
+        <p style="transform: scale(0)" onclick="console.log(4)">我是一大段文字</p>
+        <p>我是另一大段文字</p>
+    </div>
+    <script>
+        // （1）display:none
+        // 不占据空间，无法响应点击事件
+
+        // （2）opacity: 0;
+        // 占用页面空间，可以响应点击事件
+
+        // （3）visibility: hidden;
+        // 占用页面空间，无法响应点击事件
+
+        // （4）transform: scale(0)
+        // 高级浏览器支持，占用页面空间，无法响应点击事件
+
+        // cookie中httpOnly的作用？
+        // 假如cookie设置了httpOnly，那么通过js脚本无法读取到cookie信息，这样能有效防止xsss攻击
+
+        // js防抖？
+
+        // cors 预检查作用？
+    </script>
+</body>
+</html>

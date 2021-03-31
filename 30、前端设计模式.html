@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端设计模式</title>
+</head>
+<body>
+    <script>
+        // 参考：https://segmentfault.com/a/1190000017787537
+        // 一、设计模式原则：
+        // 1、单一职责原则
+        // 2、开发-封闭原则
+        // 3、面向接口编程
+        // 4、李式置换原则
+        // 5、接口独立原则
+
+        // 一、前端常用设计模式：
+        // 工厂模式、单例模式、适配器模式、装饰器模式、代理模式、观察者模式、发布订阅者模式、策略模式
+        // 1、工厂模式：
+        // 描述：将new操作符封装，拓展一个create接口开发给调用者
+        // 业务场景：
+        // window.$ = function(selector){
+        //     return new jQuery(selector);
+        // }
+        // 原则检验：符合开发-封闭原则
+        // 示例：
+        // class Product {
+        //     constructor(options){
+        //         this.name = options.name;
+        //         this.time = options.time;
+        //         this.init();
+        //     }
+        //     init(){
+        //         console.log(`产品名：${this.name} 保质期：${this.time}`);
+        //     }
+        // }
+        // class Factory{
+        //     create(options){
+        //         return new Product(options);
+        //     }
+        // }
+
+        // let factory = new Factory();
+        // let product1 = factory.create({name: '面包', time: '1个月'});
+
+        // 2、单例模式
+        // 描述：一个类只有一个实例
+        // 业务场景：
+        // （1）、弹窗实例化
+        // （2）、Vue插件机制，Vue.use()多次，也只存第一个插件实例
+        // （3）、Vuex的store实例化，就算实例化多次，也只存在一个store，这样才能共享数据。
+        // （4）、创建一个购物车组件，通常整个项目只需要一个
+        // 实现思路：
+        // （1）、给singleObject添加一个静态方法getInstance
+        // （2）、将来实例化时，不是通过new，而是singleObject.getInstance()
+        // （3）、getInstance内部的实现就是，第一次调用变量黄处实例。之后调用时判断该变量是否有值，没有值就可以new，有值就return
+        // 示例：
+        // function SingleObject(){
+        //     this.instance = null;
+        //     this.name = '单例';
+        // }
+
+        // SingleObject.getInstance = function(){
+        //     if(this.instance === null){
+        //         this.instance = new SingleObject();
+        //     }else {
+        //         return this.instance;
+        //     }
+        // }
+
+        // var obj1 = SingleObject.getInstance();
+        // var obj2 = SingleObject.getInstance();
+
+        // console.log(obj1 === obj2);     //true
+
+        // 3、适配器模式
+        // 描述：接口不兼容时，对旧接口做一层包装，来适配新需求。
+        // 现实场景：
+        // 插头的电压，不同国家存在差异，需要电源适配器来做一层包装，从而适配我们的电压。
+        // 业务场景：
+        // （1）Vue的computed提供函数和对象两种写法，Vue内部需要做一层适配。给用户提供宽松的写法
+        // （2）Node中间层：可以让后端的基础数据不做变化，只是对数据在node中再包装一次，来适配具体的业务场景
+        // 示例：
+        // 新新增加适配器
+        // class Adaptee {
+        //     constructor(){
+        //         this.name = '我是适配器';
+        //     }
+        //     parse(){}
+        // }
+
+        // // 原来旧代码
+        // class OldApi{
+        //     constructor(){
+        //         this.name = '我是旧的接口';
+        //         this.adaptee = new Adaptee();
+        //         this.adaptee.parse();
+        //     }
+        // }
+
+        // var OldApi = new OldApi();
+
+        // 4、装饰器模式
+        // 描述：（1）为对象装饰一些新功能（2）旧功能属性全都保留
+        // 生活场景：
+        // 手机壳对于手机，就是一种装饰
+        // 业务场景：
+        // ES7的装饰器语法
+        // function decorator(target){
+        //     target.type = '人类';
+        // }
+
+        // @decorator
+        // class Animal{}
+
+        // console.log(Animal.type);
+
+        // function setType(type){
+        //     return function(target){
+        //         target.type = type;
+        //     }
+        // }
+
+        // @setType('人类')
+        // class Animal{}
+
+        // console.log(Animal.type);
+
+        // class Person{
+        //     @readonly
+        //     name(){
+        //         return `${this.first} ${this.last}`
+        //     }
+        // }
+
+        // function readonly(target, name, descriptor){
+        //     descriptor.writable = false;
+        //     return descriptor;
+        // }
+
+        // 代码演示：
+        // class Circle {
+        //     draw(){
+        //         console.log('draw');
+        //     }
+        // }
+
+        // class Decorator{
+        //     constructor(circle){
+        //         this.circle = circle;
+        //     }
+
+        //     setRedBorder(){
+        //         console.log('border装饰为红色');
+        //     }
+
+        //     draw(){
+        //         this.circle.draw();
+        //         this.setRedBorder();
+        //     }
+        // }
+
+        // let circle = new Circle();
+        // let decorator = new Decorator(circle);
+
+        // circle.draw();
+        // decorator.draw();
+
+        // 5、代理模式
+        // 描述：无法直接访问时，通过代理来访问目标对象
+        // 生活场景：
+        // （1）翻墙用的vpn
+        // （2）海外代购
+        // （3）各级代理商
+        // 业务场景：
+        // 绑定多个li时事件代理
+        // Vue的data、props被访问时，就做了代理。
+        // ES6的proxy的代理
+        // 代码演示：
+        // class Data{
+        //     constructor(){
+        //         this.name = '元数据';
+        //     }
+        //     getName(){
+        //         console.log(this.name);
+        //     }
+        // }
+
+        // class ProxyData{
+        //     constructor(data){
+        //         this.data = data;
+        //     }
+        //     getName(){
+        //         this.data.getName();
+        //     }
+        // }
+
+        // let data = new Data();
+        // let proxyData = new ProxyData(data);
+
+        // data.getName();
+        // proxyData.getName();
+
+        // 6、观察者模式
+        // 描述：把watcher收集到一个队列，等到发布时再依次通知watcher，来实现异步的一种模式
+        // 生活场景：
+        // 斗鱼主播是发布者，观众是订阅者
+        // 猎头是发布者，候选人是订阅者
+        // 赛跑时，裁判开枪来发布，所有的运动员就是订阅者
+        // 业务场景：
+        // （1）Vue的手机依赖，派发更新
+        // （2）浏览器事件机制
+        // （3）Promise.then的异步事件
+        // （4）Vue的生命周期钩子
+        // （5）Nodejs的eventEmitter
+        // 示例：
+        // js实现一个eventEmitter
+        
+    </script>
+</body>
+</html>

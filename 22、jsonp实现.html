@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // https://segmentfault.com/a/1190000007665361
+        // 1、概述
+        // jsonp 是一种跨域通信手段，原理很简单：
+        // （1）首先利用script标签的src属性来实现跨域
+        // （2）通过将前端方法作为参数传递到服务器，然后油服务器端注入参数之后再返回，实现服务器端向客户端通信。
+        // （3）由于使用script标签的src属性，因此只支持get方法
+        
+        // 2、实现流程
+        // （1）设定一个script标签
+        // <script src="http://jsonp.js?callback=xxx">
+        // （2）callback定义了一个函数名，而远程服务端通过调用指定的函数并传入参数来实现参数传递，将fn(response)传递回客户端
+        // （3）客户端接受到返回的js脚本，开始解析和执行fn(response)
+
+        // 3、简单实现
+        // 拼接url，然后将动态添加到一个script元素到头部
+        function jsonp(req){
+            var script = document.createElement('script');
+            var url = req.url + '?callback=' + req.callback.name;
+            script.src = url;
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }
+
+        function hello(res){
+            alert('hello', res.data);
+        }
+
+        jsonp({
+            url: '',
+            callback: hello
+        })
+    </script>
+</body>
+</html>
