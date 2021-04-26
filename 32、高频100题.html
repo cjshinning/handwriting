@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 参考：https://github.com/Advanced-Frontend/Daily-Interview-Question/blob/master/datum/summary.md#%E7%AC%AC-79-%E9%A2%98input-%E6%90%9C%E7%B4%A2%E5%A6%82%E4%BD%95%E9%98%B2%E6%8A%96%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5
+        // 83、var,let和const区别的实现原理是什么？
+        // var会直接在栈内存里预分配内存空间，然后等到时机语句执行的时候，再存储对应的遍历，如果传的是引用类型，那么会在堆内存空间存储实际内容，栈内存会存储一个指向内存的指针。
+        // let是不回在栈内存理预分配内存空间，而是在栈内存分配变量时，做一个检测，如果已经有相同变量会报错
+        // const也不会分配内存空间，在栈内存分配变量时页会做同样的检测。不过const存储的遍历时不可修改的，对于基本类型来说你无法修改定义的值，对于引用类型来说你无法修改栈内存里分配的指针，但是你可以修改指针指向的对象里的属性
+
+        // 119、vue如何优化首页家长速度？vue首页白屏时什么问题？如何解决？
+        // 单页面应用的html是靠js生成，因为首评需要加载很大的js文件，所以当网页差的时候会产生一定程度的白屏
+        // 解决方法：
+        // 1、优化webpack减少模块打包体积，code-spliting按需加载
+        // 2、服务器渲染，在服务器端事先拼接好首页所需html
+        // 3、首页加loading或者骨架屏
+    </script>
+</body>
+</html>

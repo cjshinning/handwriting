@@ -138,31 +138,31 @@
         // window.addEventListener('scroll', debounce(handle, 1000))
         // window.addEventListener('resize', debounce(handle, 1000));
 
-        function ajax(content){
-            console.log('ajax request:' + content);
-        }
+        // function ajax(content){
+        //     console.log('ajax request:' + content);
+        // }
 
-        let input = document.getElementById('unDebounce');
+        // let input = document.getElementById('unDebounce');
 
-        input.addEventListener('keyup', function(e){
-            ajax(e.target.value);
-        })
+        // input.addEventListener('keyup', function(e){
+        //     ajax(e.target.value);
+        // })
 
-        let inputD = document.getElementById('debounce');
+        // let inputD = document.getElementById('debounce');
 
-        let debounceAjax = debounce(ajax, 1000);
+        // let debounceAjax = debounce(ajax, 1000);
 
-        inputD.addEventListener('keyup', function(e){
-            debounceAjax(e.target.value);
-        }, 1000);
+        // inputD.addEventListener('keyup', function(e){
+        //     debounceAjax(e.target.value);
+        // }, 1000);
 
-        let inputT = document.getElementById('throttle');
+        // let inputT = document.getElementById('throttle');
 
-        let throttleAjax = throttle(ajax, 1000);
+        // let throttleAjax = throttle(ajax, 1000);
 
-        inputT.addEventListener('keyup', function(e){
-            throttleAjax(e.target.value);
-        }, 1000);
+        // inputT.addEventListener('keyup', function(e){
+        //     throttleAjax(e.target.value);
+        // }, 1000);
     </script>
 </body>
 </html>

@@ -7,8 +7,100 @@
     <title>手写EventEmitter</title>
 </head>
 <body>
+    <h3>发布订阅者</h3>
+    <p><img src="./img/event-1.png" alt=""></p>
    <script>
     //    参考：https://segmentfault.com/a/1190000021272622
+    // 一、发布订阅者模式
+    // 描述：发布订阅者模式中，包含发布者，事件调度中心，订阅者三个角色。
+    // 特点：发布者和订阅者是松散耦合的，互补关系对方是否存在，他们关注本身。
+    // class EventEmitter {
+    //     constructor(){
+    //         this.listeners = {};
+    //     }
+    //     on(type, cb){
+    //         if(!this.listeners[type]){
+    //             this.listeners[type] = [];
+    //         }
+    //         this.listeners[type].push(cb);
+    //     }
+    //     emit(type, ...args){
+    //         if(this.listeners[type]){
+    //             this.listeners[type].forEach(cb => {
+    //                 cb(...args);
+    //             })
+    //         }
+    //     }
+    //     off(type, cb){
+    //         if(this.listeners[type]){
+    //             const targetIndex = this.listeners.findIndex(item => item === cb);
+    //             if(targetIndex !== -1){
+    //                 this.listeners[type].splice(targetIndex, 1);
+    //             }
+    //             if(this.listeners[type].length === 0){
+    //                 delete this.listeners[type];
+    //             }
+    //         }
+    //     }
+    // }
+
+    // const ee = new EventEmitter();
+    // ee.on('eat', function(){
+    //     console.log('We are going to eat!');
+    // })
+    // ee.emit('eat');
+
+    // ee.on('eat', function(addr, foo){
+    //     console.log(`we are go to ${addr}, and eat ${foo}!`);
+    // })
+    // ee.emit('eat', 'KEC', 'chicken');
+
+    // 换一种方式
+    // class PubSub{
+    //     constructor(){
+    //         // 维护事件及订阅行为
+    //         this.events = {};
+    //     }
+    //     // 注册事件订阅行为
+    //     subscribe(type, cb){
+    //         if(!this.events[type]){
+    //             this.events[type] = [];
+    //         }
+    //         this.events[type].push(cb);
+    //     }
+    //     // 发布事件
+    //     publish(type, ...args){
+    //         if(this.events[type]){
+    //             this.events[type].forEach(cb => {
+    //                 cb(...args);
+    //             })
+    //         }
+    //     }
+    //     // 移除某个事件的一个订阅行为
+    //     unsubscribe(type, cb){
+    //         if(this.events[type]){
+    //             const targetIndex = this.events[type].findIndex(item => item === cb);
+    //         }
+    //         if(targetIndex !== -1){
+    //             this.events[type].splice(targetIndex, 1);
+    //         }
+    //         if(this.events[type].length === 0){
+    //             delete this.events[type];
+    //         }
+    //     }
+    //     // 移除某个事件的所哟订阅行为
+    //     unsubscribeAll(type){
+    //         if(this.events[type]){
+    //             delete this.events[type];
+    //         }
+    //     }
+    // }
+    // 缺点：当事件类型越来越多时，难以维护，需要考虑命名规范
+
+    // 二、观察者模式
+    // 描述：观察者与发布订阅者相比，耦合度更高，通常用来实现一些响应式的效果。在观察者模式中，有两个主题，分别是目标对象Subject和观察者Obserber
+    // （1）观察者Observer要实现update方法，供目标对象调用。update方法中可以执行自定义的业务代码。
+    // （2）目标对象Subject也通常被叫做被观察者或主题，它的只能很单一，可以理解为，它只管理一种事件。Subject需要维护自身的observerList，当自身发生变化时，通过调用自身的notify方法，一次通知每一个观察者执行update方法
    </script> 
 </body>
 </html>
