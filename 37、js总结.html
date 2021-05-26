@@ -1118,6 +1118,70 @@
         // 159、如何判断一个对象是否为控对象？
 
         // 160、使用闭包每隔一秒打印1，2，3，4
+
+        // 161、手写一个jsonp
+
+        // 162、手写一个观察者模式？
+
+        // 163、手写EventEmitter？
+
+        // 164、一道长被人轻视的前端js面试题
+        // function Foo(){
+        //     getName = function(){
+        //         console.log(1);
+        //     }
+        //     return this;
+        // }
+        // Foo.getName = function(){
+        //     console.log(2);
+        // }
+        // Foo.prototype.getName = function(){
+        //     console.log(3);
+        // }
+        // var getName = function(){
+        //     console.log(4);
+        // }
+        // function getName(){
+        //     console.log(5);
+        // }
+
+        // Foo.getName();  //2
+        // getName();      //4
+        // Foo().getName();//1
+        // getName();//1
+        // new Foo.getName();  //2
+        // new Foo().getName();    //3
+        // new new Foo().getName();
+
+        // （1）变量声明提升
+        // console.log('x' in window);
+        // var x;
+        // x = 0;
+        
+        // js引擎会将声明语句提升到代码的最上方，变为：
+        // var x;
+        // console.log('x' in window);
+        // x = 0;
+
+        // （2）函数表达式
+        // console.log(x);
+        // var x = 1;
+        // function x(){}
+        // // ƒ x(){}
+
+        // 提升后
+        // var x;
+        // function x(){}
+        // console.log(x);
+        // x = 1;
+
+        // 165、如何确定页面的可用性事件，什么是Performance API？
+
+        // 166、js中的命名规则
+        // （1）第一个字符必须是字母、下划线或者美元符
+        // （2）余下的字符可以是下划线、美元符或任何字母或数字字符
+        // 一般推荐使用驼峰法来对变量名进行命名，因为这样可以与ECSMScript内置的函数和对象命名格式保持一致。
+        
     </script>
 
     <!-- <script src="./js/c.js"></script> -->

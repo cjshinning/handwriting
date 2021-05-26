@@ -23,6 +23,23 @@
 
         // 3、简单实现
         // 拼接url，然后将动态添加到一个script元素到头部
+        // function jsonp(req){
+        //     var script = document.createElement('script');
+        //     var url = req.url + '?callback=' + req.callback.name;
+        //     script.src = url;
+        //     document.getElementsByTagName('head')[0].appendChild(script);
+        // }
+
+        // function hello(res){
+        //     alert('hello', res.data);
+        // }
+
+        // jsonp({
+        //     url: '',
+        //     callback: hello
+        // })
+
+        // 参考二：https://segmentfault.com/a/1190000007665361#articleHeader1
         function jsonp(req){
             var script = document.createElement('script');
             var url = req.url + '?callback=' + req.callback.name;
@@ -31,11 +48,11 @@
         }
 
         function hello(res){
-            alert('hello', res.data);
+            console.log('hello ' + res.data);
         }
 
         jsonp({
-            url: '',
+            url: 'http://localhost:8080/',
             callback: hello
         })
     </script>
