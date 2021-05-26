@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css总结</title>
+    <style>
+        /* #demo a{
+            color: #000;
+        }
+        div#demo a{
+            color: red;
+        } */
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* html, body{
+            width: 100%;
+            height: 100%;
+        } */
+        /* .container{
+            width: 100%;
+            height: 900px;
+            display: flex; */
+
+            /* flex-direction属性决定主轴方向 */
+            /* flex-direction: row; */
+            /* flex-direction: row-reverse; */
+            /* flex-direction: column; */
+            /* flex-direction: column-reverse; */
+
+            /* flex-wrap属性定义，如果一条轴线排不下，如何换行 */
+            /* flex-wrap: nowrap; */
+            /* flex-wrap: wrap; */
+            /* flex-wrap: wrap-reverse; */
+
+            /* flex-flow: column wrap-reverse; */
+            
+            /* justify-content属性定义了项目在主轴上的对其方式 */
+            /* justify-content: flex-start; */
+            /* justify-content: flex-end; */
+            /* justify-content: center; */
+            /* justify-content: space-between; */
+            /* justify-content: space-around; */
+
+            /* align-items属性定义项目在交叉轴上如何对齐 */
+            /* align-items: flex-start; */
+            /* align-items: flex-end; */
+            /* align-items: center; */
+            /* align-items: baseline; */
+            /* align-items: stretch; */
+
+            /* align-content属性定义多根轴线的对齐方式。如果只有一根轴线，该属性不起作用 */
+            /* flex-wrap: wrap; */
+            /* align-content: center; */
+            /* align-items: flex-end; */
+            /* align-content: space-between; */
+            /* align-content: space-around; */
+        /* } */
+        /* .box{
+            width: 100px;
+            height: 100px;
+            background: orange;
+            margin: 10px;
+            text-align: center;
+            line-height: 100px;
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            
+            /* flex-grow属性定义项目的放大比例，默认为0，即存在剩余空间，也不放大 */
+            /* 如果所有项目的flex-grow都为1，则它们将等分剩余空间。如果一个为2，其他都是1，则前者占据剩余空间比其他项目多一倍 */
+            /* flex-grow: 1; */
+
+            /* flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小 */
+            
+            /* basis属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小 */
+        }
+        .box1{
+            /* height: 300px;
+            order: 3; */
+            /* flex-basis: 200px; */
+
+        }
+        .box2{
+            /* height: 50px;
+            order: 2; */
+            /* flex-grow: 2; */
+            /* flex-shrink: 0; */
+            /* flex-basis: 10px; */
+            align-self: flex-end;
+        }
+        .box3{
+            /* height: 100px;
+            order: 1; */
+            /* flex-basis: 80px; */
+        }
+        .box4{
+            height: 150px;
+        }
+        .box5{
+            height: 120px;
+        }
+        .box6{
+            height: 200px;
+        }
+        .box7{
+            height: 80px;
+        }
+        .box8{
+            height: 180px;
+        }
+        .box9{
+            height: 250px;
+            order: -1;
+        }
+
+        #arrow{
+            width: 0;
+            height: 0;
+            border-width: 20px;
+            border-style: solid;
+            border-color: transparent transparent red transparent;
+        } */
+        
+        /* 1、使用负的margin-bottom和正padding-bottom对冲实现 */
+        /* .article{
+            overflow: hidden;
+        }
+        .article>li{
+            float: left;
+            width: 200px;
+            margin: 0 10px -9999px 0;
+            padding-bottom: 9999px;
+            color: #fff;
+            background: gray;
+        }
+        .article>li>p{
+            padding: 10px;
+        } */
+
+        /* 2、模仿table布局 */
+        /* .article{
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .article>li{
+            display: table-cell;
+            width: 200px;
+            color: #fff;
+            border-left: 5px solid currentColor;
+            border-right: 5px solid currentColor;
+            background: gray;
+        }
+        .article>li>p{
+            padding: 10px;
+        } */
+
+        /* 3、flex布局 */
+        /* .article{
+            display: flex;
+        }
+        .article>li{
+            flex: 1;
+            margin: 0 5px;
+            color: #fff;
+            background: gray;
+        }
+        .article>li>p{
+            padding: 10px;
+        } */
+
+        /* 4、grid布局 */
+        /* .article{
+            display: grid;
+            grid-auto-flow: column;
+            grid-gap: 20px;
+        }
+        .article>li{
+            border-left: 5px solid currentColor;
+            border-right: 5px solid currentColor;
+            color: #fff;
+            background: gray;
+        }
+        .article>li>p{
+            padding: 10px;
+        }
+
+        .space{
+            /* font-size: 0; */
+            /* letter-spacing: -8px; */
+        }
+        .space>li{
+            /* float: left; */
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #000;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+        }
+
+        .parent{
+            width: 800px;
+            margin: 50px auto;
+            border: 2px solid red;
+            margin-left: 100px;
+            padding-left: 100px; 
+            font-size: 8px;
+            -webkit-text-size-adjust: none;
+        }
+        .child1{
+            background: orange;
+        }
+        .child2{
+            width: 100%;
+            background: blue;
+            margin-left: 100px;
+            padding-left: 100px; 
+        }
+        .child3{
+            width: auto;
+            background: green;
+            margin-left: 100px;
+            padding-left: 100px; 
+        } */
+        
+        /* 方案一 */
+        /* .outer{
+            position: relative;
+            height: 100%;
+        }
+        .a{
+            height: 100px;
+            background: red;
+        }
+        .b{
+            position: absolute;
+            top: 100px;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background: blue;
+        } */
+
+        /* 方案二 */
+        /* .outer{
+            display: flex;
+            flex-flow: column wrap;
+            height: 100%;
+        }
+        .a{
+            height: 100px;
+            background: red;
+        }
+        .b{
+            flex: 1;
+            background: blue;
+        }
+
+        .line1{
+            border-bottom: 1px solid #000;
+        }
+        .line2{
+            border-bottom: 1px solid #000;
+            transform: scaleY(0.5);
+        }
+
+        .text-overflow{
+            width: 200px;
+        }
+        .txt1{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .txt2{
+            position: relative;
+            line-height: 1.5em;
+            height: 3em;
+            overflow: hidden;
+        }
+        .txt2::after{
+            content: '...';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #fff;
+        }
+
+        .hidden{
+            width: 100px;
+            height: 100px;
+            background: #000;
+        }
+        .hidden1{
+            display: none;
+        }
+        .hidden2{
+            visibility: hidden;
+        }
+        .hidden3{
+            opacity: 0;
+        }
+        .hidden4{
+            transform: scale(0);
+        } */
+
+        /* .top-center-bottom>div{
+            position: absolute;
+        }
+        .top-center-bottom .top{
+            top: 0;
+            width: 100%;
+            height: 100px;
+            background: red;
+        }
+        .top-center-bottom .bottom{
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background: red;
+        }
+        .top-center-bottom .center{
+            top: 100px;
+            bottom: 100px;
+            width: 100%;
+            background: green;
+        } */
+
+        /* html,body,section,.top-center-bottom{
+            height: 100%;
+        }
+        .top-center-bottom{
+            display: flex;
+            flex-direction: column;
+        }
+        .top-center-bottom .top{
+            height: 100px;
+            background: red;
+        }
+        .top-center-bottom .bottom{
+            height: 100px;
+            background: red;
+        }
+        .top-center-bottom .center{
+            flex: 1;
+            background: green;
+        } */
+
+        /* html,body,section,.top-center-bottom{
+            height: 100%;
+        }
+        .top-center-bottom{
+            display: grid;
+            grid-template-rows: 100px auto 100px;
+            grid-template-columns: 100%;
+        }
+        .top-center-bottom .top{
+            background: red;
+        }
+        .top-center-bottom .bottom{
+            background: red;
+        }
+        .top-center-bottom .center{
+            background: blue;
+        } */
+
+        /* html,body,section,.top-center-bottom{
+            height: 100%;
+            width: 100%;
+        }
+        .top-center-bottom{
+            display: table;
+        }
+        .top-center-bottom>div{
+            display: table-row;
+        }
+        .top-center-bottom .top{
+            height: 100px;
+            background: #000;
+        }
+        .top-center-bottom .bottom{
+            height: 100px;
+            background: #000;
+        }
+        .top-center-bottom .center{
+            background: red;
+        } */
+        /* 浮动： */
+        /* .wrapper>div{
+            height: 500px;
+        }
+        .aside{
+            width: 300px;
+            background: #000;
+            float: left;
+        }
+        .main{
+            background: #ccc;
+            margin-left: 300px;
+        } */
+
+        /* flex布局 */
+        /* .wrapper{
+            display: flex;
+        }
+        .wrapper>div{
+            height: 500px;
+        }
+        .aside{
+            width: 300px;
+            background: #000;
+        }
+        .main{
+            background: #ccc;
+            flex: 1;
+        } */
+
+        /* BFC */
+        /* .wrapper>div{
+            height: 500px;
+        }
+        .aside{
+            float: left;
+            width: 200px;
+            background: #000;
+        }
+        .main{
+            background: #ccc;
+            overflow: hidden;
+        } */
+
+        /* position绝对定位 */
+        /* .wrapper>div{
+            height: 500px;
+        }
+        .aside{
+            width: 200px;
+            background: #000;
+        }
+        .main{
+            position: absolute;
+            left: 200px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #ccc;
+            overflow: hidden;
+        } */
+
+        /* table布局 */
+        /* .wrapper{
+            display: table;
+            width: 100%
+        }
+        .wrapper>div{
+            display: table-cell;
+            height: 400px;
+        }
+        .aside{
+            width: 200px;
+            background: #000;
+        }
+        .main{
+            background: #ccc;
+        } */
+
+        /* grid布局 */
+        /* .wrapper{
+            display: grid;
+            width: 100%;
+            height: 400px;
+            grid-template-columns: 200px auto;
+        }
+        .wrapper>div{
+            height: 400px;
+        }
+        .aside{
+            background: #000;
+        }
+        .main{
+            background: #ccc;
+        } */
+        
+        /* float布局 */
+        /* .left-center-right{
+            overflow: hidden;
+        }
+        .left-center-right>div{
+            height: 500px;
+        }
+        .left-center-right .left{
+            float: left;
+            width: 200px;
+            background: red;
+        }
+        .left-center-right .right{
+            float: right;
+            width: 200px;
+            background: green;
+        }
+        .left-center-right .center{
+            background: #000;
+            margin: 0 200px;
+        } */
+
+        /* position实现 */
+        /* .left-center-right{
+        }
+        .left-center-right>div{
+            height: 500px;
+        }
+        .left-center-right .left{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
+            background: red;
+        }
+        .left-center-right .right{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 200px;
+            background: green;
+        }
+        .left-center-right .center{
+            margin: 0 200px;
+            background: #000;
+        } */
+
+        /* flex布局 */
+        /* .left-center-right{
+            display: flex;
+        }
+        .left-center-right>div{
+            height: 500px;
+        }
+        .left-center-right .left{
+            width: 200px;
+            background: red;
+        }
+        .left-center-right .right{
+            width: 200px;
+            background: green;
+        }
+        .left-center-right .center{
+            flex-grow: 1;
+            background: #000;
+        } */
+
+        /* grid布局 */
+        /* .left-center-right{
+            display: grid;
+            grid-template-columns: 200px auto 200px;
+        }
+        .left-center-right>div{
+            height: 500px;
+        }
+        .left-center-right .left{
+            background: red;
+        }
+        .left-center-right .right{
+            background: green;
+        }
+        .left-center-right .center{
+            background: #000;
+        } */
+
+        /* table布局 */
+        /* .left-center-right{
+            display: table;
+            width: 100%;
+        }
+        .left-center-right>div{
+            display: table-cell;
+            height: 500px;
+        }
+        .left-center-right .left{
+            width: 200px;
+            background: red;
+        }
+        .left-center-right .right{
+            width: 200px;
+            background: green;
+        }
+        .left-center-right .center{
+            background: #000;
+        } */
+
+        /* .square{
+            width: 10%;
+            height: 10vw;
+            background: #000;
+        } */
+        /* .square{
+            width: 10%;
+            padding-bottom: 10%;
+            background: #000;
+        } */
+        .square{
+            width: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+        .square::after{
+            content: '';
+            display: block;
+            margin-top: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="square"></div>
+    <!-- <section class="left-center-right">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </section> -->
+    <!-- <section class="wrapper">
+        <div class="aside"></div>
+        <div class="main"></div>
+    </section> -->
+    <!-- <section> -->
+        <!-- <h1>css实现上下固定中间自适应布局</h1> -->
+
+        <!-- <h2>1、使用定位实现</h2>
+        <div class="top-center-bottom">
+            <div class="top"></div>
+            <div class="center"></div>
+            <div class="bottom"></div>
+        </div> -->
+
+        <!-- <h2>2、使用flexbox</h2> -->
+        <!-- <div class="top-center-bottom">
+            <div class="top"></div>
+            <div class="center"></div>
+            <div class="bottom"></div>
+        </div> -->
+
+        <!-- <h2>3、使用grid</h2>
+        <div class="top-center-bottom">
+            <div class="top"></div>
+            <div class="center"></div>
+            <div class="bottom"></div>
+        </div> -->
+
+        <!-- <h2>4、使用table</h2> -->
+        <!-- <div class="top-center-bottom">
+            <div class="top">1</div>
+            <div class="center">2</div>
+            <div class="bottom">3</div>
+        </div> -->
+    <!-- </section> -->
+    <!-- <section>
+        <h2>使用display:none</h2>
+        <div class="hidden hidden1" onclick="alert('hidden1')"></div>
+
+        <h2>使用visibility:hidden</h2>
+        <div class="hidden hidden2" onclick="alert('hidden2')"></div>
+
+        <h2>使用opacity:0</h2>
+        <div class="hidden hidden3" onclick="alert('hidden3')"></div>
+
+        <h2>使用scale:0</h2>
+        <div class="hidden hidden4" onclick="alert('hidden4')"></div>
+    </section> -->
+    <!-- <section class="text-overflow">
+        <h2>单行文本溢出</h2>
+        <p class="txt1">使用 display:none;隐藏元素，渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。</p>
+        <h2>多行文本溢出</h2>
+        <p class="txt2">使用 display:none;隐藏元素，渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。</p>
+    </section> -->
+    <!-- <section>
+        <h2>1px粗线</h2>
+        <div class="line1"></div>
+        <h2>方法一：transform</h2>
+        <div class="line2"></div>
+        <h2>方法二：渐变</h2>
+        <div class="line3"></div>
+    </section> -->
+
+    <!-- <div class="outer">
+        <div class="a"></div>
+        <div class="b"></div>
+    </div> -->
+    <!-- <div class="parent">
+        <div class="child1">看看我的宽度</div>
+        <div class="child2">看看我的宽度</div>
+        <div class="child3">看看我的宽度</div>
+    </div> -->
+    <!-- <section> -->
+        <!-- <ul class="article">
+            <li>
+                <p>
+                    一家将客户利益置于首位的经纪商，为客户提供专业的交易工具一家将客户利益置于首位的经纪商，为客户提供专业的交易工具一家将客户利益置于首位的经纪商，为客户提供专业的交易工具一家将客户利益置于首位的经纪商，为客户提供专业的交易工具
+                </p>
+            </li>
+            <li>
+                <p>
+                    一家将客户利益置于首位的经纪商，为客户提供专业的交易工具一家将客户利益置于首位的经纪商，为客户提供专业的交易工具
+                </p>
+            </li>
+            <li>
+                <p>
+                    一家将客户利益置于首位的经纪商
+                </p>
+            </li>
+        </ul> -->
+        <!-- <ul class="space">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul> -->
+    <!-- </section> -->
+
+    <!-- <div id="arrow"></div> -->
+
+    <!-- <div class="container">
+        <div class="box box1">1</div>
+        <div class="box box2">2</div>
+        <div class="box box3">3</div>
+        <div class="box box4">4</div>
+        <div class="box box5">5</div>
+        <div class="box box6">6</div>
+        <div class="box box7">7</div>
+        <div class="box box8">8</div>
+        <div class="box box9">9</div>
+    </div>
+    <article>
+        <h3>容器属性</h3>
+        <p>flex-direction属性决定主轴方向</p>
+        <p>flex-wrap属性定义，如果一条轴线排不下，如何换行</p>
+        <p>flex-flow属性是flex-direction和flex-wrap属性的简写形式，默认值为row nowrap</p>
+        <p>justify-content属性定义了项目在主轴上的对其方式</p>
+        <p>align-items属性定义项目在交叉轴上如何对齐</p>
+        <p>align-content属性定义多根轴线的对齐方式。如果只有一根轴线，该属性不起作用</p>
+    </article>
+    <article>
+        <h3>项目属性</h3>
+        <p>order属性定义项目的排列顺序，数值越小，排列越靠前，默认为0</p>
+        <p>flex-grow属性定义项目的放大比例，默认为0，即存在剩余空间，也不放大</p>
+        <p>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小</p>
+        <p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小</p>
+        <p>flex属性是flex-grow,flex-shrink,flex-grow的简写，默认值为0 1 auto</p>
+    </article> -->
+    <!-- <div id="demo">
+        <a href="">我是字体</a>
+    </div> -->
+    <script>
+        // 参考：https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/Css/Css.md
+        // 1、介绍一下标准css盒模型？低版本IE的盒模型有什么不同？
+        // 盒模型都是由四个部分组成，分别是margin,border,padding和content
+        // 标准盒模型和IE盒模型的区别在于设置width和height时，所对应的范围不同。标准盒模型的width和height属性的范围包含了border,padding和content
+        // 一般来说，我们可以通过修改元素的box-sizing属性来改变元素的盒模型
+
+        // 2、css选择器有哪些？
+        // （1）id选择器（#myid）
+        // （2）类选择器（.myclassname）
+        // （3）标签选择器（div,h1,p）
+        // （4）后代选择器（h1 p）
+        // （5）相邻后代选择器（ul>li）
+        // （6）兄弟选择器（li~a）
+        // （7）相邻兄弟选择器（li+a）
+        // （8）属性选择器（a[ref='external']）
+        // （9）伪类选择器（a:hover，li:nth-child）
+        // （10）伪元素选择器（::before, ::after）
+        // （11）通配符选择器（*）
+
+        // 3、::before和:after中双冒号和单冒号有什么区别？解释一些这2个伪元素的作用
+        // 在css3中使用单冒号来表示伪类，用双冒号来表示伪元素。但是为了兼容已有伪元素的写法，在一些浏览器中也可以使用单冒号来表示伪元素
+        // 伪类一般匹配的是元素的一些特殊状态，如hover、link等；而伪元素一般匹配特殊的位置，比如after、before等。
+
+        // 4、伪类和伪元素的区别
+        // css引入伪类和伪元素概念是为了格式化文档树以外的信息。也就是说，伪类和伪元素是用来修饰不在文档中的部分。比如，一句话中的第一个字母，或者列表中的第一个元素
+        // 伪类用于当已有元素处于某个状态时，为其添加样式，这个状态根据用户行为而动态发生变化。
+        // 伪元素用于创建一些不在文档树中的元素，并为其添加样式。它们允许我们为元素的某些部分设置样式。
+
+        // 5、css中哪些属性可以继承？
+        // 字体相关的属性：font-size和font-weight
+        // 文本相关的属性：color和text-align
+        
+        // 6、css优先级如何计算？
+        // 选择器的特殊值分为四个等级，如下：
+        // （1）标签内选择富豪  x,0,0,0
+        // （2）ID选择器  0,x,0,0
+        // （3）class选择器/属性选择器/伪类选择器  0,0,x,0
+        // （4）元素和伪元素选择器  0,0,0,x
+
+        // 计算方法：
+        // （1）每个等级的初始值为0
+        // （2）每个等级的叠加为选择器出现的次数想家
+        // （3）不可进位，比如0,99,99,99
+        // （4）依次表示为：0,0,0,0
+        // （5）每个等级计数之间没有关联
+        // （6）等级判断从左向右，如果某一位数值相同，则判断下一位数值
+        // （7）如果两个优先级相同，则最后出现的优先级高，！important也适用
+        // （8）通配符选择器的特殊值为：0,0,0,0
+        // （9）继承样式优先级最低，通配符样式优先级高于继承样式
+        // （10）!important（权重），它没有特殊值，但是它的优先级最高
+        // 计算实例：
+        // （1）#demo a{color:#000} /*特殊性值：0,1,0,1*/
+        // （2）div#demo a{color:#ff} /*特殊性值：0,1,0,2*/
+
+        // 回答：
+        // 先看是否有!important，如果有，它的级别最高
+        // 选择器的特殊性可以分为四个等级：第一个等级是行内样式，为1000；第二个等级是id选择器，为0100；第三个等级是类选择器、伪类选择器、属性选择器，为0010；第四个等级是标签选择器和伪元素选择器，为0001。规则中没出现一个选择器，就将它的特殊性进行叠加，这个叠加只限于对应级别的叠加不会产生进位。选择器特殊值的比较是从左向右的，也就是说1开头的比0开头的要大。如果两条规则的特殊值相等的时候，那么就会根据他们的引入顺序，后出现的优先级最高
+
+        // 7、关于伪类LVHA的解释
+        // a标签有四种状态：链接访问前，链接访问后，鼠标滑过，激活，分别对应四种伪类:link,:visited,:hove,:active
+        
+        // 8、css3新增的伪类有哪些？
+        // nth-child,nth-last-child,last-child,nth-of-type,first-of-type,last-of-type,empty,target,:not,enabled,disabled,checked
+
+        // 9、如何居中div？
+        // （1）绝对定位：left:50%;top:50%;+margin负值
+        // （2）绝对定位：left:50%;top:50%;+translate(-50%,-50%)
+        // （3）flex布局：设置父元素align-items:center和justify-content:center
+        // （4）table布局：display:table-cell
+
+        // 10、display有哪些值？说明他们的作用
+        // block 块元素。默认宽度为父元素宽度，可设置宽高，换行显示。
+        // none 元素不显示，并从文档流中移除
+        // inline 行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示
+        // inline-block 默认宽度为内容宽度，可设置宽高，同行显示
+        // list-item 像块元素一样显示，并添加样式列表标记
+        // table 此元素会作为块级表格来显示
+        // inherit 规定应该从父元素继承display属性的值
+
+        // 11、position的值relative和absolute定位原点是？
+        // relative是相对于元素本身的正常位置来进行定位
+        // absolute是相对它的第一个position值不为static的父元素定位
+        // fixed是相对于浏览器窗口进行定位
+        // static默认值
+        // inherit从父元素继承position定位
+
+        // 12、css3有哪些新特性？
+        // 新增各种css选择器
+        // 圆角
+        // 多列布局
+        // 阴影和反射
+        // 文字特效
+        // 文字渲染
+        // 线性渐变
+        // 旋转
+        // 缩放，定义，倾斜，动画，背景
+        
+        // 13、请解释一下css3的flex box（弹性盒布局模型），以及适用场景？
+        // flex布局是css3新增的一种布局方式，我们可以通过将一个元素的display属性设置为flex从而使它成为一个flex容器，它的所有自元素都会成为它的项目。
+        // 一个容器默认有两条轴，一个水平的轴，一个是与主轴垂直的交叉轴。我们可以使用flex-direction来指定主轴的方向。我们可以使用justify-content来指定元素在主轴上的排列方式，使用align-item来指定交叉轴上的排列方式。还可以使用flex-wrap来规定当一行排列不在的换行方式。
+        // 对于容器中的项目，我们可以使用order属性来知道项目的排列顺序，可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来知道当排列空间不足时，项目缩小比例。
+
+        // 14、用纯css创建一个三角形的原理时什么？
+        // 采用的时相邻边框连接处均分的原理。
+        // 将元素的宽高设为0，只设置border，把任意三条边隐藏掉（颜色为transparent），就剩下一个三角形
+        // #arrow{
+        //     width: 0;
+        //     height: 0;
+        //     border-width: 20px;
+        //     border-style: solid;
+        //     border-color: transparent transparent red transparent;
+        // }
+
+        // 15、一个满屏的品字布局如何设计？
+        // 上面的div宽100%；
+        // 下面的两个div分别宽50%；
+        // 然后用float或者inline使其不换行即可
+
+        // 16、css多列等高如何实现？
+        // （1）利用padding-bottom和margin-bottom正负值相抵，不会影响页面布局。设置父元素超出隐藏（overflow:hidden）
+        // （2）利用table-cell
+        // （3）利用flex布局中项目align-items属性默认是strecth
+        // （4）利用网格grid布局
+        // （5）利用js来计算
+
+        // 17、经常遇到的浏览器的兼容性有哪些？原因，解决方法是什么？常用hack技巧？
+        // （1）png24的图片在ie6出现背景
+        // 解决方法：做成png8，也可以引入一段脚本处理
+        // （2）浏览器默认的margin和padding不同
+        // 解决方案：加一个全局的*{margin:0;padding:0}来统一
+        // （3）ie6双边距bug：在IE6下，如果对元素设置了浮动，同时有设置了margin-left或margin-right，margin值会加倍
+        // 解决方案：加入_display:inline;将其转为行内元素
+        // （4）渐进识别方式，从总体中逐渐排除局部
+        // #demo{
+        //     background-color:red;（ie9以上）
+        //     background-color:green\9;（ie8）
+        //     +background-color:blue;（ie7）
+        //     _background-color:yello;（ie6）
+        // }
+        // （5）Chrome中文界面默认会将小雨12px的文本按照12px显示
+        // （6）超链接访问过后hover样式就不会出现了
+        // 解决：改变css属性的排列顺序LVHA
+
+        // 18、li与li之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
+        // 浏览器会把inline元素间的空白字符（空格，换行，tab等）渲染成一个空格。为了美观，我们通常是一个<li>放一行
+        // 解决办法：
+        // （1）为<li>设置float:left;不足：有些不能设置浮动
+        // （2）将所有的<li>写在同一行。不足：代码不美观
+        // （3）将<ul>内的字符尺寸直接设置为0，即font-size:0
+        // （4）消除<ul>的字符间隔letter-spacing:-8px
+
+        // 19、为什么要初始化css样式？
+        // 因为浏览器的兼容问题，不同浏览器对有些标签的默认值是不同的，如果没对css初始化往往会出现浏览器直接的页面显示差异
+        // 当然，初始化样式会对seo有一定的影响
+        // 最简单的方法：*{padding:0;margin:0}
+
+        // 20、什么是包含块？
+
+        // 21、CSS 里的 visibility 属性有个 collapse 属性值是干嘛用的？在不同浏览器下以后什么区别？
+            
+        // 22、width:auto和width:100%的区别？
+        // width:100%;会使元素box的宽度等于父元素的content box的宽度。
+        // width:auto;会使元素撑满整个父元素，margin、border、padding、content区域会自动分配水平空间。
+
+        // 23、绝对定位元素与非绝对定位元素的百分比计算的区别
+        // 绝对定位元素宽高百分比是相对于邻近的position不为static的祖先元素的padding box来定位的
+        // 非绝对定位元的宽高百分比则是相对于父元素的content box来计算的
+
+        // 24、简单介绍使用图片base64的优点和缺点
+        // 优点：减少一个图片的http请求
+        // 缺点：编码后体积变大，无法直接缓存，兼容性问题
+
+        // 25、display,position,float的相互关系
+
+        // 26、margin重叠问题的理解
+
+        // 27、对BFC规范的理解？
+        // BFC是指块级格式上下文，一个元素形成了BFC之后，那么它的内部元素产生的的布局不会影响到外部元素，外部元素的布局也不会影响到BFC中的内部元素。一个BFC就像一个隔离区域，和其他区域互不影响
+        // 一般来说跟元素是一个BFC区域，浮动和绝对定位的元素也会形成BFC，display属性的值为inline-block,flex这些属性也会创建BFC。还有就是overflow的值不为visible都会创建BFC
+
+        // 28、IFC是什么？
+        // IFC是行级格式上下文，它有这些一些布局规则：
+        // （1）行级格式上下文内部的盒子会在水平方向，一个接一个的放置。
+        // （2）当一行不够的还好会自动切换到下一行
+        // （3）行级格式上下文的高度由最高的内联盒子的高度决定
+
+        // 29、请解释一个为什么需要清除浮动？清楚浮动的方式有哪些？
+        // 清除浮动是为了清除使用浮动元素产生的影响。浮动的元素，高度会塌陷，而高度的塌陷使我们页面后面的布局不能正常显示。
+        // 清除浮动的方式
+        // （1）使用clear属性清除浮动
+        // （2）使用BFC块级格式上下文清除浮动
+
+        // 30、使用clear属性清除浮动的原理？
+
+        // 31、zoom:1 的清除浮动原理?
+
+        // 32、移动端用过媒体查询吗？
+        // 媒体查询可以让我们根据设备显示器的特性为起设定css样式。
+
+        // 33、使用css预处理器吗？喜欢哪个？
+        // sass（sass,less没有本质区别，只因为团队前端都是用sass）
+
+        // 34、css优化和提升性能的方法有哪些？
+        // 加载性能：
+        // （1）css压缩
+        // （2）css单一样式
+        // （3）减少@import，建议使用link，因为后者是在页面加载时一起加载，前者是等待页面加载完成之后再进行加载
+        // 选择器性能：
+        // （1）关键选择器
+        // （2）如果规则拥有id选择器作为关键词选择器，则不要为规则增加标签
+        // （3）避免使用通配规则
+        // （4）尽量少的去对标签进行选择，而是用class
+        // （5）尽量少使用后代选择器，降低选择器的权重值
+        // 渲染性能：
+        // （1）慎重使用高性能属性：浮动、定位
+        // （2）减少页面重排、重绘
+        // （3）去空规则
+        // （4）属性为0时，不加单位
+        // （5）不用时@import前缀
+        // （6）选择器优化潜逃，急不来避免层级过深
+        // （7）css雪碧图
+        // （8）不滥用web字体
+        
+        // 35、浏览器时怎样解析css选择器的？
+        // 样式系统从关键选择器开始批评，然后座椅查找规则选择器的祖先元素。只要选择器的子树一致在工作，样式系统就会持续左移，直到和规则批评，或者是因为不匹配而放弃该规则
+        // 试想一下，如果采用从左至右的方式读取CSS规则，那么大多数规则读到最后（最右）才会发现是不匹配的，这样做会费时耗能，最后有很多都是无用的；而如果采取从右向左的方式，那么只要发现最右边选择器不匹配，就可以直接舍弃了，避免了许多无效匹配。
+        
+        // 36、在网页中应该使用奇数还是偶数的字体？为什么呢？
+        // 偶数字号相对更容易和web设计的其他部分构成比例关系
+
+        // 37、margin和padding分别适用什么场景？
+        // margin是用来隔开元素与元素之间的间距；padding是用来隔开元素与内容的间隔
+        // margin用于布局分开元素与元素互不相干
+        // padding用于元素与内容之间的间隔，让内容与元素之间有一段距离
+
+        // 38、抽离样式模块怎么写，说出思路，有无实践经验？
+        // 我的理解是把常用的css样式单独做成css文件……通用的和业务相关的分离出来，通用的做成样式模块儿共享，业务相关的，放进业务相关的库里面做成对应功能的模块儿。
+
+        // 39、简单说一下 css3 的 all 属性。
+
+        // 40、为什么不建议使用通配符初始化css样式
+        // 采用*{padding:0;margin:0;}这样写的好处时简单，但是通配符，需要把所有的标签都遍历一遍，当网站较大时，样式比较多，这样写就大大加大了网站运行的负载，会使网站加载的时候需要很长一段时间，一次一般大型的网站都有分层次的一套初始化代码样式。
+        // 出于性能的考虑，并不是所有标签都会有padding和margin，因为对常见的具有默认padding和margin的元素初始化即可，并不需要使用通配符*来初始化
+
+        // 41、absolute 的 containingblock（包含块）计算方式跟正常流有什么不同？
+
+        // 42、对于hasLayout的理解？
+        
+        // 43、元素竖向的百分比设定时相对于容器的高度吗
+        // 如果是height的话，是相对于包含块的高度
+        // 如果是padding或margin竖直方向的属性则是相对于包含快的高度
+
+        // 44、全屏滚动的原理是什么？用到了 CSS 的哪些属性？
+        // transition-duration: 0ms; transform: translate3d(0px, -1280px, 0px);
+
+        // 45、什么是响应式设计？基本原理？如何兼容低版本的ie
+        // 响应式网站设计是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。基本原理是通过媒体查询检测不同的设备尺寸做处理。页面头部必须有meta声明的viewpoit
+
+        // 46、视差滚动效果，如何给每页做不同的动画？
+        // 视差滚动是只多层背景以不同的速度移动，形成立体的运动效果，带来非常出现的视觉体验
+
+        // 47.如何修改 chrome 记住密码后自动填充表单的黄色背景？
+
+        // 48、怎么让Chrome支持小雨12px的文字？
+        // （1）可以使用-webkit-text-size-adjust: none;，但是27版本以后没用了
+        // （2）使用css3的transform:scale()来实现，先将文本转化成块级元素
+        // （3）使用图片
+
+        // 49、让页面里的字体变清晰，变细用css怎么做？
+        // -webkit-font-smoothing，用于字体抗锯齿
+        // macos测试环境下设置：-webkit-font-smoothing:antialiased
+
+        // 50、font-style属性中italic和oblique的区别？
+        // italic是使用当前字体的斜体字体，而oblique只是单纯的让文字倾斜。如果当前字体没有斜体，则退而求其次，解析为oblique，也就是单纯形状倾斜
+
+        // 51、设备像素、css像素、设备独立像素、dpr、ppi之间的区别？
+        // 设备像素是指物理像素，一般手机的分辨率指的是设备像素，一个设备的设备像素是不可变的
+        // css像素和设备独立像素是等价的
+        // dpr是设备响度和设备独立像素的比值
+        // ppi指的是每英寸的物理像素的密度
+
+        // 52、layout viewport、visual viewport 和 ideal viewport 的区别？
+
+        // 53、position:fixed;在android下无效怎么处理？
+        // 改变的是viewport的大小为ideal viewport
+        // <meta name="viewport"content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+
+        // 54、如果手动写动画，你认为最小时间间隔是多久，为什么？
+        // 多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小时间间隔为1/60*1000=16.7ms
+
+        // 55、如何去除inline-block元素的间距？
+        // 移除空格、使用margin负值、使用font-size:0、letter-spacing、word-spacing
+
+        // 56、overflow:scroll不能平滑滚动的问题怎么处理？
+        // 使用以下代码解决卡顿问题：
+        // -webkit-overflow-scrolling: touch;
+        // 因为这行代码启用了硬件加速特性，所有滑动很流畅
+
+        // 57、又一个高度自适应的div，里面有两个div，一个高度100px，希望另外一个填满剩下的高度。
+        // （1）外出div使用position:relative;高度要求自适应的div使用position:absolute;top:100px;bottom:0;left:0;right:0;
+        // （2）使用flex布局，设置主轴为竖轴，第二个div的flex-flow为1
+
+        // 58、png,jpg,gif这些格式解释一下，分别什么时候用。有没有了解过webp？
+        // （1）GIF是无损的、采用索引色的点阵图。文件小，是GIF的优点，同时，GIF还有句支持动画以及透明的优点。但是，GIF仅支持8bit的索引色，所以GIF格式适用于对色彩要求不高同时需要文件体积小的场景。
+        // （2）JPEG是有损的、采用直接色的点阵图。JPEG图片的优点是采用了直接色，得益于更丰富的色彩，JPEG非常适合存储照片，与gif相比，JPEG不适合存粗企业logo、线框类的图。
+        // （3）PNG-24是无损的、使用直接色的点阵图。PNG-24的优点在于，它压缩了图片的数据，使得统一效果的图片，PNG-24格式比BMP小的多。当然，PNG-24比JPG,GIF,PNG-8大得多
+        // （4）webp是支持有损和无损两种压缩方式，使用直接色的点阵图。使用webp最大的优点是，在相同质量的文件下，它拥有小的文件体积。
+
+        // 59.浏览器如何判断是否支持 webp 格式图片
+
+        // 60、什么是cookie隔离？（或者说，请求资源的时候不要让它带cookie怎么做）
+        // 网站向服务器请求的时候，会自动带上cookie这样的增加表头信息量，使请求变慢
+        // 如果静态文件都放在主域名下，那静态文件请求的时候都会带有cookie的数据提交给server，非常浪费流量，所以不如隔开，静态资源放在cdn
+        // 因为cookie有域的限制，因此不能跨域提交请求，故使用非主要域名的时候，请求头中就不会带有cookie数据，这样可以降低请求头的大小，降低请求时间，从而达到降低整体请求延时的目的。
+        // 同时这种方式不会将cookie传入webserver，也减少了webserver对cookie处理分析缓解，提高了webserver的http请求解析速度
+
+        // 61、style标签写在body后与body前有什么区别？
+        // 页面加载自上而下当然是先加载样式。写在body标签后由于浏览器以逐行方式对HTML文档进行解析，当解析到写在尾部的样式表会导致浏览器停止之前的渲染，等待加载且解析样式表完成后重新渲染，在windows的IE下可以会出现FOUC现象（样式失效导致的页面闪烁问题）
+
+        // 62、什么是css预处理器/后处理器？
+        // CSS预处理器定义了一种新的语言，其基本思想是，用一种专门的编程语言，为CSS增加一下编程的特性，将CSS作为目标生成文件，然后开发者就只要使用这种语言进行编码工作。通俗的说，CSS预处理器用一种专门的编程语言，进行web页面样式设计，然后再编译成正常的CSS文件。
+        // 预处理器例如：LESS,SASS,Stylus，增强了CSS代码的服用性，还有层级、mixin、变量、循环、函数等，具有很方便的UI组件模块化的开发能力，极大的提高工作效率
+        // CSS后处理器是对CSS进行处理，并最终生成CSS的预处理器，它属于广义上的CSS预处理器。
+        // 后处理器如：postcsss
+
+        // 63、阐述一下CSSSprites
+        // 将一个页面涉及的所有图片都包含到一张大图中去，然后利用CSS的background-position进行组合背景定位。
+        // 优点：
+        // 减少HTTP请求数，极大的提供页面的加载速度
+        // 缺点：
+        // 图片合并麻烦，维护麻烦
+
+        // 64、使用rem布局优缺点？
+        // 优点：
+        // 在屏幕分辨率千差万别的时代，只要将rem与屏幕分辨率关联起来就可以实现页面的整体缩放，使得在设备商的展示都统一起来了。而且现在浏览器基本都已经支持rem了，兼容性也非常的好
+        // 缺点：
+        // （1）在奇葩的dpr设备上表现效果不太好，不如一些华为的高端机型
+        // （2）使用iframe引用也会出现问题
+        // （3）rem在多屏幕尺寸适配上与当前两大平台的设计哲学不一致
+
+        // 65、几种常见的 CSS 布局
+
+        // 66、画一条0.5px的线
+        // （1）采用meta viewport方式
+        // （2）采用border-image方式
+        // （3）采用transform:scale()方式
+
+        // 67、transition和animation的区别
+        // transition关注的是css property的变化，property值和时间的关系是一个三次贝塞尔曲线
+        // animation作用于元素本身而不是样式属性，可以使用关键帧的概念，应该说可以实现更自由的动画效果
+
+        // 68.什么是首选最小宽度？
+        // 元素最适合的最小宽度
+
+        // 69、为何height:100%会无效？
+        // 对于普通文档流中的元素，百分比高度值想要起作用，其父级必须有一个可以生效的高度值。
+
+        // 70、min-width/max-width和min-height/max-height属性间的覆盖规则？
+        // （1）max-width会覆盖width,即使width是行内样式或者设置了!important
+        // （2）min-width会覆盖max-width，此规则发生在min-width和max-width冲突的时候
+
+        // 71、内联盒模型基本概念
+        // （1）内容区域（content area）：指一种围绕文字看不见的盒子，其大小收字符本身特性控制，本质上是一个字符盒子。
+        // （2）内联盒子（inline box）：不会让内容成块显示，而是拍成一行
+        // （3）行框盒子（line box）：每一行就是一个“行框盒子”
+        // （4）包含块（containing box）：由一行一行“行框盒子”组成
+
+        // 72、什么是幽灵空白节点？
+        // “幽灵空白节点”是内联盒模型中非常重要的一个概念，具体指的是：在HTML5文档声明中，内联元素的所有解析和渲染表现就如同每个行框盒子的前面又一个“空白节点”一样。这个“空白节点”永远透明，不占据任何宽度，看不见也无法通过脚本获取，就好像幽灵一下，但是又确确实实的存在，表现如同文本节点一样。
+
+        // 73、什么是替换元素？
+        // 通过修改某个属性值呈现的内容就可以被替换的元素就成为“替换元素”。因此，<img><object><video><iframe>或者表单元素都是典型的替换元素。
+        // 除了内容可替换，还有以下一些特性：
+        // （1）内容的外观不受页面上的css影响。
+        // （2）you自己的尺寸
+        // （3）在很多css属性上有自己的一套规则
+        // （4）所有的替换元素都是内联元素
+
+        // 74、替换元素的计算规则？
+
+        // 75、content与替换元素的关系？
+        // content属性生成的对象成为“匿名替换元素”
+        // （1）我们使用content生成的文本是无法选中、无法复制的，好像设置了user select:none声明一般，单普通元素的文本却可以被轻松的选中。同时，content生成的文本无法被屏幕阅读设备读取，也无法被搜索引擎抓取，因此，千万不要自以为是的把重要文本欣欣使用content属性生成，因为这对可访问性和seo都很不友好
+        // （2）content生成的内容不能左右:empty伪类
+        // （3）content动态生成的值无法获取。
+
+        // 76、margin:auto填充规则？
+        // （1）如果一侧定制，一侧auto，则auto为剩余空间大小
+        // （2）如果两侧都是auto，则平分剩余空间
+
+        // 77、margin无效的情形
+        // （1）display计算值inline的非替换元素的垂直margin是无效的。对于内联替换元素，垂直margin有效，并且没有margin合并问题。
+        // （2）表哥中的<tr>和<td>元素或者设置display计算值是table-cell或table-row元素的margin都是无效的
+        // （3）绝对定位元素非定位方向的margin值无效
+        // （4）定高容器的子元素的margin-bottom或者定宽的子元素的margin-right的定位无效
+
+        // 78、border的特殊性
+        // （1）border-width不支持百分比
+        // （2）border-style的默认值是none，有一部分会误以为是solid。这也是单纯设置border-width或border-color没有边框显示的原因
+        // （3）border-style:double的表现规则：双线宽度永远相等，中间间隔+-1
+        // （4）border-color默认颜色就是color色值
+        // （5）默认background背景图片是相对于padding box定位的
+
+        // 79、什么是基线和x-height
+
+        // 80、line-height的特殊性？
+
+        // 81、vertical-align的特殊性？
+
+        // 82、overflow的特殊性？
+        // （1）一个设置了overflow:hidden声明的元素，假设同时存在border属性和padding属性，则当子元素内容超出容器宽度限制的时候，裁剪的边界是border box的内边缘，而非padding box的内边缘
+        // （2）html中有两个标签默认是可以产生滚动条的，一个是根元素<html>，一个是文本域<textarea>
+        // （3）滚动跳会占有容器的可用宽度或高度
+        // （4）设置了overflow:hidden，里面内容高度溢出时，滚动依然存在，仅仅滚动条不存在
+
+        // 83、无依赖绝对定位是什么？
+        // 没有设置left/top/right/bottom属性值的绝对定位称为“无依赖绝对定位”
+        // 无依赖绝对定位对定位的位置和没有设置position:absolute时候的位置相关
+
+        // 84、absolute和overflow的关系？
+        // （1）如果overflow不是定位元素，同时绝对定位元素和overflow容器之间也没有定位元素，则overflow无法对absolute元素进行剪裁。
+        // （2）如果overflow的属性值不是hidden而是auto或者scroll，即使绝对定位元素高宽比overflow元素高宽还要大，也都不会出现滚动条。
+        // （3）overflow元素自身transform的时候，Chrome和Opera浏览器下的overflow剪裁是无的。
+
+        // 85、clip 裁剪是什么？
+
+        // 86、relative 的特殊性？
+
+        // 87、什么是层叠上下文？
+
+        // 88、什么是层叠水平？
+
+        // 89、层叠准则？
+
+        // 90、元素的层叠顺序？
+
+        // 91、font-weight 的特殊性？
+
+        // 92、text-indent 的特殊性？
+
+        // 93、letter-spacing 与字符间距？
+        // letter-spacing可以用来控制字符之间的间距，这里说的“字符”包括英文字母、汉字以及空格等。
+
+        // 94、word-spacing 与单词间距？
+        // word-spacing的作用就是增加空格的间隙宽度。
+
+        // 95、white-space 与换行和空格的控制？
+
+        // 96、隐藏元素的 background-image 到底加不加载？
+        // （1）元素的背景图片
+        // 元素本身设置display:none，会请求图片；但是父级元素设置display:none，不会请求图片；样式没有元素使用，不会请求；hover样式下，触发时请求
+        // （2）img标签图片任何情况下都会请求图片
+
+        // 97、如何实现单行/多行文本溢出的省略（...）？
+        // 单行溢出
+        // .txt1{
+        //     overflow: hidden;
+        //     text-overflow: ellipsis;
+        //     white-space: nowrap;
+        // }
+        // 多行溢出
+        // .txt2{
+        //     position: relative;
+        //     line-height: 1.5em;
+        //     height: 3em;
+        //     overflow: hidden;
+        // }
+        // .txt2::after{
+        //     content: '...';
+        //     position: absolute;
+        //     bottom: 0;
+        //     right: 0;
+        //     background-color: #fff;
+        // }
+
+        // 98、常见的元素隐藏方式？
+        // （1）使用display:none;渲染树不会包含渲染对象，因此该元素不会在页面中占据位置，也不会影响绑定的监听事件
+        // （2）使用visibility:hidden;元素在页面中仍占据空间，但是不会响应绑定的监听事件。
+        // （3）使用opacity:0;将元素的透明度设置为0，以此来实现元素的隐藏。元素在页面中仍占据空间，并且能够响应元素绑定的监听事件。
+        // （4）通过使用绝对定位将元素移除可视区域内，以此来实现元素的隐藏
+        // （5）通过z-index负值，来使其他元素遮盖住该元素，以此来实现隐藏
+        // （6）通过clip元素剪裁方法来实现元素的隐藏
+        // （7）通过transform:scale(0)来将元素缩放为0，以此实现元素隐藏。元素仍在页面中占据位置，但是不会响应绑定事件
+        
+        // 99、css实现上下固定中间自适应
+        // （1）利用绝对定位
+        // （2）利用flex布局
+        // （3）利用grid布局
+        // （4）利用table布局
+
+        // 100、css两栏布局？
+        // 参考：https://www.jb51.net/css/749986.html
+        // （1）浮动布局
+        // （2）flex布局
+        // （3）BFC
+        // （4）position绝对定位
+        // （5）table布局
+        // （6）grid布局
+
+        // 101、css三栏布局的实现？
+        // （1）float浮动
+        // （2）position绝对定位
+        // （3）flex布局
+        // （4）grid布局
+        // （5）table布局
+
+        // 102、实现一个宽高自适应的正方形
+        // 参考：https://segmentfault.com/a/1190000009476303
+        // （1）利用vw单位
+        // （2）设置垂直方向的padding撑开内容
+        // （3）利用伪元素的margin-top撑开
+    </script>
+</body>
+</html>

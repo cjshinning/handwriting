@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js总结</title>
+    <style>
+        /* *{
+            padding: 0;
+            margin: 0;
+        }
+        .container{
+            width: 2000px;
+            height: 5000px;
+            overflow: scroll;
+        }
+        .box{
+            overflow: scroll;
+            width: 100px;
+            height: 100px;
+            padding: 20px;
+            border: 5px solid #000;
+            margin: 30px;
+            line-height: 30px;
+        } */
+    </style>
+</head>
+<body>
+    <!-- <div class="container">
+        <div class="box" id="box">
+            <p>这里的内容区就是1</p>
+            <p>这里的内容区就是2</p>
+            <p>这里的内容区就是3</p>
+            <p>这里的内容区就是4</p>
+            <p>这里的内容区就是5</p>
+            <p>这里的内容区就是6</p>
+            <p>这里的内容区就是7</p>
+            <p>这里的内容区就是8</p>
+            <p>这里的内容区就是9</p>
+            <p>这里的内容区就是10</p>
+            <p>这里的内容区就是11</p>
+        </div>
+    </div> -->
+    <script>
+        // 参考：https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/JavaScript/JavaScript.md#75-%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8E%9F%E7%94%9F%E6%96%B9%E6%B3%95%E5%88%97%E4%B8%BE%E4%B8%80%E4%B8%8B
+
+        // 1、介绍一下js基本数据类型
+        // js一共有六种数据类型：Undefined,Null,Number,String,Boolean,Symbol
+
+        // 2、Javascript有几种类型的值？你能画一下他们的内存图吗？
+        // js可以分为两种类型的值，一种是基本数据类型，一种是复杂数据类型
+        // 基本数据类型包括Undefined,Null,Number,String,Boolean
+        // 复杂类型指的是Object类型
+        // 两种类型的主要区别是他们存储位置不停，基本数据类型的值保存在栈中，而复杂类型的值保存在堆中，通过使用在栈中保存对应的指针来获取堆中的之。
+
+        // 3、什么是堆？什么是栈？
+        // 堆和栈的概念存在于数据解构和操作系统中
+        // 在数据结构中，栈中的数据存取方式为先进后出。而堆是一个优先队列，是按优先级进行排序的，优先级可以按照大小来规定。完全二叉树是堆的一种实现方式。
+        // 在操作系统中，内存被分为栈区和堆区
+        // 栈区内存由编译器分配释放，存放函数的参数值、局部变量的值等。其操作方式类似于数据结构中的栈
+        // 堆区内存一般由程序员分配释放，若程序员不释放，程序结束时可能由来及回收机制回收。
+
+        // 4、内部属性[[class]]是什么？
+        // 所有typeof返回值为object的对象都包含一个内部属性[[class]]（我们可以把它看作一个内部的分类，而非传统意义上的累）。这个属性无法直接访问，一般通过Object.prototyp.toString()来查看。
+        // console.log(Object.prototype.toString.call([1,2,3]))    //[object Array]
+        // console.log(Object.prototype.toString.call(/regex-literal/i))   //[object RegExp]
+        // class Class1{}
+        // console.log(Object.prototype.toString.call(new Class1()));  //[object Object]
+        // class Class2{
+        //     get[Symbol.toStringTag](){
+        //         return 'Class2';
+        //     }
+        // }
+        // console.log(Object.prototype.toString.call(new Class2()))   //[object Class2]
+
+        // 5、介绍js有哪些内置对象？
+        // js中的内置对象主要是指在程序执行前存在全局作用域里由js定义的一些全局值属性、函数和用来实例化其他对象的构造函数对象。一般我们经常用到的如全局变量值NaN,undefined，全局函数如parseInt(),parseFloat()等，用来实例化对象的构造函数如Date,Object等，还有提供数学计算的单体内置对象如Math对象。
+
+        // 6、undefined与undeclared的区别？
+        // 已经在作用域中声明但是还没有赋值的变量，是undefined。相反，还没有在作用域中声明过的变量，是undeclared。
+        // 对于undeclared变量的引用，浏览器会报引用错误，如ReferenceError: b is not defined。
+
+        // 7、null和undefined的区别？
+        // 首先Undefined和Null都是基本数据类型，这两个基本数据类型分别都只有一个值，就是undefined和null。
+        // undefined代表的含义是未定义，null代表的含义是控对象。一般变量声明了但还没有定义的时候会返回undefined，null主要是用于赋值给一些可能会返回对象的变量，作为初始化。
+        // undefined在js中不是一个保留字，这意味着我们可以使用undefined来作为一个变量名，这样做是非常危险的，会影响我们对undefined值的判断，但是我们可以通过一些方法获得安全的undefined值，比如void 0。
+        // 当我们对两种类型使用typeof进行判断的时候，Null会返回'object'，这是一个历史遗留问题。当我们使用双等号对两种类型的值进行比较时会返回true，使用三个等号返回false。
+
+        // 8、如何获取安全的undefined值？
+        // void 0
+
+        // 9、说几条javascript的基本规范
+        // 在平常开发中，我们遵守一些这样的基本规范：
+        // （1）一个函数作用域中所有的变量应该尽量提到函数首部
+        // （2）代码中出现地址、时间等字符串需要使用常量代替
+        // （3）在进行比较的时候，尽量用'==='代替'=='
+        // （4）不要在内置对象的原型上添加方法
+        // （5）switch语句必须带有default分支
+        // （6）for循环必须使用大括号
+        // （7）if语句必须使用大括号
+
+        // 10、js原型、原型链？有什么特点？
+        // （1）mdn描述：
+        // JavaScript中每个对象都拥有一个原型对象，对象以其原型为模板、从原型继承方法和属性。原型对象也可能拥有原型，并从中继承属性和方法，一层一层，以此类推。这种关系称为原型链。
+        // JavaScript中函数可以有属性，每个属性都有一个特殊的属性叫做原型。
+        // function doSomething(){}
+        // console.log(doSomething.prototype);
+
+        // var doSomething = function(){}
+        // doSomething.prototype.foo = 'bar';
+        // console.log(doSomething.prototype);
+
+        // var doSomething = function(){}
+        // doSomething.prototype.foo = 'bar';
+        // var doSomethingInstance = new doSomething();
+        // doSomethingInstance.prop = 'some value';
+        // console.log(doSomethingInstance);
+
+        // var doSomething = function(){}
+        // doSomething.prototype.foo = 'bar';
+        // var doSomethingInstance = new doSomething();
+        // doSomethingInstance.prop = 'some value';
+        // console.log(`doSomethingInstance.prop ${doSomethingInstance.prop}`);//some value
+        // console.log(`doSomethingInstance.foo ${doSomethingInstance.foo}`); //bar
+        // console.log(`doSomething.prop ${doSomething.prop}`);    //undefined
+        // console.log(`doSomething.foo ${doSomething.foo}`);  //undefined
+        // console.log(`doSomething.prototype.prop ${doSomething.prototype.prop}`);    //undefined
+        // console.log(`doSomething.prototype.foo ${doSomething.prototype.foo}`);  //bar
+
+        // function Person(first, last, age, gender, interests){}
+        // var person1 = new Person('Bob', 'Smith', 32, 'male', ['music', 'skiing']);
+
+        // Javascript至于一种解构：对象。每个实例对象都有一个私有属性（__proto__）指向它的构造函数的原型对象（prototype）。该原型对象也有一个自己的原型对象（__proto__），层层向上知道一个对象的原型对象为null。
+        // let f = function(){
+        //     this.a = 1;
+        //     this.b = 2;
+        // }
+        // let o = new f();
+
+        // f.prototype.b = 3;
+        // f.prototype.c = 4;
+        
+        // console.log(o.a);   //1
+        // console.log(o.b);   //2
+        // console.log(o.c);   //4
+        // console.log(o.d);   //undefined
+        // 先在构造函数找，要是没有就去原型找，找不到再去上一级的原型找
+
+        // 答案：
+        // 在js重我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个prototype属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当我们使用构造新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的prototype属性，在ES5中这个原型被称为对象的原型。一般来说我们是不应该能够获取这个值的，但是现在浏览器中都实现了__proto__属性让我们来访问这个属性，但是最好不要使用这个属性。
+        // 当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里面找，这个原型对象又会有自己的原型，于是这样一直找下去，也就是原型链的概念。
+
+        // 11、js获取原型的方法？
+        // p.__proto__
+        // p.constuctor.protyotype
+        // Object.getPrototypeOf(p)
+
+        // 12、在js中不同进制的表示方式
+        // 以0X、0x开头的表示为十六进制
+        // 以0、0O、0o开头为八进制
+        // 以0B、0b开头的表示为二进制
+
+        // 13、js中整数的安全范围是多少？
+        // 2^53-1，-9007199254740991-9007199254740991
+        // console.log(Number.MAX_SAFE_INTEGER);   //9007199254740991
+        // console.log(Number.MIN_SAFE_INTEGER);   //-9007199254740991
+
+        // 14、typeof NaN的结果时什么？
+        // console.log(typeof NaN);    //number
+        
+        // 15、isNaN和Number.isNaN函数的区别？
+        // 函数isNaN接收参数后，会尝试将这个参数转为数值，任何不能被转为数值的值都会返回true，因此非数值传入也会返回true，会影响NaN的判断
+        // 函数Number.isNaN会首先判断传入参数是否为数字，如果数字再继续判断是否为NaN，这种方法对于NaN的判断更为准确。
+
+        // 16、构造函数只有一个参数的时候表现？
+        // Array构造函数只带一个参数的时候，该参数会被作为数组的预设长度，而非只充当数组中的一个元素。这样构造出来的只是一个孔数组，只不过它的length属性被设置成了指定的值。
+        // 构造函数Array(...)不要去必须带new关键字。不带时，它会自动补上。
+        // const arr = new Array(4);
+        // console.log(arr);   //[empty × 4]
+
+        // 17、其他值到字符串的转换规则
+        // toString负责处理非字符串到字符串的强制类型转换
+        // （1）Null和Undefined类型，null转换为'null'，undefined转换为'undefined'
+        // （2）Boolean类型，true转换为'true'，false转换为'false'
+        // （3）Number类型的值直接转换
+        // （4）对普通对象来说，除非自行定义 toString() 方法，否则会调用 toString()（Object.prototype.toString()）来返回内部属性 [[Class]] 的值，如"[object Object]"。如果对象有自己的 toString() 方法，字符串化时就会调用该方法并使用其返回值。
+        // console.log(null.toString());
+        // console.log(undefined.toString());
+        // console.log(true.toString());   //true
+        // var count = 123;
+        // console.log(count.toString());
+        // var obj = {a: 1};
+        // console.log(obj.toString());    //[object Object]
+
+        // 18、其他值到数字值的转换规则？
+        // （1）Undefined类型转换的值为NaN
+        // （2）Null的转换值为0
+        // （3）Boolean类型的值，true转为1，false转为0
+        // （4）String类型的值转换如同使用Number()函数进行转换，如果包含非数字值则转为NaN，空字符串为0
+        // （5）Symbol类型的值不能转为数字，会报错
+        // （6）对象会首先被转化为相应的基础类型值，如果返回的是非数字的基本类型，再遵循以上规则将其强制转为数字
+        // var count = false;
+        // console.log(count.valueOf());
+
+        // 19、其他值到布尔类型的值转换规则？
+        // 以下都是假值：undefined,null,false,+0,-0,NaN,''
+
+        // 20、{}和[]的valueOf和toString的结果是什么？
+        // {}的结果为{}，toString的结果为"[object Object]"
+        // []的结果为[]，toString的结果是''
+        // console.log({}.valueOf());  //{}
+        // console.log({}.toString()); //[object Object]
+
+        // console.log([].valueOf());  //[]
+        // console.log([].toString()); //''
+
+        // 21、什么是假值对象？
+
+        // 22、~操作符的作用？
+
+        // 23、 解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字，它们之间的区别是什么？
+        
+        // 24、+操作符什么时候用于字符串的拼接？
+        // 如果+的其中一个操作数是字符串，则执行字符串拼接，否则执行数字加法
+        
+        // 25、什么情况下会发生布尔值的隐式类型转换？
+        // （1）if(...)语句中条件判断
+        // （2）for(..;..;..;)语句中的条件判断表达式（第二个）
+        // （3）while(...)和do...while(...)循环条件判断表达式
+        // （4）?:中条件判断表达式
+        // （5）逻辑运算符 || （逻辑或）和&&（逻辑与）左边的操作数（作为条件判断表达式）
+
+        // 26、||和&&操作符的返回值？
+        // ||和&&首先会去第一个操作数执行条件判断，如果其不是布尔值就先进行toBoolean强制类型转换，再执行条件判断
+        // 对于||来说，如果条件判断结果为true就返回第一个操作数的值，如果为false就返回第二个操作数的值
+        // &&则相反，如果条件判断结果为true就返回第二个操作数的值，如果为false就返回第一个操作数的值
+        // ||和&&返回他们其中一个操作数的值，而非条件判断的结果
+
+        // 27、Symbol值的强制类型转换？
+        // Symbol值不能被强制类型转换为数字，但是可以被强制类型转换为布尔值
+
+        // 28、==操作符的强制类型转换规则？
+        // （1）字符串和数字之前相等比较，将字符串转换为数字之后再进行比较。
+        // （2）其他类型和布尔类型直接的相等比较，先将不二之转换为数字后，再应用其他的规则比较
+        // （3）null和undefined之间的相等比较，结果为真。其他值和他们进行比较都返回假植
+        // （4）对象和非对象之间的相等比较，对象先调用ToPrimitive抽象后，再进行比较
+        // （5）如果一个操作值为NaN，则相等比较返回false
+        // （6）如果两个操作值都是对象，则比较他们是不是指向同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回true，否则返回false
+
+        // 29、如何将字符串转化为数字，例如'12.3b'？
+        // （1）使用Number()方法，前提是所包含的字符串不包含不合法字符
+        // （2）使用parseInt()方法，返回一个证书
+        // （3）使用parseFloat()方法，返回一个证书
+        // （4）使用+操作符隐士转换
+        // let str = '12.3b';
+        // console.log(parseInt(str));
+        // console.log(parseFloat(str));
+        // console.log(+str);
+        // console.log(Number(str));
+        
+        // 30、如何将浮点数左边的数每三位添加一个逗号，如12000000.11 转化为『12,000,000.11』？
+        // 方法1:
+        // function format(number){
+        //     return number && number.replace(/(?!^)(?=(\d{3})+\.)/g, ",");
+        // }
+        // 方法二：
+        // function format(number){
+        //     return Intl.NumberFormat().format(number);
+        // }
+        // 方法三：
+        // function format(number){
+        //     return number.toLocaleString('en');
+        // }
+        // console.log(format(12000000.11));   //12,000,000.11
+
+        // 31、常用正则表达式
+        // // （1）匹配 16 进制颜色值
+        // var regex = /#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/g;
+        // // （2）匹配日期，如 yyyy-mm-dd 格式
+        // var regex = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+        // // （3）匹配 qq 号
+        // var regex = /^[1-9][0-9]{4,10}$/g;
+        // // （4）手机号码正则
+        // var regex = /^1[34578]\d{9}$/g;
+        // // （5）用户名正则
+        // var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
+
+        // 32、生成随机数的各种方法？
+
+        // 33、如何实现数组的随机排序
+
+        // 34、javascript创建对象的几种方式？
+        // 一般使用字面量直接创建
+        //  (1)工厂模式
+        // （2）借用构造函数
+        // （3）原型模式
+        // （4）组合模式
+        // （5）动态原型模式
+        // （6）寄生构造函数
+
+        // 35、javascript继承的几种方式？
+        // （1）原型链继承
+        // （2）借用构造函数方式
+        // （3）组合继承
+        // （4）原型式继承
+        // （5）寄生式继承
+        // （7）寄生组合继承
+
+        // 36、寄生组合继承的实现？
+        // function Person(name){
+        //     this.name = name;
+        // }
+        // Person.prototype.sayName = function(){
+        //     console.log("My name is " + this.name + '.');
+        // }
+        // function Student(name, grade){
+        //     Person.call(this, name);
+        //     this.grade = grade;
+        // }
+
+        // Student.prototype = Object.create(Person.prototype);
+        // Student.prototype.constructor = Student;
+
+        // Student.prototype.sayMyGrade = function(){
+        //     console.log("My grade is " + this.grade + '.');
+        // }
+
+        // var student = new Student('xiaoli', 6);
+        // student.sayName();
+        // student.sayMyGrade();
+
+        // 37、javascript的作用域链？
+        // 作用域链的作用是保证对执行环境有权访问的所有变量的有序访问，通过作用域链可以访问到外层环境的变量和函数。
+        // 作用域的本质是一个指向变量对象的指针列表。
+        // 当我们查找一个变量时，如果当前执行环境中没有找到，我们可以沿着作用域向后查找
+
+        // 38、谈谈this对象的理解。
+        // this是执行上下文的一个属性，它指向最后一次调用这个方法的对象。 
+
+        // 39、eval是做什么的？
+        // 它的功能时把对应的字符串解析成js代码并运行
+        // 应该避免使用eval，不安全，非常耗性能
+
+        // 40、什么是DOM和BOM？
+        // DOM是文档对象模型，是把文档当作一个对象来对象，这个对象主要定义了处理网页的方法和接口
+        // BOM是浏览器对象模型，是把浏览器当作一个对象来对象，这个对象主要定义了与浏览器进行交互的方法和接口。BOM对象的核心是window，而window对象具有双重角色，它即是通过js访问浏览器窗口的一个连接，又一个全局对象。window对象含有location对象，navigator对象，screen对象等子对象，并且DOM的最根本对象document也是BOM的window子对象
+
+        // 41、写一个通用的事件侦听器函数
+        // const EventUtil = {
+        //     addEvent: function(element, type, handler){
+        //         if(element.addEventListener){
+        //             element.addEventListener(type, handler, false);
+        //         }else if(element.attachEvent){
+        //             element.attachEvent('on'+type, handler);
+        //         }else{
+        //             element['on'+type] = handler;
+        //         }
+        //     },
+        //     removeEvent: function(element, type, handler){
+        //         if(event.removeEventListener){
+        //             element.removeEventListener(type, handler, false);
+        //         }else if(event.detachEvent){
+        //             element.detachEvent('on'+type, handler);
+        //         }else{
+        //             element['on' + type] = null;
+        //         }
+        //     },
+        //     getTarget: function(event){
+        //         return event.target || event.srcElement;
+        //     },
+        //     getEvent: function(event){
+        //         return event || window.event;
+        //     },
+        //     stopPropagation: function(event){
+        //         if(event.stopPropagation){
+        //             event.stopPropagation();
+        //         }else{
+        //             event.cancelBubble = true;
+        //         }
+        //     },
+        //     preventDefault: function(event){
+        //         if(event.preventDefault){
+        //             event.preventDefault();
+        //         }else{
+        //             event.returnValue = true;
+        //         }
+        //     }
+        // }
+
+        // 42、事件是什么？IE与火狐的事件机制有什么区别？如何阻止冒泡？
+        // 事件是用户操作网页时发生的交互动作，比如click
+        // IE支持事件冒泡，火狐同时支持两种事件模型，也就是：事件冒泡和事件捕获
+        // event.stopPropagation()或者ie下的event.cancelBubble=true;
+
+        // 43、三种事件模型是什么？
+        // DOM0 没有事件流的概念
+        // DOM1 IE事件模型，在该模型中，一次事件有两个过程，事件处理阶段，和事件冒泡阶段
+        // DOM2 在该模型中，一次事件有三个过程，第一个过程是事件捕获阶段，后面两个阶段和 IE 事件模型的两个阶段相同。
+
+        // 44、事件委托是什么？
+        // 事件委托本质上是利用了浏览器事件冒泡的机制，让自己的所触发的事件，让它的父元素代替执行。
+        // 使用事件代理我们可以不必为每一个子元素都绑定一个监听事件，这样减少了内存上的消耗。并且使用事件代理还可以实现事件的动态绑定，
+
+        // 45、['1', '2', '3'].map(parseInt)答案是多少？
+        // console.log(['1', '2', '3'].map(parseInt));
+        //  [1, NaN, NaN]
+
+        // 46、什么是闭包，为什么要用它？
+        // 闭包是指有权访问另一个函数作用域中变量的函数，创建闭包的最常见的方式就是在一个函数内创建另一个函数，创建的函数可以访问到当前函数的局部变量。
+        // 闭包的常用用途
+        // 通过闭包，我们可以在外部调用闭包函数，从而在外部访问到函数内部的变量，可以使用这种方法来创建私有变量
+        // 另一个用途是使用已经运行结束的函数上下文的变量对象继续留在内存中，因为闭包函数保留了这个变量对象的引用，所以这个变量对象不会被回收
+
+        // 47、js中的'use strict'是什么意思？使用它的区别？
+        // use strict是ECMAscript添加的严格运行模式，这种模式使得javascript在更严格的条件下运行。
+        // 区别：
+        // （1）禁止使用with语句
+        // （2）禁止this关键词指向全局对象
+        // （3）对象不能有重名的属性
+
+        // 48、如何判断一个对象是否属于某个类？
+        // （1）instanceof运算符
+        // （2）constructor属性
+        // （3）Object.prototype.toString()方法来打印对象[[Class]]属性来进行判断
+
+        // 49、instanceof的作用？
+        // 判断构造函数的prototype属性是否出现在对象的原型链中的任何位置
+
+        // 50、new操作符到底干了些什么？如何实现？
+        // （1）首先创建一个新的空对象
+        // （2）设置原型，将对象的原型设置为函数的prototype对象
+        // （3）让函数的this指向这个对象，执行构造函数的代码（为这个对象添加属性）
+        // （4）判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象
+        // function new2(Obj, ...args){
+        //     let obj = {};
+        //     obj.prototype = Object.create(Obj.prototype);
+        //     Obj.apply(obj, ...args);
+        //     return obj;
+        // }
+
+        // function Person(name){
+        //     this.name = name;
+        // }
+        // Person.prototype.sayName = function(){
+        //     console.log(`my name is: ${this.name}`);
+        // }
+
+        // const person1 = new Person('xiaoli');
+        // // console.log(person1);
+        // person1.sayName();
+
+        // 51、javascript中，有一个函数，执行时对象查找中，永远不会查找原型，这个函数是？
+        // hasOwnProperty
+        // 所有继承了Object的对象都会继承到hasOwnProperty方法。这个方法可以用来检测一个对象释放含有特定的自身属性。和instanceof运算符不同，该方法会忽略那些从原型链上继承到的属性
+
+        // 52、对于JSON的了解？
+        // JSON是一种基于文本轻量级的数据交换格式，我们使用JSON作为前后端数据交换的方式。
+
+        // 53、[].forEach.call($$("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)}) 能解释一下这段代码的意思吗？
+        // （1）选取页面中的所有DOM元素
+        // （2）循环遍历DOM元素
+        // （3）给元素添加outline
+        // （4）生成随机颜色
+
+        // 54、js延迟假植的方式有哪些？
+        // js的加载、解析和执行会阻塞页面的渲染过程，因此我们希望js脚本尽可能的延迟加载，提高页面渲染速度
+        // （1）将js脚本放在文档底部，让js尽可能在最后加载执行
+        // （2）添加defer，脚本下载完后不会立即执行，而是等到DOM解析完成才会执行脚本，适用于有依赖关系的资源加载。
+        // （3）添加async，脚本下载完毕就执行，下载过程不影响DOM加载，但是一旦脚本下载完毕就会立刻同步执行脚本，此时DOM加载还是得等着，适用于没有依赖关系的资源加载。
+        // （4）动态创建DOM标签，对文档的加载事件进行监听，文档加载完后再动态创建script标签引入js。
+
+        // 55、Ajax是什么？如何创建一个Ajax？
+        // Ajax是一种在无需重新加载整个页面的情况下，能够更新部分网页的技术。
+        // （1）创建XMLHttpRequest对象
+        // （2）向服务器端发送请求
+        // （3）xhr事件响应
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('GET', './js/test1.js', true);
+        // xhr.send();
+        // xhr.onreadystatechange = function(){
+        //     if(xhr.readyState == 4 && xhr.status == 200){
+        //         console.log(xhr.responseText);
+        //     }
+        // }
+
+        // 56、谈谈浏览器缓存机制？
+        // 浏览器缓存机制指的是通过在一段时间内保留已接受到的web资源的一个副本，如果资源在有效时间内，发起了对这个资源的再一次请求，那么浏览器会直接使用缓存的副本，而不是向服务器发起请求。使用web缓存可以有效的提高页面的打开速度，减少不必要的网络宽度的消耗。
+        // web资源的缓存策略一般由服务器来指定，可以分为两种，分别是强缓存和协商缓存
+        // 使用强缓存策略时，如果缓存资源有效，则直接使用缓存资源，不必再向服务器发起请求。强缓存策略可以通过两种方式来设置，分别是http头信息中的Expires和Cache-Control属性
+        // 服务器通过在响应头中添加Expires属性，来指定资源过期时间，在过期时间以内，该资源可以被缓存使用，不必再向服务器发送请求。这个时间是个绝对时间，它是服务器时间，因此可能存在这样的额问题，就是客户端时间和服务器时间不一致，或者用户可以对客户端时间进行修改的情况，这样就可能会影响缓存命中的结果。
+        // Expires是http1.0中的方式，因为它的一些确定，在http1.1中提出了一个新的头部属性就是Cache-Control属性，它提供了对资源的缓存更精确的控制。它有很多不同的值，常用的比如我们可以通过设置max-age来知道资源能够被缓存时间的大小，这是一个相对时间，它会根据这个时间的大小和资源第一次请求时的时间来计算出资源国企的时间，因此相对于Expires来说，这种方式更加有效一些。常用的还有比如private，用来规定资源只能被客户端缓存，不能够代理服务器缓存。还有如no-store，用来指定资源不能被缓存，no-cache代表资源能够被缓存，但是立即失效，每次都需要向服务器端发起请求。
+        // 一般来说只需要设置其中一种就可以实现强缓存，当两种一起使用时，Cache-Control的优先级高于Expires。
+        // 使用协商缓存时，会先想服务器发送一个请求，如果资源没有发生修改，则返回一个304状态，让浏览器可以使用本地的缓存副本。
+        // 如果资源发生了修改，则返回修改后的资源。协商缓存也可以通过两种方式来设置，分别是http头信息中的Etag和Last-Modified属性。
+        // 服务器在响应头中添加Last-Modified属性来指定最后一次修改时间，当浏览器下一次发起请求时，会在请求头中添加一个If-Modified-Since的属性，属性作为上一次资源返回的Last-Modified的值。当请求发送到服务器，服务器会根据这个属性来和资源最后一次修改时间来进行比较，以此来判断资源是否做了修改。如果资源没有修改，那么返回304状态，让客户端使用本地的缓存。如果资源修改了，则返回修改后的资源。使用这方法的一个缺点，就是Last-Modified标准的最后修改时间只能精确到秒级，如果某些文件在1秒以内，被修改多次，那么文件已经改变了，但是Last-Modified却没有改变。
+        // 因为Last-Modified的这种属性可能发生不准确性，http中提供了另外一种方式，那就是Etag属性。服务器在返回资源时，在头信息中添加了Etag属性，这个属性生成唯一标志符，当资源发生改变的时候，这个值也会发生改变。在下一次资源请求时，浏览器会在请求头中添加一个If-None-Match属性，这个属性的值就是上次返回资源的Etag的值。服务器接收到请求后会根据这个值来和资源当前的Etag的值来进行比较，以此判断资源是否发生改变，是否需要返回资源。通过这种方式，比：Last-Modified的方式更近精确。
+        // 当Last-Modified和Etag同时出现的时候，Etag的优先级更高。
+        // 强缓存和协商缓存策略在缓存命中时都会直接使用本地的缓存副本，区别在于协商缓存会想服务器发送一次请求。在实际的缓存机制中，强缓存和协商缓存是一起合作使用的。浏览器首先会根据请求信息判断，强缓存是否命中，如果命中则直接使用资源。如果不命中则根据头信息向服务器发起请求，使用协商缓存，如果协商缓存命中的话，则服务器不返回资源，浏览器直接使用本地资源的副本，如果不命中，则返回最新的资源给浏览器。
+
+        // 57、Ajax解决浏览器缓存问题？
+        // （1）在ajax发送请求前，加上anyAjaxObj.setRequestHeader('If-Modified-Since', '0');
+        // （2）在ajax发送请求前，加上anyAjaxObj.setRequestHeader('Cache-Control', 'no-cache');
+        // （3）在URL后面加上一个随机数：'fresh='+Math.random();
+        // （4）在URL后面加上时间戳，'nowtime='+new Date().getTime();
+        // （5）如果时jQuery，直接这样就可以了：$.ajaxSetup({cache: false})
+
+        // 58、同步和异步的区别？
+        // 同步指的是一个进程在执行某个请求的时候，如果这个请求需要等待一段时间才能返回，那么这个进程会一直等待下去，直到消息返回为止再继续向下执行。
+        // 异步指的是当一个进程在执行某个请求的时候，如果这个请求需要等待一段时间才能返回，这个时候进程会继续往下执行，不会阻塞等待消息的返回，当消息返回时系统再通知某个进程进行处理。
+
+        // 59、什么是浏览器的同源策略？
+        // 同源策略时一个重要的安全策略，它用于限制一个origin（源）的文档或者它加载的脚本如何与另一个源的资源进行交互。它能帮助阻隔恶意稳定，减少可能被攻击的媒介。同源是指两个url的协议、端口、域名三者都相同。
+        // 同源策略主要限制了三个方面：
+        // js脚本不能防伪其他域下的cookie,localStorage和indeDB
+        // js脚本不能操作访问操作其他域下的DOM
+        // ajax无法发送跨域请求
+
+        // 60、如何解决跨域问题
+        // jsonp,window.postMessage,window.name,CORS
+        // （1）通过jsonp跨域
+        // （2）document.domain+iframe
+        // （3）location.hash+iframe
+        // （4）window.name+iframe
+        // （5）window.postMessage
+        // （6）跨域资源共享（CORS）
+        // （7）nodejs中间件代理跨域
+        // （8）websocket协议跨域
+        // （9）Nginx代理跨域
+
+        // 61、服务器代理转发时，如何处理cookie?
+
+        // 62、简单谈一下cookie？
+        // cookie是服务队提供的一种用于维护会话状态信息的数据，通过服务器发送到浏览器，浏览器保存在本地，当下一次有同源请求时，将报错的cookie值添加到请求头部，发送给服务端。可以实现记录用户登录状态等功能。cookie一般可以存储4k大小的数据，并且只能够被同源网页所共享访问。
+
+        // 63、模块化开发怎么做？
+        // 立即执行函数，AMD，CMD，commonjs，es module
+
+        // 64、js的几种模块化规范？
+        // js比较成熟的有四种模块加载方案
+        // （1）Commonjs，通过require来引入模块，通过module.exports定义模块的输出接口。
+        // （2）AMD，这种方案采用异步加载的方式来加载模块，模块的加载不影响后面语句的执行，所有依赖这个模块的语句都定义在一个回调函数里，等到加载完后再执行回调函数。
+        // （3）CMD，
+        // （4）ES6提出的方案，使用import和export的形式导入导出模块。
+
+        // 65、AMD和CMD规范的区别？
+        // （1）对于依赖模块，AMD是提前执行，CMD是延迟执行。
+        // （2）CMD推崇依赖就近，AMD推崇依赖前置。
+
+        // 66、ES6模块与CommonJS、AMD、CMD的差异？
+        // （1）CommonJS是运行时加载，ES6 Module是变异时输出接口
+        // （2）CommonJS加载的使整个模块，将所有的接口全局加载进来，ES6 Module可以单独加载其中某个接口；
+        // （3）CommonJS输出是值的拷贝，ES6 Module输出的是值的引用，被输出的模块的内部的改变会影响引用的改变；
+        // （4）CommonJS的this指向当前模块，ES6 Module的this指向undefined
+
+        // 67、requireJS的核心原理是什么？
+        // requireJS的核心原理是通过动态创建script脚本来异步引入模块，然后对每个脚本的load事件进行监听，如果每个脚本都加载玩了，再调用回调函数。
+
+        // 68、JS 模块加载器的轮子怎么造，也就是如何实现一个模块加载器？
+
+        // 69、ES6怎么写class，为什么会出现class这种东西？
+        // 新加的class时为了补充js中缺少的一些面向对象的语言特性，但本质上它只是一种语法糖，不是一个新东西，其背后还是原型继承思想。通过加入class可以有利于我们更好的组织代码。
+        // 在class中添加的方法，其实是添加在类的原型上。
+
+        // 70、document.write和innerHTML的区别？
+        // document.write的内容会代替整个文档内容，会重写整个页面。
+        // innerHTML的内容只是替代指定元素的内容，只会重写页面中的部分内容。
+
+        // 71、DOM操作-怎么添加、移除、复制、创建和查找节点？
+        // （1）创建节点：createDocumentFragment(node),createElement(node),createTextNode(text)
+        // （2）添加、移除、替换、插入
+        // appendChild(node),removeChild(node),replaceChild(new,old),insertBefore(new,old)
+        // （3）查找节点：getElementById,.getElementsByTagName,getElementsByName,querySelector,querySelectorAll
+        // （4）属性操作：getAttribute(key),setAttribute(key,value),hasAttribute(key),removeAttribute(key)
+
+        // 72、innerHTML与outerHTML的区别？
+        // （1）innerHTML：从对象的起始位置的全部内容，但不包含html标签
+        // （2）除了包含innerHTML的全部内容外，还包含对象标签本身
+
+        // 73、call和apply的区别？
+        // 它们的作用一模一样，区别仅在于传入参数的形式的不同
+        // apply 接受两个参数，第一个参数指定了函数体内this对象的指向，第二个参数为一个带下标的集合，这个集合可以为数组，也可以为类数组
+        // call传入的参数不固定，跟apply一样第一个参数也是代表函数体内的this指向，从第二个参数开始往后，每个参数被依次传入函数。
+
+        // 74、Javascript类数组对象的定义？
+        // 一个拥有length属性和若干索引属性的对象就可以被成为类数组对象，类数组和数组类似，但是不能调用数组的方法
+        // 常见的类数组对象有arguments和DOM方法的返回结果，还有一个函数也可以被看作类数组对象，因为它含有length属性值，代表可接收的参数个数。
+        // 类数组转为数组的方法：
+        // Array.prototype.slice.call(arrayLike);
+        // Array.from(arrayLike)
+
+        // 75、数组和对象有哪些原生方法，列举一下？
+        // 数组：
+        // Array.concat()连接数组
+        // Array.join()将数组连接起来以构建一个字符串
+        // Array.pop()删除并返回数组的最后一个元素
+        // Array.push()给数组添加元素
+        // Array.reverse()颠倒数组中元素的顺序
+        // Array.slice()返回数组的一部分
+        // Array.sort()对数组元素进行排序
+        // Array.splice()插入、删除或替换数组的元素
+        // Array.toLocalString()将数组转换成局部字符串
+        // Array.toString()将数组转换成一个字符串
+        // Array.unshift()从数组头部插入一个元素
+        // Array.shift()从数组头部删除一个元素
+        // 迭代方法：every(),some(),filter(),map(),forEach()
+        // Array.reduce()
+        // 对象：
+        // Object.hasOwnProperty()检查属性是否被继承
+        // Object.isPropertyOf()一个对象是否是另一个对象的原型
+        // Object.toLocaleString()返回对象的本地字符串表示
+        // Object.toString()定义一个对象的字符串表示
+        // Object.valueOf()指定对象的原始值
+
+        // 76、数组的fill方法？
+        // fill()方法用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。
+        // const arr = [1,2,3,4];
+        // console.log(arr.fill(0,2,4));   //[1, 2, 0, 0]
+        // console.log(arr.fill(5,1)); //[1, 5, 5, 5]
+        // console.log(arr.fill(6));   //[6, 6, 6, 6]
+
+        // 77、[,,,]的长度
+        // console.log([,,,].length);  //3
+        // 稀疏数组的长度为逗号的数量。
+
+        // 78、javascript作用域和变量提升
+        // 变量提升的表现是，无论我们在函数中何处声明的变量，好像都被提升到了函数的首部，我们可以在变量声明前访问到而不会报错。
+        // 作用域是指一个变量或者函数的作用范围
+
+        // 79、如何编写高性能的javascript?
+        // （1）使用位运算符代替一些简单的四则运算
+        // （2）避免使用过深的循环嵌套
+        // （3）不要使用未定义的变量
+        // （4）当需要多次访问数组长度时，可以用变量保存起来，避免每次都会进行属性查找
+
+        // 80、简单介绍一下 V8 引擎的垃圾回收机制
+
+        // 81、哪些操作会造成内存泄漏？
+        // （1）意外的全局变量
+        // （2）被遗忘的计时器或回调函数
+        // （3）脱离DOM的引用
+        // （4）闭包
+
+        // 82、实现一个页面操作不会整页面刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？
+        // pushState+Ajax实现浏览器无刷新前进后退
+
+        // 83、如何判断当前脚本运行在浏览器还是node环境中？
+        // typeof window==='undefined'?'node':'browser'
+        // 通过判断当前环境的windows对象类型是否为undefined，如果是undefined，则说明当前脚本运行在node环境，否则说明运行在浏览器环境。
+
+        // 84、把script标签放在页面最底部的body封闭之前和封闭之后有什么区别？浏览器会如何解析它们？
+        // 从实际效果来看是没有区别的。
+        // 但是放在html结束标签之前应该是不规范的，放在body结束之前才对。
+
+        // 85、移动端的点击时间有延迟，时间是多久，为什么会有？怎么解决这个延时？
+        // 移动端点击有300ms的延迟是因为移动端会有双击缩放这个操作，因此浏览器在click之后要等待300ms，看用户有没有下次点击，来判断这次操作是不是双击。
+        // 有三种方法解决：
+        // （1）通过meta标签禁止网页的缩放
+        // （2）通过meta标签将网页的viewport设置为ideal viewport
+        // （3）调用一些js库，比如FastClick
+
+        // 86、什么是“前端路由”？什么时候适合使用“前端路由”？“前端路由”有哪些优缺点？
+        // （1）前端路由就是把不同的路由对应的不同内容或者页面的任务交给前端来做，之前是通过服务端根据url的不同返回不同的页面实现的
+        // （2）在单页面应用，大部分结构不变，只改变部分内容的使用
+        // （3）优点：用户体验好，不需要每次都从服务器全部获取，快速展现给用户
+        // 缺点：单页面无法记住之前滚动的位置，无法再前进，后退的时候记住滚动位置。
+
+        // 87、如何测试前端代码么？ 知道 BDD, TDD, Unit Test 么？ 知道怎么测试你的前端工程么(mocha, sinon, jasmin, qUnit..)？
+
+        // 88、检测浏览器版本有哪些方式？
+        // 一种是window.navigator.userAgent，但是这种方式不可靠，因为userAgent可以被改写
+        // 第二种是功能检测，根据每个浏览器独有的特性来进行判断，如ie下独有的ActiveXObject
+
+        // 89、什么是polyfill?
+        // polyfill是指用于实现浏览器并不支持的原生API的代码。
+        // 比如querySelectorAll是很多闲的浏览器都支持的原生API，但是有些古老的浏览器并不只支持，那么假设有人写了一段代码来实现这个功能使这些浏览器也支持这个功能，那么这就可以成为一个polyfill。
+        // 一个shim是一个库，有自己的API，而不是单纯失效原生不支持的API
+
+        // 90、如何使用JS实现获取文件的扩展名？
+        // var fileName = "http://www.111cn.net/sys/nginx/62888.htm";
+        // var fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        // console.log(fileExtension);
+
+        // 91、介绍一下js的节流和防抖？
+        // 节流：指定时间内只能执行一次
+        // 防抖：任务频繁触发的情况下，只有触发时间超过指定间隔的时候，任务才会执行
+        // var debounce = function(fn, wait){
+        //     var timer = null;
+        //     return function(){
+        //         var context = this;
+        //         var args = arguments;
+        //         if(timer){
+        //             clearTimeout(timer)
+        //         }
+        //         timer = setTimeout(() => {
+        //             fn.apply(context, args);
+        //         }, wait);
+        //     }
+        // } 
+
+        // function handler(){
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener('resize', debounce(handler, 1000));
+
+        // var throttle = function(fn, delay){
+        //     var prev = Date.now();
+        //     return function(){
+        //         var now = Date.now();
+        //         var context = this;
+        //         var args = arguments;
+        //         if(now - prev >= delay){
+        //             fn.apply(context, args);
+        //             prev = Date.now();
+        //         }
+        //     }
+        // }
+
+        // function handler(){
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener('resize', throttle(handler, 1000));
+
+        // 92、Object.is()与原来的比较操作符“===”、“==”的区别？
+        // 使用双等号进行相等判断，如果两边的类型不一致，则会进行强制类型转换后再进行比较。
+        // 使用三等好进行相等判断时，如果两边的类型不一致时，不会做强制类型转换，直接返回false。
+        // 使用Object.is来进行相等判断时，一般情况下和三等好的判断相同，它处理了一些特殊情况，比如-0和+0不再相等，两个NaN认定为相等。
+
+        // 93、escape，encodeURI，encodeURIComponent有什么区别？
+        // encodeURI是对整个URI进行转义，将URI中非法字符转换为合法字符，所以对于一些在URI中特殊意义的字符不会进行转义。
+        // encodeURIComponent是对URI的组成部分进行转义，所以一些特殊字符也会得到转义
+
+        // 94、Unicode和UTF-8的关系？
+        // Unicode是一种字符集合，现在可容纳100多万个字符。每个字符串对应一个不同的Unicode编码，它只规定了符号的二进制代码，却没有规定这个二进制代码在计算机中如何编码传输。
+        // UTF-8是一种对Unicode的编码方式，它是一中变长的编码方式，可以用1-4个字节来表示一个字符。
+
+        // 95、js的事件循环是什么？
+        // Event Loop执行过程：
+        // （1）一开始整个脚本script作为一个宏任务执行
+        // （2）执行过程中，同步代码直接执行，宏任务进入宏任务队列，微任务进入微任务队列
+        // （3）当前宏任务执行完出对，检查微任务列表，有则一次执行，直到全部执行完毕
+        // （3）执行浏览器ui线程的渲染工作
+        // （4）检查是否有web worker任务，有则执行
+        // （5）执行完本轮的宏任务，回到步骤2，依次循环，直到宏任务和微任务队列为空
+
+        // 96、js实现深拷贝？
+        // function deepClone(obj){
+        //     if(typeof obj !== 'object') return;
+        //     let newObj = obj instanceof Array ? [] : {};
+        //     for(let key in obj){
+        //         if(!newObj.hasOwnProperty(key)){
+        //             newObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
+        //         }
+        //     }
+        //     return newObj;
+        // }
+
+        // let obj = {
+        //     a: 1,
+        //     b: {
+        //         x: 2
+        //     },
+        //     c: [
+        //         {y: 3},
+        //         {z: 4}
+        //     ]
+        // }
+
+        // let newObj = deepClone(obj);
+        // obj.b.x = 10;
+        // console.log(obj);
+        // console.log(newObj);
+
+        // 97、手写call,apply以及bind函数
+        
+        // 98、函数柯理化实现？
+
+        // 99、为什么0.1+0.2!=0.3？如何解决这个问题？
+        // console.log(0.1+0.2!=0.3) true
+
+        // 100、原码、反码和补码的介绍
+
+        // 101、toPrecision和toFixed和Math.round的区别？
+        // toPrecision()方法以指定的精度返回数值对象的字符串表示
+        // var numObj = 5.123456;
+        // console.log(numObj.toPrecision());  //5.123456
+        // console.log(numObj.toPrecision(5)); //5.1235
+        // console.log(numObj.toPrecision(2)); //5.1
+        // console.log(numObj.toPrecision(1)); //5
+        // toPrecision用于处理精度，精度是从左至右第一个不为0的数开始数起。
+        // toFixed是对小数点后指定位数取证书，从小数点开始数起。
+        // var num = 5.123456
+        // console.log(num.toFixed(2));    //5.12
+        // Math.random是将一个数字四舍五入到一个整数。
+
+        // 102、什么是XSS攻击？如何防范XSS攻击？
+        // XSS攻击是指跨站脚本攻击，是一种代码注入攻击。攻击者通过在网站注入恶意脚本，使之在用户浏览器上运行，从而盗取用户的信息如cookie等。
+        // XSS的本质是因为网站没有对恶意代码进行过滤，与正常的代码混合在一起了，浏览器没有办法分辨哪些脚本是可信的，从而导致了恶意代码的执行。
+        // XSS一般分为存储型、反射型和DOM型。
+        // （1）对存入的数据库的数据进行转义处理，过滤掉script等关键词
+        // （2）设置白名单
+        // （3）还可以对一些敏感信息进行保护，比如cookie使用http-only，是的脚本无法获取。也可以使用验证码，避免脚本伪装成为用户执行一些操作
+
+        // 103、什么是CSP?
+        // CSP指的是内容安全策略，它的本质是建立一个白名单，告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截由浏览器自己来实现。
+
+        // 104、什么是CSRF攻击？如何预防CSRF攻击？
+        // CSRF攻击指的是跨站请求伪造攻击，攻击者诱导用户进入一个第三方网站，然后该网站向被攻击网站发送跨站请求。如果用户在被攻击网站保存了登录状态，那么攻击者就可以利用这个登录状态，绕过后台的用户炎症，冒充用户向服务器执行一些操作。
+        // 一般CSRF攻击类型有三种：
+        // 第一种是GET类型的CSRF攻击，比如网站种的一个img标签里构建一个请求，当用户打开这个网站的时候就会自动发起提交。
+        // 第二种是POST类型的CSRF，比如说构建一个表单，然后隐藏它，当用户进入页面时，自动提交这个表单。
+        // 第三种链接类型的CSRF攻击，比如a标签的href属性里构建一个请求，然后诱导用户去点击。
+        // CSRF可以通过下面几种方式来防护：
+        // 第一种：同源检测的方法，服务器根据http请求头种origin或者referer信息来判断请求是否为允许访问的站点，从而对请求进行过滤。
+        // 第二种：使用Token验证，服务器想用户返回一个随机Token，当网站再次发起请求时，在请求参数中假如服务器返回的token，然后脚本对这个token进行验证。
+        // 第三种：使用双重cookie验证
+        // 第四种：设置cookie属性的Samesite，限制cookie不能作为第三方使用，从而可以避免被攻击者利用。
+
+        // 105、什么是Samesite Cookie属性？
+        // Samesite Cookie表示同站cookie，避免cookie被第三方所利用。
+
+        // 106、什么是点击劫持？如何防范点击劫持？
+
+        // 107、什么是SQL注入攻击？
+        // SQL注入攻击指的是攻击者在http请求中注入恶意的sql代码，服务器使用参数构建数据sql命令时，恶意sql被一起构造，破坏原有的sql结果，并且在数据库中执行，达到编写程序时意外结果的攻击行为。
+
+        // 108、什么是MVVM？比之MVC有什么区别？什么又是MVP？
+        // MVC,MVP,MVVM是三种常见的软件架构设计模式，主要通过分离关注点的方式来组织代码结果，优化我们的开发效率。
+        // MVC通过分离Model、View和Controller的方式来组织代码解构。其中View负责页面的逻辑显示，Model负责除粗页面的业务数据，以及对响应的数据的操作。并且View和Model应用了观察者模式，当Model曾发生改变的时候它会通知有关view层更新页面。Controller层是View和Model曾的纽带，它主要负责用户与应用的响应操作，当用户与页面产生交互的时候，Controller重大额时间触发器就开始工作了，通过调用Model层，来完成Model的修改，然后Model层再去通知View层更新。
+        // MVP 模式与 MVC 唯一不同的在于 Presenter 和 Controller。
+        // MVVM模式中的VM，指的是ViewModel，通过双向数据绑定，将View和Model的同步更新自动化了。当Model发生变化的时候，ViewModel就会自动更新；ViewModel变化了，View也会更新。
+
+        // 109、Vue双向数据绑定的原理？
+        // Vue双向数据棒的的主要是通过数据劫持+发布订阅者模式来实现的。
+        // 首先，我们通过Object.defineProperty()方法来对Model数据各个属性添加访问器属性，以此来实现数据的劫持，因此当Model中的数据发生变化的时候，我们可以通过配置setter和getter方法来实现对View层数据更新的通知。
+        // 数据在html模版中一共有两种绑定情况，一种是使用v-model来对value值进行绑定，一种是作为文本绑定，在对模板引擎进行解析的过程中
+        // 如果遇到元素节点，并且属性包含v-model的话，我们就从Model中去获取v-model所对于的属性的值，并赋值给元素的value值。然后给这个元素设置一个监听时间，当View中元素的数据发生变化的时候触发该事件，通知Model中的对应属性的值进行更新。
+        // 如果遇到了绑定的文本节点，我们使用 Model 中对应的属性的值来替换这个文本。对于文本节点的更新，我们使用了发布订阅者模式，属性作为一个主题，我们为这个节点设置一个订阅者对象，将这个订阅者对象加入这个属性主题的订阅者列表中。当 Model 层数据发生改变的时候，Model 作为发布者向主题发出通知，主题收到通知再向它的所有订阅者推送，订阅者收到通知后更改自己的数据。
+
+        // 其他版本的回答：
+        // https://www.huaweicloud.com/articles/d9c3ab01500c3343fd240da6cc65c8c6.html
+        // 基本原理：Vue是采用数据劫持结合发布订阅者模式的方式，通过Object.defineProperty来劫持各个属性的setter和getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+        // 第一步：
+        // 需要observe的数据对象进行递归遍历，包括子属性对象的属性，都加上setter和getter
+        // 这样的话，给这个对象的某个值赋值，就会触发setter，那么就能监听了到数据变化
+        // 第二步：
+        // compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图
+        // 第三步：
+        // Watcher订阅者是Observer和Compile之间的桥梁，主要做的事情是：
+        // （1）在自身实例化时往属性订阅器里面添加自己
+        // （2）自身必须有一个update()方法
+        // （3）待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调，则功成身退。
+        // 第四步：
+        // MVVM作为数据绑定的入口，整合Observer,Compile和Watcher三者，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher将Observer和Compile之间的通信桥梁，达到数据变化->视图更新；视图交互变化->数据model变更的双向绑定。
+
+        // 110、Object.defineProperty介绍？
+        // Object.defineProperty函数一共有三个参数，第一个参数是需要定义属性的对象，第二个参数是要定义的属性，第三个参数是该属性的描述符。
+        // 一个属性的的描述符有四个属性，分别是value属性值，writable属性是否可写，enumerable属性是否可枚举，configurable属性是否可配置修改。
+
+        // 111、使用Object.defineProperty()来进行数据劫持有什么特点？
+        // 有些属性的操作，使用这种方法无法拦截，比如通过下标方式修改数组数据或者给对象新增属性，vue内部通过重写函数解决了这个问题。
+        // 在vue3中已经不使用这种方式了，而是通过使用proxy对对象进行代理，从而实现数据劫持。使用Proxy的好处就是它可以完美的监听到任何方式的数据变化，唯一的缺点就是兼容性问题，因为这是ES6的语法。
+        // 参考二：https://juejin.cn/post/6844903920775462926
+
+        // 112、什么是Virtual DOM？为什么Virtual DOM比原生DOM快？
+        // Virtual DOM其实就是一颗以Javascript对象作为基础的树，用对象属性来描述节点，实际上它只是对真实DOM的抽象。最终可以通过一系列操作映射到真实环境上。
+        // Virtual DOM在vuejs中主要做了两件事：
+        // 提供与真实DOM节点所对于的虚拟节点vnode
+        // 将虚拟节点vnode和旧虚拟节点oldVnode进行比较，然后更新视图
+        // 其实Virtual DOM并不一定比我们真实操作DOM要快，这种方法的目的是为了提供我们开发时的可维护性，在任意情况下，都能保证一个尽量小的性能消耗去进行操作。
+        // 参考：https://blog.fundebug.com/2019/06/26/vue-virtual-dom/
+
+        // 113、如何比较两个DOM数的差异？
+        // 两个树完全diff算法的时间复杂度为O(n^3)，但是在前端中，我们很少会跨层级的移动元素，所以只需要对比同一层级的元素进行比较，这样就可以将算法的复杂度降低为O(n)
+        // 算法首先会对新旧两棵树进行一个深度优先的遍历，这样每个节点都会有一个序号。在深度遍历的时候，每遍历到一个节点，我们就将这个节点和新的树中的节点进行比较，如果有差异，则将这个差异记录到一个对象中。
+        // 在对列表元素进行对比的时候，由于TagName是重复的，所以我们不能使用这个来对比。我们需要给每一个子节点加上一个key，列表对比的时候使用key来进行比较，这样我们才能够复用老的DOM树上的节点。
+
+        // 114、 什么是 requestAnimationFrame ？
+
+        // 115、谈谈你对webpack的看法？
+        // 本质上，webpack是一个用于现代Javascript应用程序的静态模块打包工具。当webpack处理应用程序时，它会在内部构建一个依赖图，此依赖图对应映射到项目所需的每个模块，并生成一个或多个bundle。
+        // webpack有四个核心概念，分别是Enrty（入口），Output（输出），loader和Plugins（插件）。
+        // Enrty是webpack的入口起点，它指示webpack应该从哪个模块着手，来作为其构建内部依赖图的开始。
+        // Output是告诉webpack在哪里输出它所创建的打包文件，也可以指定打包文件的名称，默认位置为./dist
+        // loader可以理解为webpack的编译器，它使得webpack可以处理一些非Javascript的文件，并且将他们转为有效的模块，以供应用程序使用。
+        // plugin可以用于执行范围更广的任务。包括：打包优化，资源管理，注入环境变量。
+        // 参考：https://webpack.docschina.org/concepts/
+
+        // 116、offsetWidth/offsetHeight，clientWidth/clientHeight与scrollWidth/scrollHeight的区别？
+        // offsetWidth：内容区+padding+border+滚动条（如果存在）
+        // clientWidth：内容区+padding
+        // scrollWidth：内容区+padding+滚动条（如果存在）
+        // var box = document.getElementById('box');
+        // console.log(box.offsetWidth, box.offsetHeight);
+        // console.log(box.clientWidth, box.clientHeight);
+        // console.log(box.scrollWidth, box.scrollHeight);
+
+        // 117、谈一谈你对函数式编程的理解？
+        // 简单说，函数式编程是一种“编程范式”，也就是如何编写程序的方法论。
+        // 它有以下特性：闭包和高级函数、惰性计算、递归，函数是“一等公民”，只用“表达式”；
+
+        // 118、异步编程的实现方式？
+        // （1）回调函数：
+        // 优点：简单、容易理解
+        // 缺点：不利于维护，代码耦合性高
+        // （2）事件监听
+        // 优点：容易理解，可以绑定多个事件，每个事件可以指定多个回调函数
+        // 缺点：事件驱动，流程不够清晰
+        // （3）发布/订阅（观察者模式）
+        // 类似于事件监听，但是可以通过‘消息中心’，了解现在有多少发布这，多少订阅者
+        // （4）Promise对象
+        // 优点：可以利用then方法，进行链式的写法；可以写错误时的回调函数；
+        // 缺点：编写和理解，相对比较难
+        // （5）Generator函数
+        // 优点：函数体内外的数据交换，错误处理机制
+        // 缺点：流程管理不方便
+        // （5）async函数
+        // 优点：内置执行器、更好的语义、更广的适用性、返回的是Promise，结构清晰
+        // 缺点：错误处理机制
+
+        // 119、js动画和css动画区别及相应实现？
+        // （1）css3动画
+        // 优点：
+        // 在性能上稍微好一些，浏览器会对css3的动画做一些优化
+        // 代码相对简单
+        // 缺点：
+        // 在动画控制上不够灵活
+        // 兼容性不好
+        // （2）js动画
+        // js动画正好弥补了这两个缺点，控制力很强，可以单帧、变换。
+        // 对于一些复杂的动画，使用js比较靠谱。在实现一些小的交互动效的时候，就多考虑css吧
+        
+        // 120、get请求参数长度的误区
+        // 误区：我们经常说get请求参数的大小存在限制，而post没有
+        // 实际上HTTP协议从未规定GET/POST的请求长度限制是多少。对get请求参数的限制是来源于浏览器或web服务器，浏览器或web服务器限制了url的长度。
+
+        // 121、URL和URI的区别？
+        // URI：统一资源标志符
+        // URL：统一资源定位符
+        // URN：统一资源名称
+
+        // 122、get和post请求在缓存方面的区别？
+        // 缓存一般只适用于那些不会更新服务端数据的请求。一般get请求都是查找请求，不会对服务器资源数据造成修改，而post请求一般都会对服务器进行修改，所以，一般对get请求进行缓存，很少对post请求进行缓存。
+
+        // 123、图片懒加载和预加载？
+        // 懒加载也叫延迟加载，指的是长网页中延迟加载图片的时机，当用户需要访问时，再去加载，这样可以提高网站首屏加载的速度，提升用户体验，并且可以减少服务器的压力。它适用于图片很多，页面很长的电商类的网站场景。懒加载的实现原理是，将页面上的图片的src属性设置为空字符串，将图片的真实路径保存在一个自定义属性中，当页面滚动的时候进行判断，如果图片进入页面可视区内，则从自定义属性中去取真实路径复制给图片的src图片，以此来实现图片的延迟加载。
+        // 预加载是指将所需的资源提前请求加载到本地，这样后面在需要用到的时候就直接从缓存取资源。通过预加载能够减少用户的等待时间，提高用户的体验。
+        // 这两种方式都是提高网页性能的方式，两者的主要区别是一个是提前加载，一个是延迟甚至不加载。懒加载对服务器前端有一定缓解压力作用，预加载则会增加服务器的前端压力。
+
+        // 124、mouseover和mouseenter的区别？
+        // 当鼠标移动到元素上时就会触发mouseenter事件，类似mouseover，他们两者直接的差别是mouseenter不会冒泡。
+        // 由于mouseenter不支持事件冒泡，导致在一个元素的子元素进入或离开的时候会触发其mouserover和mouserout，但是不会触发mouseenter
+
+        // 125、js拖拽功能的实现
+
+        // 126、 为什么使用 setTimeout 实现 setInterval？怎么模拟？
+
+        // 127、let和const的注意点？
+        // （1）声明的变量只在声明时的代码块内有效
+        // （2）不存在声明提升
+        // （3）存在暂时性死去，如果在变量声明前使用，会报错
+        // （4）不允许重复声明，重复声明会报错
+
+        // 128、什么是rest参数？
+        // rest参数，用于获取函数的多余参数
+
+        // 129、什么是尾调用？使用尾调用有什么好处？
+
+        // 130、Symbol类型的注意点？
+        // （1）Symbol函数前不能使用new命令，否则会报错。
+
+        // 131、Set和WeakSet解构？
+        // （1）ES6提供了新的数据结构Set，它类似与数组，但是成员的值都是唯一的，没有重复的值。
+        // （2）WeakSet结构与Set类似，也是不重复的值的集合。但是WeakSet的成员只能是对象，而不能是其他类型的值。WeakSet中的对象都是弱引用，即垃圾回收机制不考虑WeakSet对象的引用。
+
+        // 132、Map和WeakMap结构？
+        // （1）Map数据结构。它类似于对象，也是健值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。
+        // （2）WeakMap结构与Map结构类似，也是用于生成键值对的集合。但是WeakMap只接受对象作为键名（null）除外，不接受其他类型的值作为键名。而且WeakMap的键名所指向的对象，不计入垃圾回收机制。
+
+        // 133、什么是proxy?
+        // Proxy对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、复制、枚举、函数调用）。
+        // proxy可以理解为，在目标对象之前架设一层拦截，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。Proxy这个词原意是代理，用在这里表示由它来代理某些操作，可以译为“代理器”。
+
+        // 134、 Reflect 对象创建目的？
+        // Reflect是一个内置对象，它提供拦截Javascript操作的方法。Reflect不是一个函数对象，因此它是不可构造的。
+
+        // 135、require模块引入的查找方式？
+        // 当Node遇到require(X)时，按下面的顺序处理。
+        // （1）如果X时内置模块（比如require('http')）
+        // a.返回该模块
+        // b.不再继续执行。
+        // （2）如果X以'./'或'/'或'../'开头
+        // a.根据X所在的夫莫开，确定X的绝对露肩。
+        // b.将X当成文件，一次查找下面的文件，只要其中一个存在，就返回文件，不再继续执行。
+        // c.将X当成目录，一次查找下面文件，只要其中又一个存在，就返回该文件，不再继续执行。
+        // X/package.json X/index.js X/index.json X/index.node
+
+        // 136、什么是Promise对象？什么是Promise/A+规范？
+        // Promise对象是异步编程的一种解决方案，最早由社区提出。Promise/A+规范是Javascript Promise的标准，规定了一个Promise所必须具有的特性。
+        // Promise是一个构造函数，接收一个函数作为参数，返回一个Promise实例。一个Promise实例有三种状态，分别是pending,resolved和reject，分别代表了进行中、已成功和已失败。实例的状态只能由pending转为resolved或者rejected状态，并且状态一经改变美酒凝固了，无法再被改变了。状态的改变是通过resolve()和reject()函数来实现的，我们可以在异步操作结束后调用这两个函数改变Promise实例的状态，它的原型上定义了一个then方法，使用then方法可以为两个状态改变注册回调函数。这个回调函数属于微任务，会在本轮事件循环的末尾执行。
+
+        // 137、手写一个Promise
+
+        // 138、如何检测浏览器所支持的最小字体大小？
+        // 用JS设置DOM的字体为某一个值，然后再取出来，如果值没有成功
+
+        // 139、怎么做JS代码Error统计？
+        // error统计使用浏览器的window.error时间
+
+        // 140、单例模式是什么？
+        // 单例模式保证了全局只有一个实例来被访问。比如常用的弹窗组件的实现和全局状态的实现。
+
+        // 141、策略模式是什么？
+        // 策略模式主要是用来将方法的实现和方法的调用分离开，外部通过不同的参数可以调用不同的策略。
+
+        // 142、代理模式是什么？
+        // 代理模式是为一个对象提供一个代用品或占位符，以便控制对它的访问。比如说场景的时间代理。
+
+        // 143、中介者模式是什么？
+        // 中介者模式指的是，多个对象通过一个终结者进行交流，而不是直接进行交流，这样能够将通信的各个对象解藕。
+
+        // 144、适配器模式是什么？
+        // 适配器用来解决两个接口不兼容的情况，不需要改变已有的接口，通过包装一层的方式实现两个接口的正常写作。
+
+        // 145、观察者模式和发布订阅模式有什么不同？
+        // （1）从角色角度来看，发布订阅模式需要三种角色，发布者、事件中心和订阅者。二观察者模式需要两种角色，目标和观察者。
+        // （2）从耦合度上来看，发布订阅者模式有一个事件中心调度模式，订阅者和发布者是没有直接关联的，通过事件中心进行关联，两者是解藕的。而观察者模式中模板和观察者是直接关联的，耦合在一起。
+
+        // 146、Vue的声明周期是什么？
+        // Vue的生命周期值得是组件从创建到销毁的一系列的过程，被成为Vue的生命周期。通过提供的Vue在生命周期各个阶段的钩子函数，我们可以很好的在Vue的各个生命阶段实现一些操作。
+
+        // 147、Vue的各个生命阶段是什么？
+        // Vue 一共有8个生命阶段，分别是创建前、创建后，加载前、加载后，更新前、更新后，销毁前、销毁后，每个阶段对应了一个生命周期的钩子函数。
+        // （1）beforeCreated钩子函数，在实例初始化之后，在数据监听和事件配发之前触发。因此在这个事件中我们是获取不到data数据的
+        // （2）created钩子函数，在实例创建完成后触发，此时可以访问data、methods等属性。但是这个时候组件还没被挂在到页面中去，所以这个时候访问不到$el属性。一般我们可以在这个函数中进行一些页面初始化工作，比如通过ajax请求数据来对页面进行初始化。
+        // （3）beforeMount钩子函数，在组件被挂载到页面之前触发，在beforeMount之前，会找到对应的template，并编译成render函数。
+        // （4）mouted钩子函数，在组件挂在到页面之后触发。此时可以通过DOM API获取到页面中的dom元素。
+        // （5）beforeUpate钩子函数，在响应式数据更新时触发，发送在虚拟DOM重新渲染和打补丁之前，这个时候我们可以对可能会被移除的元素做一些操作，比如移除事件监听器。
+        // （6）updated钩子函数，虚拟DOM重新渲染和打补丁之后调用。
+        // （7）beforeDestroy钩子函数，在实例销毁之前调用。一般在这一步我们可以销毁定时器、解除全局事件等。
+        // （8）destroy钩子函数，在实例销毁之后调用，调用后，Vue 实例中的所有东西都会解除绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+
+        // 149、Vue组件间的参数传递方式？
+        // （1）父子组件之间
+        // 父组件通过props属性传递数据给自组件
+        // 子组件通过emit触发自定义事件向父组件传递数据
+        // 父组件通过$refs组件来获取子组件
+        // 子组件通过$parent获得父组件
+        // 使用provider/inject，在父组件中通过provider提供变量，在子组件通过inject来将变量注入到组件中。
+        // （2）兄弟组件间通信
+        // 使用eventBus，它本质上是通过创建一个空的Vue实例来作为消息传递的对象，通信的组件引入这个实例，通信的组件通过在这个实例上监听和触发事件，来实现消息的传递。
+        // 使用$parent，.$refs来获取兄弟组件。
+        // （3）任意组件之间
+        // 使用eventBus，其实就是创建一个事件中心，相当于中转站，可以用它来传递事件和接收事件。
+        // 如果业务逻辑复杂，很多组件之间需要同时处理一些公共的数据，这个时候采用上面的这一些方法可能不利于项目的维护。这个时候可以使用vuex，vuex的思想就是将这一些公共的数据抽离出来，将它作为一个全局的变量来管理，然后其他组件就可以对这个公共数据进行读写操作，这样达到了解藕的目的。
+
+        // 149、computed和watch的差异？
+        // （1）computed是一个计算属性，并将该属性挂载到vue实例上，而watch是监听已经存在且已经挂在到Vue实例上的数据，所以用watch同样可以监听到computed计算属性的变化。
+        // （2）compute本质是一个惰性的观察者，具有缓存，只有当依赖的数据发生变化后，下一次访问computed属性，才会计算新的值。而watch则是当数据发生变化就会执行函数。
+        // （3）从使用场景说，computed适用一个数据被多个数据影响，而watch适用于一个数据影响多个数据。
+
+        // 参考：https://juejin.cn/post/6844903807592169486
+        // computed看上去是方法，但是实际上是计算属性，它会根据你所依赖的数据动态显示新的计算机过。计算结果会被缓存，computed的值在getter执行后hi被缓存的，只有在依赖的属性值改变之后，下一次获取computed的值才会重新调用对应的getter来计算
+        // watch更像是一个data的数据监听回调，当依赖的data数据变化，执行回调，在方法中会传入newVal和oldVal。
+        // 总结：
+        // （1）如果一个数据依赖于其他数据，那么把这个数据设计为computed
+        // （2）如果你需要在某个数据变化时做一些事情，使用watch来观察这个数据变化
+
+        // 150、vue-router中的导航钩子函数
+        // （1）全局的钩子函数有beforeEach和afterEach
+        // （2）单独路由有beforeEnter
+        // （3）组件内有beforeRouteEnter,beforeRouteUpdate,beforeRouterLeave。
+
+        // 151、$route和$router的区别？
+        // $route是“路由信息”对象，包括path,params,hash，query,match,name等路由信息。
+        // $router是“路由实例”对象，包括了路由的跳转方法，钩子函数等。
+
+        // 152、vue常用的修饰符有哪些？
+        // 事件修饰符
+        // .stop 阻止事件继续传播
+        // .prevent 提交事件不再重载页面
+        // .once点击事件只会触发一次
+        // .passive 告诉浏览器不想阻止默认行为
+        // 按钮修饰符
+        // .enter 按下enter键时调用
+        // .ctrl
+        // .alt
+        // .shift
+        // .meta
+        // .native  在组建上监听一个原生事件使用这个
+
+        // 153、vue中key值的作用？
+        // 为了给vue一个提示，以便能跟踪没个节点的身份，从而重用和重新排序现有元素，需要为没项提供一个唯一的key。diff算法可以正确的识别此即诶单，找到正确的位置操作节点，key的作用主要是为了高效更新虚拟DOM。
+
+        // 154、computed和watch区别？
+        // computed是计算属性，依赖其他属性计算值，并且computed的值有缓存，只有当计算值变化才回返回内容。
+        // watch监听到值的变化就会执行回调，在回调中可以进行一些逻辑操作。
+
+        // 155、keep-alive组件有什么作用？
+        // 在组件切换的时候，想保持这些组件状态，以避免反复渲染导致的性能问题，就可以使用keep-alive组件包裹需要保存的组件。
+
+        // 156、vue中mixin和mixins区别？
+        // mixin用于全局混入，会影响到没个组件实例。
+        // mixin 用于全局混入，会影响到没个组件实例。
+        // mixins 应该是我们最常使用的扩展组件的方式了。如果多个组件有相同的业务逻辑，就可以将这些逻辑剥离出来，通过mixins混入代码，比如上拉下拉加载数据这种逻辑。另外需要注意的是mixins混入的钩子函数会限于组件内的钩子函数执行，并且遇到同名选项的时候也会有选择的进行合并
+
+        // 157、开发中常用的几种Content-Type？
+        // （1）aplication/x-www-form-urlencoded
+        // （2）multiple/form-data
+        // （3）application/json
+        // （4）text/xml
+        // （5）text/html;text/css;application/javascript;image/png;image/jpeg
+
+        // 158、如何封装一个javascript的类型判断函数？
+
+        // 159、如何判断一个对象是否为控对象？
+
+        // 160、使用闭包每隔一秒打印1，2，3，4
+    </script>
+
+    <!-- <script src="./js/c.js"></script> -->
+</body>
+</html>

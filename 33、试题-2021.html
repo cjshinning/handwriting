@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* .foo{
+            color: green!important;
+        }
+        .first{
+            font-size: 120%;
+            font-weight: bold;
+        } */
+        /* article p:first-child{
+            font-size: 120%;
+            font-weight: bold;
+        } */
+        /* article p:last-child{
+            font-size: 120%;
+            font-weight: bold;
+        }
+        
+        a:link,a:visited{
+            color: green;
+            font-weight: bold;
+        }
+        a:hover{
+            color: pink;
+        } */
+
+        /* article p:first-child:first-line{
+            font-size: 120%;
+            font-weight: bold;
+        } */
+
+        /* .box::before{
+            content: '➥'
+        } */
+
+        .box::before{
+            content: "";
+            display: block;
+            width: 100px;
+            height: 100px;
+            background: #ccc;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="foo" style="color: red;">What color am I?</div> -->
+    
+    <!-- <article>
+        <p class="first">eggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.</p>
+        <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+    </article> -->
+
+    <!-- <article>
+        <p>eggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.</p>
+        <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+    </article> -->
+
+    <!-- <p><a href="">Hover over me</a></p> -->
+
+    <!-- <article>
+        <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo
+                melon azuki bean garlic.</p>
+    
+        <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard
+                greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+    </article> -->
+
+    <p class="box">Content in the box in my HTML page.</p>
+
+    <script>
+        // VIP试题
+        // 1、介绍一下css布局？
+        // 正常布局流
+        // flex布局
+        // Grid网格布局
+        // 浮动
+        // position定位布局：static,relative,absolute,fixed,sticky
+        // 表格布局
+
+        // 2、css选择器有哪些？他们的优先级怎样？
+        // 类型选择器（例如h1，伪元素）
+        // 类选择器（例如属性选择器和伪类）
+        // ID选择器
+        // 例外：!important，可以覆盖其他任何声明（包括style内联样式）
+        // !important使用经验
+        // 一定要优先考虑样式规则的优先级来解决实际问题而不是!important
+        // 只有再需要覆盖全站或者外部css的特定页面中使用!important
+        // 永远不要在你的插件中使用!important
+        // 永远不要在全站范围的css代码中使用!important
+
+        // 3、css伪类和伪元素？区别？
+        // 伪类：是选择器的一种，用于选择处于特定状态的元素
+        // 伪元素：表现得像你往标记文本中加入全新的HTML一样，而不是向现有元素上应用类；开头为双冒号::
+
+        // 4、聊聊css盒模型？
+        // （1）css盒模型由四部分组成：
+        // 内容content，内边距padding，边框border，外边距margin
+        // （2）盒模型分类
+        // 标准盒模型的宽度计算是指content部分
+        // IE盒模型的宽度计算包含content、border、padding
+        // （3）如何设置：
+        // box-sizing: content-box
+        // box-sizing: border-box
+        // （4）BFC
+        // 概念：块级格式上下文，一个独立的块级渲染区域，该区域拥有一套渲染规则来约束块级荷兹的布局，且与区域外部无关
+        // 原理：
+        // BFC这个元素的垂直的边距会发生重叠
+        // BFC的区域与浮动元素的float重叠
+        // 独立的容器，内外元素互不影响
+        // 计算BFC高度，浮动元素也参与计算
+        // 创建：
+        // float不为none
+        // position不为static活动relative
+        // display与table相关
+        // overflow为auto,hidden
+        
+        // 5、html5和html4的区别？
+        // （1）DOCTYPE声明的简化 <!DOCTYPE html>
+        // （2）指定字符编码 <meta charset="UTF-8">
+        // （3）新增内联SVG和Canvas
+        // （4）新增支持音频、视频
+        // （5）元素标记省略
+        // （6）不再使用frame框架，只支持iframe框架
+        // （7）强调语义化
+        // （8）本地存储
+
+        // 6、聊聊es6新特性有哪些？
+        // （1）块级作用域（let和const）
+        // （2）箭头函数
+        // （3）字符串模板
+        // （4）扩展运算符（...）
+        // （5）默认参数
+        // （6）解构
+        // （7）数组的扩展（Array.from,Array.of）
+        // （8）创建类（class）
+        // （9）两种新的数据解构（set和map）
+        // （10）字符串的扩展
+        // （11）对象的扩展
+        // （12）新增数据类型（Symbol）
+        // （13）模块(export,import)
+        // （14）迭代器（for of）
+
+        // 7、nodejs和mongoDB如何关联？
+        // 使用mongoose
+
+        // 8、nodejs如何实现中间层转发？
+        // https://juejin.cn/post/6844903593200320519
+
+        // 9、如何实现防抖？为什么这样写能实现？
+        // var debounce = function(fn, wait){
+        //     var timer = null;
+        //     return function(){
+        //         var _this = this;
+        //         var args = arguments;
+        //         if(timer){
+        //             clearTimeout(timer)
+        //         };
+        //         timer = setTimeout(function(){
+        //             fn.apply(_this, args);
+        //         }, wait);
+        //     }
+        // }
+
+        // function handler(){
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener('resize', debounce(handler, 1000));
+
+        // 10、如何实现截流函数？
+        // var throttle = function(fn, delay){
+        //     var prev = Date.now();
+        //     return function(){
+        //         var now = Date.now();
+        //         if(now - prev >= delay){
+        //             fn.apply(this, arguments);
+        //             prev = Date.now();
+        //         }
+        //     }
+        // }
+
+        // function handler(){
+        //     console.log(Math.random());
+        // }
+        // window.addEventListener('scroll', throttle(handler, 1000));
+
+        // 11、200条弹幕如何展示？有啥问题？
+    </script>
+</body>
+</html>
