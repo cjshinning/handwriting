@@ -192,6 +192,36 @@
         // window.addEventListener('scroll', throttle(handler, 1000));
 
         // 11、200条弹幕如何展示？有啥问题？
+
+        // YY试题
+        // 1、简单介绍一下自己？
+
+        // 2、说一下你觉得做的不错的项目？
+
+        // 3、vue的nextTick是什么？为什么需要通过nextTick才能获取最新的DOM从而能解决你的问题？它和setTimeout有什么区别？
+        // Vue中数据更新是异步的，意味着我们在修改Data之后，并不能立即获取修改后的DOM元素。
+        // Vue在调用watcher更新视图的时候，并不会直接进行更新，而是需要把更新的Watcher加入Queue队列里面，然后把具体的更新方法flushSchedulerQueue传给nextTick调用。
+        // nextTick和setTimeout的区别，主要是体现在回调的执行时间。分别按以下的顺序安排：promise->mutation observer->setImmediate->setTimeout。
+
+        // 4、vue更新数据是在哪个环节（vue异步进行的原理）？
+        // （1）修改Vue中的data时，就会触发所有和这个Data相关的Watcher进行更新。
+        // （2）首先，会讲所有的Watcher加入队列Queue。
+        // （3）然后调用nextTick方法，执行异步任务。
+        // （4）在一步任务的回调中，对Queue中的Watcher进行排序，然后执行对应的DOM更新。
+
+        // 5、html2canvas如果自己实现大概逻辑是怎样？有没有用过canvas做过动画？
+        // html2canvas的基本原理：读取一句渲染好的DOM元素的结构和样式信息，然后基于这些信息去构建截图，呈现在canvas画布中。
+
+        // 6、怎么实现仿谷歌输入搜索法？有没有更好的解决方案？接口0s返回页面就不会有卡顿吗？是什么让页面卡顿了？（节流、页面渲染）
+        // 使用节流函数来实现；vue的双向数据绑定？
+
+        // 7、vue3有了解过吗?跟vue2的区别？
+        // （1）生命周期的变化
+        // 整体变化不大，用setup代替了之前的beforeCreate和created，其他生命周期名字有些变化，功能都是没有变化的
+        // （2）使用proxy代替defineProperty
+        // （3）diff算法的提升
+        // （4）typescript的支持
+        
     </script>
 </body>
 </html>
