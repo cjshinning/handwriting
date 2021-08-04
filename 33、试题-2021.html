@@ -72,9 +72,43 @@
                 greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
     </article> -->
 
-    <p class="box">Content in the box in my HTML page.</p>
+    <!-- <p class="box">Content in the box in my HTML page.</p> -->
 
+    <section>
+        <h2>浏览器加载页面时间线</h2>
+        <p><img src="./img/performerce.jpg" alt=""></p>
+    </section>
+
+    <section>
+        <h2>xss攻击</h2>
+        <input type="text" id="txt">
+        <input type="button" id="btn" value="点击"/>
+        <div>
+            您搜索的关键词为：
+            <!-- <span id="result"></span> -->
+            <a href="" id="result"></a>
+        </div>
+    </section>
+    <!-- <script type="module" src="./module/main.js"></script> -->
     <script>
+        const txt = document.querySelector('#txt');
+        const btn = document.querySelector('#btn');
+        const result = document.querySelector('#result');
+
+        btn.addEventListener('click', function(){
+            // console.log(txt.value);
+            // result.innerHTML = txt.value;
+            // result.setAttribute('href', txt.value);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    console.log(xhr.responseTxt);
+                }
+            }
+            xhr.open('GET', 'https://www.baidu.com/?keyword='+txt.value, true);
+            xhr.send();
+        }, false);
+
         // VIP试题
         // 1、介绍一下css布局？
         // 正常布局流
@@ -210,7 +244,7 @@
         // （4）在一步任务的回调中，对Queue中的Watcher进行排序，然后执行对应的DOM更新。
 
         // 5、html2canvas如果自己实现大概逻辑是怎样？有没有用过canvas做过动画？
-        // html2canvas的基本原理：读取一句渲染好的DOM元素的结构和样式信息，然后基于这些信息去构建截图，呈现在canvas画布中。
+        // html2canvas的基本原理：读取已经渲染好的DOM元素的结构和样式信息，然后基于这些信息去构建截图，呈现在canvas画布中。
 
         // 6、怎么实现仿谷歌输入搜索法？有没有更好的解决方案？接口0s返回页面就不会有卡顿吗？是什么让页面卡顿了？（节流、页面渲染）
         // 使用节流函数来实现；vue的双向数据绑定？
@@ -222,6 +256,342 @@
         // （3）diff算法的提升
         // （4）typescript的支持
         
+        // qq试题
+        // 1、vue生命周期有哪些？双向数据绑定原理是在哪个生命周期实现的？
+        // vue实例从创建到销毁的过程，就是生命周期
+        // （1）beforeCreate：
+        // 完成实例初始化，初始化非响应式变量
+        // this指向创建的实例
+        // 可以在这加个loading事件
+        // data computed watch method上的方法和数据均不能访问
+        // （2）created
+        // 实例创建完成
+        // 完成数据(data props computed)的初始化 导入依赖
+        // 未挂载DOM，不能访问$el，$ref为孔数组
+        // 可在这结束loading，还做一些初始化，实现函数自执行
+        // 可以对data数据进行操作，可进行一些请求，请求不宜过多，避免白屏时间太长
+        // 若在此阶段的DOM操作一定要放在Vue.nextTick()回调函数中
+        // （3）beforeMount
+        // 有了el，编译了template/outerHTML
+        // 能找到对应的template，并变异成render函数
+        // （4）mounted
+        // 完成创建vm.$el和双向绑定
+        // 完成DOM挂载和渲染；可以在mouted钩子对挂载的dom进行操作
+        // 既有了DOM且完成了双向绑定，可以访问DOM节点
+        // 可在这发起后端请求，那会数据，配合路由钩子做一些事情；
+        // 可以对DOM进行操作
+        // （5）beforeUpdate
+        // 数据更新之前
+        // 可在更新前访问现有的DOM，如手动移除添加的事件监听器
+        // （6）updated
+        // 完成虚拟DOM的重新渲染和打补丁
+        // 组件DOM已完成更新
+        // 可执行依赖的dom操作
+        // 注意：不要在此函数中操作数据，会陷入死循环
+        // （7）beforeDestroy
+        // 可做一些删除提示，如：确定删除xx吗？
+        // 可用于销毁定时器，解绑全局时间，销毁插件对象
+        // （8）destroyed
+        // 当前组件已被删除，销毁监听事件 组件 子实例也被销毁
+
+        // 参考：https://segmentfault.com/a/1190000014640577
+
+        // 2、js事件循环？
+        // 参考：https://segmentfault.com/a/1190000012925872
+        
+        // 前奏：
+        // JS分为同步任务和异步任务
+        // 同步任务都在主现场上执行，形成一个执行栈
+        // 主线程之外，事件触发线程管理着一个任务队列，只要异步任务有了运行结果，就在任务队列中防止一个事件。
+        // 一旦执行栈中的所有同步任务执行完毕，系统就会读取任务队列，将可运行的异步任务添加到可执行栈中，开始执行。
+
+        // 重点：
+        // （1）所有同步任务都在主线程上执行，形成一个“执行栈”。
+        // （2）主线程之外，还有一个“任务队列”。只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。
+        // （3）一旦“执行栈”中的所有同步任务执行完毕，系统就会读取“任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+        // （4）主线程不断重复上面的第三步。
+
+        // 另一种答案：
+        // （1）执行一个宏任务（栈中没有就从事件队列中获取）
+        // （2）执行过程中如果遇到微任务，就将它添加到微任务的任务队列中
+        // （3）宏任务执行完毕后，立即执行当前为任务队列中的所有微任务（依次执行）
+        // （4）当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染
+        // （5）渲染完毕后，JS线程继续接管，开始下一个宏任务
+
+        // 另一种答案：
+        // （1）一开始整个脚本作为一个宏任务执行
+        // （2）执行过程中，同步代码直接执行，宏任务进入宏任务队列，微任务进入微任务队列
+        // （3）当前宏任务执行完出对，检查微任务队列，有则一次性执行，直到完全执行完毕
+        // （4）执行浏览器ui线程的渲染工作
+        // （5）检查是否有web worker，有则执行
+        // （6）执行完本轮宏任务，回到步骤二，依次循环，直到宏任务和微任务队列为空
+
+        // 3、https的原理？发起的请求被拦截了怎么办？CA认证可靠吗？
+        // （1）浏览器请求URL，找到服务器，向服务器发送请求。服务器将自己的证书（包含服务器公钥）、对称加密算法种类以及其他相关信息返回给浏览器。
+        // （2）浏览器检查CA证书是否可依赖，确认证书有效。
+        // （3）如果不是，给服务器发警告，询问是否可以继续使用。
+        // （4）如果是，浏览器使用公钥加密一个随机对称密钥，包含加密的URL一起发送给服务器。
+        // （5）服务器用自己的私钥解密浏览器发送的钥匙，然后用这把对称加密的钥匙给浏览器请求的URL解密。
+        // （6）服务器用浏览器发送的对称密钥给请求的网页加密，浏览器使用相同的钥匙可以解密网页。
+        
+        // 4、页面输入一个url地址到完成发生了什么？
+        // （1）DNS域名解析；
+        // （2）建立TCP链接；
+        // （3）发送HTTP请求；
+        // （4）服务器处理请求并返回响应结果；
+        // （5）浏览器拿到返回数据解析HTML代码；
+        // （6）浏览器布局渲染页面；
+        // 参考：https://segmentfault.com/a/1190000012092552
+        
+        // 5、浏览器白屏时间计算？哪个api可以获取白屏时间？DOMContentLoaded和window.onload的执行顺序？
+        // API:window.performance.timing
+        // DNS查询耗时：domainLookupEnd - domainLookupStart
+        // TCP连接耗时：connectEnd - connectStart
+        // request请求耗时：responseEnd - respsonseStart
+        // 解析dom树耗时：domComplete - domInteractive
+        // 白屏时间：domloading - fetchStart
+        // domready可以操作时间：domContentLoadedEventEnd - fetchStart
+        // onload总下载时间：loadEventEnd - fetchStart 
+        // 当DOMContentLoaded事件触发时，仅当DOM加载完成，不包括样式表、图片
+        // 当onload事件触发时，页面上所有的DOM，样式表，脚本，图片都已经加载完成了
+        // 所以，顺序是：DOMContentLoaded->onload
+        // 参考：https://juejin.cn/post/6844904020482457613
+
+        // 6、浏览器是多进程吗？有哪些进程？渲染限制6个线程时，css的图片会不会阻塞js的加载？
+        // 浏览器是多进程，主要分为以下几种：
+        // （1）主进程 Browser Process
+        // 负责浏览器界面的显示与交互。各个页面的管理，创建和销毁其他进程。网络的资源管理、下载等。
+        // （2）第三方插件进程 Plugin Process
+        // 每种类型的插件对应一个进程，仅当使用该插件时才创建
+        // （3）GPU进程 GPU Process
+        // 最多只有一个，用于3D绘制等
+        // （4）渲染进程 Renderer Process
+        // 称为浏览器渲染进程或浏览器内核，内部是多线程的。主要负责页面的渲染、脚本执行、事件处理等。
+        
+        // 渲染进程（浏览器内核）包含的线程有：
+        // （1）GUI渲染线程
+        // 负责渲染浏览器界面，解析HTML,CSS，构建DOM数和Render树，布局和绘制等。
+        // 当界面需要重绘（Repaint）或由于某种操作引发回流（reflow）时，该线程就会执行。
+        // GUI渲染线程和JS引擎线程时互斥的，当JS引擎执行时GUI线程会被刮起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。
+        // （2）JS引擎线程
+        // JS引擎也称为JS内核，负责处理JS脚本。
+        // JS引擎线程负责解析Javascript脚本，执行代码。
+        // JS引擎一直等待着任务队列中任务的到来，然后加以处理。一个Tab页中无论什么时候都只有一个JS引擎在运行JS程序。
+        // 注意，GUI渲染线程与JS引擎线程时互斥的，所以如何JS执行的时间过程，这样会造成页面的渲染不连贯，导致页面渲染加载阻塞。
+        // （3）事件触发线程
+        // 归属于浏览器而不是JS引擎，用来控制事件循环
+        // 当JS引擎执行代码块如setTimeout时，会将对应任务添加到事件线程中
+        // 当对应的事件符合触发条件触发时，该线程会把事件添加到待处理队列的队尾，等待JS引擎的处理
+        // 注意，由于JS的单线程关系，所以这些待处理队列中的事件都得排队等待JS引擎处理
+        // （4）定时器触发线程
+        // setInterval和setTimeout所在的线程
+        // 浏览器定时计数器并不是由JS引擎计数的
+        // 因此通过单独线程来计时并触发定时
+        // 注意，W3C在HTML标准中规定，setTimeout中低于4ms的时间间隔酸味4ms
+        // （5）异步http请求线程
+        // 在XMLHttpRequest在连接后通过浏览器开一个线程请求
+        // 将检测到状态变更时，如果设置了回调函数，异步线程就产生状态变更时间，将这个回调再放如事件队列中。再由JS引擎执行。
+        // 参考一：https://zhuanlan.zhihu.com/p/102082221
+        // 参考二：https://segmentfault.com/a/1190000012925872
+
+        // 7、前端性能优化方案？
+        // （1）减少HTTP请求
+        // 一个完整的HTTP请求需要经历DNS查找，TCP握手，浏览器发出HTTP请求，服务器接收请求，服务器处理请求并返回响应，浏览器接收响应等过程。
+        // （2）使用HTTP2
+        // 相比HTTP1，HTTP2有如下几个有点：
+        // 解析速度快、多路复用、首部压缩、服务器推送
+        // （3）使用服务器端渲染
+        // 客户端渲染：获取HTML文件，根据需求下载Javascript文件，运行文件，生成DOM，再渲染。
+        // 服务器渲染：服务器返回HTML文件，客户端只需要解析HTML。
+        // （4）静态资源使用CDN
+        // 内容分发网络（CDN）是一组分布在多个不同地理位置的Web服务器。我们都知道，当服务器离用户越远时，延迟越高。CDN就是为了解决这一问题，在多个位置部署服务器，让用户离服务器更近，从而缩短请求时间。
+        // （5）将CSS放在文件头部，Javascript文件放在底部
+        // （6）使用字体图标iconfont代替图片图标
+        // （7）善用缓存，不重复加载相同的资源
+        // （8）压缩文件
+        // JS: UglifyPlugin  CSS: MiniCssExtractPlugin  HTML: HtmlWebpackPlugin
+        // 开启gzip压缩
+        // （9）图片优化
+        // 图片延迟加载、尽可能用css3代替图片、使用webp格式的图片
+        // （10）通过webpack按需加载代码，提取第三方库代码，减少ES6转为ES5的冗余代码
+        // （11）减少重绘重排
+        // 浏览器渲染过程：
+        // <1>解析HTML生成DOM树
+        // <2>解析CSS生成CSSOM规则树
+        // <3>将DOM树与CSSOM规则树合并在一起生成渲染树
+        // <4>遍历渲染树开始布局，计算每个节点的位置大小信息
+        // <5>将渲染树每个节点绘制到屏幕
+        // 重排：当改变DOM元素位置或大小时，会导致浏览器重新生成渲染树，这个过程叫重排
+        // 重绘：当重新生成渲染树后，就要将渲染树每个节点绘制到屏幕，这个过程叫重绘。
+        // 什么操作会导致重排？
+        // 添加或删除可见的DOM元素
+        // 元素位置改变
+        // 内容改变
+        // 浏览器窗口尺寸改变
+        // 如何减少重排重绘？
+        // 用JS修改央视时，最好不要直接写央视，而是替换class来改变样式
+        // 如果要对DOM元素执行一系列操作，可以将DOM元素脱离文档流，修改完后，再将它带回文档。推荐使用隐藏元素或文档碎片。
+        // （12）使用事件委托
+        // 事件委托利用时间冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。
+        // （13）注意程序的局部性
+        // （14）if-else对比switch
+        // （15）查找表
+        // （16）避免页面卡顿
+        // （17）使用requestAnimationFrame来实现视觉变化
+        // （18）使用web worker
+        // （19）使用操作位
+        // （20）不要覆盖原生方法
+        // （21）降低css选择器的复杂度
+        // （22）使用flexbox而不是较早的布局模型
+        // （23）使用transform和opacity属性更改来实现动画
+        // （24）合理使用规则，避免过度优化
+        // 参考：https://segmentfault.com/a/1190000022205291
+
+        // 8、浏览器缓存的原理？如何解决页面缓存问题，比如html被缓存了（加时间戳？）？
+        // (1)缓存机制
+        // 我们总体来感知一下它的匹配流程：
+        // <1>浏览器发送请求前，根据请求头的expires和cache-control判断是否命中（包含是否过期）强缓存策略，如果命中，直接从缓存获取资源，并不会发送轻轻。如果没有命中，则进入下一步。
+        // <2>没有命中强缓存规则，浏览器会发送请求，根据请求头的last-modified和etag判断是否命中缓存，如果命中，则直接从缓存获取资源。如果没有命中，则进入下一步。
+        // <3>如果前两步都没有命中，则直接从服务器获取资源。
+        // （2）强缓存：
+        // 概念：不会向服务器发送请求，直接从缓存中读取资源。
+        // 原理：
+        // <1>第一次请求，不存在缓存结果和缓存标识，直接向服务器发送请求
+        // <2>存在缓存标识和缓存结果，但是已经失效，强缓存失败，则使用协商缓存
+        // <3>存在缓存标识和缓存结果，且该结果尚未失效，强缓存生效，直接返回该结果
+        // 规则：
+        // 当浏览器向服务器发起请求时，服务器会将缓存规则放入HTTP相应报文的HTTP头中和请求结果一起返回给浏览器，控制强缓存的字段分别是Expires和Cache-Control，其中Cache-Control优先级比Expires高。
+        // Expires：
+        // 缓存过期时间，用来指定资源到期的时间，是服务器的具体时间点。需要和Last-Modified结合是呀。Expires是响应头消息字段，在响应http请求时告诉浏览器在过期时间前浏览器可以直接从浏览器缓存存取数据，而无需再次请求。
+        // Expires是HTTP/1的产物，受限于本地时间，如果修改了本地时间，可能会造成缓存失效。
+        // Cache-Control：
+        // 在HTTP/1.1中，Cache-Control是最重要的规则，主要用于控制网页缓存，主要取值为：
+        // public：所有内容都将背缓存（客户端和代理服务器都可缓存）
+        // private：所有内容只有客户端可以缓存
+        // no-cache：默认值，客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定
+        // no-store：所有内容都不会背缓存，即不使用强制缓存，也不使用协商缓存
+        // max-age=xxx：缓存内容将在xxx秒后失效
+        // （3）协商缓存
+        // 协商缓存就是强缓存失效后，浏览器携带标识向服务器发起请求，由服务器根据缓存标识决定示范使用缓存的过程。
+        // 原理：
+        // <1>协商缓存生效，返回304和Not Modified
+        // <2>协商缓存失效，返回200和请求结果
+        // 规则：
+        // <1>Last-Modified和If-Modified-Since
+        // <1.1>浏览器首先发送一个请求，让服务端在response header中返回请求的资源上次更新时间，就是last-modified，浏览器会缓存下这个时间
+        // <1.2>然后浏览器在下次请求中，request header中带上If-Modified-Since【保存的Last-Modified的值】。根据浏览器发送的修改时间和服务端的修改时间进行比对，一致的话代表资源没有改变，服务器返回正文为空的响应，让浏览器从缓存中读取资源，这就大大减小了请求的消耗。
+        // 由于Last-Modified依赖的是保存的绝对时间，还是会出现误差的情况：
+        // <1.1>保存的时间是以秒为单位的，1秒内多次修改是无法捕捉到的；
+        // <1.2>各机器读取到的时间不一致，就有出现误差的可能性。为了改善这个问题，提出了使用Etag。
+        // <2>ETag和If-None-Match
+        // ETag是http协议提供的若干机制中的一种web缓存验证机制，并且允许客户端进行缓存协商。生成ETag常用的方法包括对资源内容使用抗碰撞散列函数，使用最近修改的时间戳的哈希值，甚至只是一个版本号。和Last-Modified一样，浏览器回先发送一个请求得到ETag的值，然后在下一次请求在request header中带上If-None-Match（保存的ETag值）。通过发生的ETag的值和服务器端重新生成的ETag的值进行比对，如果一致代表资源没有改变，服务端返回正文为空的响应，告诉浏览器从缓存中读取资源。
+        // ETag能够解决Last-Modified的一些缺点，但是ETag每次服务端生成都需要进行读写操作，而Last-Modified只需要读取操作，从这方面来看，ETag的消耗是更大的。
+        // 二者对比：
+        // 精确度上：Etag要优于If-None-Match
+        // 优先级上：服务端校验优先考虑Etag
+        // 性能上：Etag要逊于If-None-Match
+        // 参考：https://zhuanlan.zhihu.com/p/60950750
+
+        // 9、服务器端渲染有了解过吗？
+
+        // 10、前端安全有了解过吗？xss如何预防？csrf如何预防？可以通过哪些http头信息配置来预防？
+        // 定义：
+        // XSS(Cross Site Scripting)全称是跨站脚本攻击，是前端最常见的安全问题。
+        // XSS时一种在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其他用户使用的页面中，攻击者通过注入非法的html标签或者javascript代码，从而当用户浏览该网页时，控制用户浏览器。
+        // 类别：
+        // （1）DOM型
+        // 利用DOM本身存在的缺陷进行攻击
+        // script标签
+        // javascript:??执行符（a标签的href属性）
+        // innderHTML=??或者outerHTML=??
+        // document.write(??)或eval(??)
+        // loacation,onclick,onerror,onmouseover等事件
+        // 总而言之，对DOM型的xss攻击，当执行用户输入代码时，以及将用户输入拼接到HTML时，要时刻注意
+        // （2）反射型
+        // 攻击者构造出包含恶意代码的url，url指向了目标网站，但是参数中可以拼接恶意代码
+        // 诱导用户点击，用户点击后会向目标网站发起请求，同事查询参数携带了恶意代码
+        // 服务端将查询参数直接拼接在HTML中返回给浏览器
+        // 浏览器解析执行时，恶意代码被执行
+        // 常见应用场景：通过URL传递参数的场景，如网站搜索、跳转
+        // （3）存储型
+        // 将恶意代码提交到网站的数据库中
+        // 用户访问网站的时候，恶意代码被服务器从数据库去除，拼接在HTML中返回给前端
+        // 浏览器解析执行的时候，恶意代码被执行
+        // 常见应用场景：论坛发帖、商品评论、用户私信等
+        // 防范：
+        // （1）防反射型、存储型
+        // 采用纯前端渲染
+        // 拼接HTML时，要对HTML进行充分转移
+        // （2）防DOM型
+        // 将用户输入插入的HTML或者拼接的js执行时，要进行编码，将一些特殊自负转义
+        // 对a标签的href等外链，添加白名单进行过滤
+        // 其他防范错误：
+        // HTTP-ONLY：保护cookie不被获取
+        // 限制输入的长度
+        // 采用CSP防范
+
+        // CSRF
+        // 定义：
+        // 跨站请求伪造：受害者进入第三方网站，在第三方网站中，偷偷向被攻击网站发送请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击者的网站执行某项操作的目的。
+        // 攻击前提：
+        // （1）受害者登陆过了被攻击网站，并保存了登陆凭证cookie，并且尚未过期，下次访问会自己携带cookuedebunk
+        // （2）在有凭证的前提下登陆第三方网站
+        // 防范：
+        // （1）同源验证，Origin, Referrer
+        // （2）token验证
+        // （3）验证码
+        // （4）Samesite cookie
+        // 设置Samesite cookie属性
+        // 缺点：
+        // （1）Samesite不支持子域
+        // （2）兼容性不好
+        // 参考：https://juejin.cn/post/6844903942036389895
+
+
+        // 11、nodejs的commonjs和es6模块有什么区别？
+        // （1）commonjs的require语法是同步的，所有导致了它只适用于服务端
+        // （2）commonjs模块输出是一个值的拷贝，而ES6模块输出的是值的引用
+        // （3）因为两个模块加载机制的不同，所以在对待循环加载的时候，它们会有不同的表现。
+        // commonjs遇到循环时，只会输出已经执行的不放，后续的输出或者变化，是不会影响已经输出的变量。
+        // ES6模块相反，使用import加载一个变量，变量不会被缓存，真正取值的时候就能取到最终的值。
+        // （4）关于顶层模块的this指向问题，在commonjs顶层，this指向当前模块；而在ES6模块中，this指向undefined
+        // （5）关于两个模块互相引用，在ES6模块当中，时支持加载commonjs模块的。但是反过来，commonjs并不能requireES6模块，在Nodejs中，两种模块方案是分开处理的。
+        // 参考：https://juejin.cn/post/6844904067651600391
+
+        // 回答二：
+        // 两者重大差异：
+        // （1）CommonJS模块输出的是一个值的拷贝，ES6模块输出的是值的引用
+        // （2）CommonJS模块是运行时加载，ES6模块是编译时输出接口。
+        // CommonJS模块加载过程是同步阻塞性的加载，在模块代码被运行前就已经写入了cache，同一个模块被多次require只会指向一次，重复的require得到相同的exports引用
+        // 参考：https://juejin.cn/post/6844904080955932680
+
+
+        // 12、css三栏布局，左右宽度固定中间自适应，如何实现？
+        
+
+        // 13、前端跨域解决方案？jsop的原理？全局函数的污染有什么好的办法？
+        // （1）通过jsonp跨域
+        // const script = document.createElement('script');
+        // script.type = 'text/javascript';
+
+        // script.src = 'http://localhost:8080/?callback=handleCallback';
+        // document.head.appendChild(script);
+
+        // function handleCallback(res){
+        //     console.log(JSON.stringify(res));
+        // }
+        // （2）document.domain + iframe跨域
+        // （3）location.hash + iframe跨域
+        // （4）window.name + iframe跨域
+        // （5）postMessage跨域
+        // （6）跨域资源共享
+        // 服务器端设置Access-Control-Allow-Origin
+        // （7）nginx代理跨域
+        // （8）Nodejs中间件代理跨域
+        // （9）WebSockect协议跨域
+
+        // 参考：https://segmentfault.com/a/1190000011145364
+
     </script>
 </body>
 </html>
