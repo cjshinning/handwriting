@@ -5,12 +5,14 @@ http.createServer((req, res) => {
     const fileName = '.' + req.url;
     console.log(fileName);
     fs.readFile(fileName, 'utf8', (err, data) => {
-        if(err){
+        if (err) {
             console.log('文件读取失败');
             res.write('404');
-        }else{
+        } else {
             console.log('文件读取成功');
-            res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+            res.writeHead(200, {
+                'Content-Type': 'text/html;charset=utf-8'
+            });
             res.write(data);
         }
         res.end();

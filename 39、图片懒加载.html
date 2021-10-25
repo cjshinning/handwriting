@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        img{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <img data-src="./img/drawing-pic-1.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-2.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-3.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-4.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-5.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-6.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-7.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-8.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-9.jpg" width="920" height="517" alt="">
+    <img data-src="./img/drawing-pic-10.jpg" width="920" height="517" alt="">
+
+    <script>
+        // 知识点：
+        // 1、获取屏幕可视区的高度：
+        // document.documentElement.clientHeight
+        // 2、获取元素相对于文档顶部的高度
+        // element.offsetTop
+        // 3、获取浏览器顶部与文档顶部之间的距离，也就是滚动条的距离
+        // document.documentElement.scrollTop
+        var imgs = document.querySelectorAll('img');
+
+        function getTop(e) {
+            var T = e.offsetTop;
+            while(e = e.offsetParent) {
+                T += e.offsetTop;
+            }
+            return T;
+        }
+
+        function lazyLoad(imgs){
+            var H = document.documentElement.clientHeight;
+            var S = document.documentElement.scrollTop || document.body.scrollTop;
+
+            for(var i = 0;i < imgs.length;i++){
+                if(H + S > getTop(imgs[i])){
+                    imgs[i].src = imgs[i].getAttribute('data-src');
+                }
+            }
+        }
+
+        window.onload = window.onscroll = function(){
+            lazyLoad(imgs);
+        }
+
+        // 参考：https://zhuanlan.zhihu.com/p/55311726
+    </script>
+</body>
+</html>

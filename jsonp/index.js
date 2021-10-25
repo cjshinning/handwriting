@@ -8,7 +8,7 @@ http.createServer((req, res) => {
     if(params.query.callback){
         console.log(params.query.callback)
         const str = params.query.callback + '(' + JSON.stringify(data) + ')';
-        res.end();
+        res.end(str);
     }else{
         res.end();
     }
