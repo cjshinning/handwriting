@@ -48,7 +48,7 @@
         // 执行上下文栈：global Execution Context -> 将first()推入顶部 -> 将seconde()推入顶部 -> seconde()执行完毕，它的执行时上下文被弹出 -> 接下来first()继续执行 -> 接下来first()执行完毕，它的执行时上下文被弹出 -> 回到global Execution Context
 
         // This绑定：
-        // 在全局执行上下文中，this的值指向全剧对象。
+        // 在全局执行上下文中，this的值指向全局对象。
         // 在函数执行上下文，this的值取决于该函数是如何被调用的。如果它被一个引用对象调用，那么this会被设置成哪个对象，否则this的值被设置为全局对象或者undefined
         // let foo = {
         //     baz: function(){
