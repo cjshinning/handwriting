@@ -137,6 +137,13 @@
         // 502 Bad Gateway：访问出错
         // 503 service Unavailabel：服务器繁忙或者停机维护，暂时无法处理请求。
 
+        // 三次握手过程：
+        // 刚开始客户端处于closed的状态，服务端处于Listen状态。
+        // tcp标志位，有6种标示：SYN(synchronous建立联机) ACK(acknowledgement 确认) PSH(push传送) FIN(finish结束) RST(reset重置) URG(urgent紧急)Sequence number(顺序号码) Acknowledge number(确认号码)
+        // （1）客户端发送到服务端。客户端发送SYN报文给服务端，并且指明客户端序列号为ISN(c)，即1以SYN=1,seq=x的形式发送过。此时客户端处于SYN_SEND状态。
+        // （2）服务端发送给客户端。服务端收到客户端的SYN和ISN(c)，也发送一个SYN回去，同时设置ACK=ISN(c)+1以及指明服务器初始化序列号为ISN(s)，即以SYN=1,ACK=x+1,seq=y的形式发送给客户端。此时服务端处于SYN_RECEIVED状态
+        // （3）客户端发送到服务器。客户端收到服务器发送的信息后，设置ACK=ISN(s)+1，将自身的ISN(c)+1，即以ACK=y+1,seq=x+1的形式发送给服务器。此时客户端处于ESTABLISHED阶段，双方建立了连接。
+
         // HTTPS工作原理
         // 1、浏览器请求 URL，找到服务器，向服务器发送请求。服务器将自己的证书（包含服务器公钥）、对称加密算法种类以及其他相关信息返回给浏览器。
         // 2、浏览器检查 CA 证书是否可依赖，确认证书有效。

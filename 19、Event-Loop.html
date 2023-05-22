@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Event Loop</title>
     <style>
-        .outer{
+        .outer {
             width: 100px;
             height: 100px;
             padding: 30px;
             background: #ccc;
         }
-        .inner{
+
+        .inner {
             width: 100px;
             height: 100px;
             background: #666;
         }
     </style>
 </head>
+
 <body>
     <div class="outer">
         <div class="inner"></div>
@@ -47,7 +50,7 @@
         // 以Promise为基础开发的其他技术，例如fetch API
         // V8的垃圾回收过程
         // Node独有的process.nextTick
-        
+
         // （1）宏任务
         // function bar(){
         //     console.log('bar');
@@ -159,7 +162,7 @@
         //         })
         //     }, 0);
         // });
-        
+
         // console.log('done');
 
         // // start
@@ -192,7 +195,7 @@
         //     .then(function(){
         //         console.log('promise2');
         //     })
-        
+
         // Promise.resolve().then(function(){
         //     console.log('promise3');
         // })
@@ -357,7 +360,7 @@
         // a();
         // b();
         // c();
-        
+
         // 浏览器渲染线程一般有以下几种：
         // JS引擎线程，事件触发线程，定时触发器线程，异步http请求线程，GUI渲染线程
 
@@ -368,10 +371,10 @@
         // Event Loop就是为了解决这个问题而提出的
         // 简单说，就是在程序中设置两个线程：一个负责程序本身的运行，称为主线程；另一个负责主线程与其他进程的同学，被称为Event Loop线程。
 
-        // JS异步执行的运行机制
-        // 1)所有任务都在主线程上执行，形成一个执行栈
-        // 2）主线程之外，还存在一个“任务队列”。只要异步任务有了运行结果，就在“任务对了”中放置一个事件
-        // 3）一旦“执行栈”中所有同步任务执行完毕，系统就会读取“任务队列”。那些对应的异步任务，结束等待状态，进入执行栈并开始执行
+        // JS的运行机制
+        // 1）所有的同步任务都在主线程上执行，形成一个执行栈
+        // 2）主线程之外，还存在一个“任务队列”。只要异步任务有了运行结果，就在“任务队列”中放置一个事件
+        // 3）一旦“执行栈”中所有同步任务执行完毕，系统就会读取“任务队列”，看看⾥⾯有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈并开始执行
         // 主线程不断重复上面的第三步
 
         // 执行栈具体步骤：
@@ -380,7 +383,7 @@
         // （3）一次宏任务执行完成，检查微任务队列有无任务
         // （4）有的话执行所有微任务
         // （5）执行完毕后，开始下一次宏任务
-        
+
         // 宏任务和微任务执行顺序：
         // （1）先执行主线程
         // （2）遇到宏队列放入宏队列
@@ -446,20 +449,20 @@
         const outer = document.querySelector('.outer');
         const inner = document.querySelector('.inner');
 
-        new MutationObserver(function(){
+        new MutationObserver(function () {
             console.log('mutate');
         }).observe(outer, {
             attributes: true
         })
 
-        function onClick(){
+        function onClick() {
             console.log('click');
-            
-            setTimeout(function(){
+
+            setTimeout(function () {
                 console.log('timeout');
             }, 0)
 
-            Promise.resolve().then(function(){
+            Promise.resolve().then(function () {
                 console.log('promise');
             })
 
@@ -472,4 +475,5 @@
         inner.click();
     </script>
 </body>
+
 </html>

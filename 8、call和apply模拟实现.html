@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>call和apply</title>
 </head>
+
 <body>
     <script>
         // 一、call
@@ -49,7 +51,7 @@
         // }
 
         // bar.call2(foo);
-            
+
         // 模拟第二步：
         // var foo = {
         //     value: 1
@@ -70,7 +72,7 @@
         //     eval('context.fn(' + args + ')');
         //     delete context.fn;
         // }
-        
+
         // // 测试一下
         // var foo = {
         //     value: 1
@@ -141,16 +143,16 @@
 
         // console.log(bar.call2(obj, 'kevin', 18));    //{value: 1, name: "kevin", age: 18}
 
-        Function.prototype.apply2 = function(context, arr){
+        Function.prototype.apply2 = function (context, arr) {
             context = context || window;
             context.fn = this;
 
             var result;
-            if(!arr){
+            if (!arr) {
                 result = context.fn();
-            }else{
+            } else {
                 var args = [];
-                for(var i = 0, len = arr.length; i < len; i++){
+                for (var i = 0, len = arr.length; i < len; i++) {
                     args.push('arr[' + i + ']');
                 }
                 result = eval('context.fn(' + args + ')');
@@ -170,7 +172,7 @@
         var foo = {
             value: 1
         };
-        function bar(name, age){
+        function bar(name, age) {
             console.log(name);
             console.log(age);
             console.log(this.value);
@@ -178,4 +180,5 @@
         bar.apply2(foo, ['kevin', 18]);
     </script>
 </body>
+
 </html>

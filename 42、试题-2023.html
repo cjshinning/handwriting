@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h3>希音</h3>
+  <p></p>
+  <h3>广州郝特</h3>
+  <p>1、如何做一个矩形占位图？宽和高都50%，图片大小不定？考虑Padding？</p>
+  <p>2、为什么dialog通常是放在body的后面？考虑z-index</p>
+  <p>3、es5如何继承？有哪些缺陷？</p>
+  <p>4、react的fiber了解过吗？</p>
+  <p>5、服务端渲染同构是什么？</p>
+  <p>6、箭头函数的特性？有this吗？</p>
+  <p>7、nodejs除了写命令行，有做过接口处理之类的吗？</p>
+  <p>8、那个https支持的项目修改字符有缺陷？使用buffer是不是更好？</p>
+  <p>9、介绍一下你的这个技术栈升级项目？可以重点介绍怎么实现，项目背景啥的先忽略。</p>
+  <p>10、http2、http3的好处？</p>
+  <p>11、eventBus的缺点？数据来源不清晰？</p>
+  <p>12、vue为什么要在data中定义数据？如何设置一个普通的对象为双向绑定？$set?</p>
+  <p>13、大量不同上游图片到你这里来（类似中游），如何处理？</p>
+  <p>14、如何减少http请求？</p>
+  <p>15、什么时候遇到304?307呢？</p>
+  <p>16、webpack的loader和plugin区别？你用它做过什么</p>
+  <!-- <p>17、gulp和webpack的区别？使用场景</p> -->
+
+  <h3>文远智行</h3>
+  <p>1、vue3相对于vue2的改变点？</p>
+  <p>2、双向绑定defineProperty和proxy的区别？</p>
+  <p>3、vue2中数组方法重写是怎么实现的？</p>
+  <p>4、洗牌算法？有没有优化方案？从时间复杂度和空间复杂度来看？shuffle</p>
+  <p>5、项目中有哪些难点？说一说nextTick？不要说盒子</p>
+
+  <h3>建新科技</h3>
+  <p>0、set和map的区别？</p>
+  <p>1、面向对象是什么？有什么特点？说说工作中实际使用继承的案例？</p>
+  <p>2、有没有了解过地图这些业务？</p>
+  <p>3、canvas和svg有了解过吗？</p>
+  <p>4、null instanceof Object返回值是什么？false</p>
+  <p>5、不是javascript中的关键字？ A with B parent C class D void</p>
+  <p>答案：B parent不是javascript的关键字</p>
+  <ul>
+    <li>class是一个保留关键字；</li>
+    <li>void是无返回值；</li>
+    <li>With为某些语句指定默认对象；</li>
+  </ul>
+  <p>6、js中常见的内存泄漏？</p>
+  <ul>
+    <li>（1）意外的全局变量；</li>
+    <li>（2）被遗忘的计时器或回调函数；</li>
+    <li>（3）脱离DOM的引用；</li>
+    <li>（4）闭包</li>
+  </ul>
+  <p>7、构造函数和箭头函数的区别？</p>
+  <ul>
+    <li>（1）语法更加简介、清晰</li>
+    <li>（2）箭头函数不会创建自己的this</li>
+    <li>（3）箭头函数继承而来的this指向永远不变</li>
+    <li>（4）call(),apply(),bind()无法改变箭头函数中的this的指向</li>
+    <li>（5）箭头函数不能作为构造函数使用</li>
+    <li>（6）箭头函数没有自己的arguments</li>
+    <li>（7）箭头函数没有原型prototype</li>
+    <li>（8）箭头函数不能用作Generator函数，不能使用yeid关键词</li>
+  </ul>
+  <p>8、手写一个bind函数</p>
+  <p>9、实现一个随机数取10-100之间的10个数字，并排序</p>
+  <p>10、webpack打包原理？</p>
+  <p>11、用vue和react分别实现3个checkbox全选和全不选？</p>
+  <p>12、工作遇到和上级方案不一致怎么解决？</p>
+  <p>13、紧急情况加班怎么看待？</p>
+  <p>14、你对这个岗位的优势？</p>
+  <p>15、你项目中有遇到哪些难点吗？（重点准备）</p>
+  <p>行政题：https://zhuanlan.zhihu.com/p/445732133</p>
+
+  <h3>碧桂园</h3>
+  <p>1、vue和react的区别？</p>
+  <p>2、vue响应式原理？涉及到哪些方法？</p>
+  <section>
+    <p>虚拟dom、diff算法、真实dom（梳理一下）</p>
+    <p>大致流程：把模板转换成对应的渲染函数 => 虚拟dom概念 vnode => diff算法 更新虚拟 => 产生真实节点、更新</p>
+    <p>也可以表示为：html => ast（只能描述语法 语法不存在的属性无法描述） => render函数 + (with + new Function) => 虚拟dom（增加额外的属性） => 生成真实dom</p>
+    <p>parserHTML流程：</p>
+    <p>html字符串解析成dom树
+      <code><div id="app">{{name}}</div></code>
+    </p>
+    <p>将我们的html => 词法解析 （开始标签，结束标签，属性，文本）</p>
+    <p>ast(语法层面的描述 js css html) vdom（dom节点）用来描述html语法的 stack=[]</p>
+    <p>codegen <code><div>hello</div> => _c('div', {}, 'hello') </code>=> 让字符串执行</p>
+    <p>模板引擎 new Function + with 来实现</p>
+    <p>参考：https://www.jb51.net/article/269909.htm</p>
+    <p>参考二：https://blog.csdn.net/web220507/article/details/127679080</p>
+  </section>
+  <p>3、浏览器渲染原理？详细介绍比如html如何映射为DOM树，css如何映射为css OM树？</p>
+  <p>4、浏览器输入网址到页面渲染全过程？详细点</p>
+  <p>5、typescript和javascript的区别？</p>
+
+  <h3>腾讯云</h3>
+  <h4>1、多数元素</h4>
+  <p>
+    <code>
+      // 给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
+
+      // 你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+      
+      /**
+      * @param {number[]} nums
+      * @return {number}
+      */
+      var majorityElement = function(nums) {
+      
+      };
+    </code>
+  </p>
+  <p>答案（js数据结构与算法——多数元素）：https://blog.csdn.net/Vevean2545116309/article/details/119975233</p>
+  <h4>2、路径求和</h4>
+  <p>
+    <code>
+      // 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum ，判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。
+
+      // 叶子节点 是指没有子节点的节点。
+
+      /**
+      * Definition for a binary tree node.
+      * function TreeNode(val, left, right) {
+      *     this.val = (val===undefined ? 0 : val)
+      *     this.left = (left===undefined ? null : left)
+      *     this.right = (right===undefined ? null : right)
+      * }
+      */
+
+      /**
+      * @typedef TreeNode
+      * @property {number} val
+      * @property {TreeNode | null} left
+      * @property {TreeNode | null} right
+      * 
+      * @param {TreeNode | null} root
+      * @param {number} targetSum
+      * @return {boolean}
+      */
+      var hasPathSum = function(root, targetSum) {
+
+      };
+
+    </code>
+  </p>
+  <p>答案（js 路径求和）：https://www.cnblogs.com/PaturNax/p/16656574.html</p>
+
+  <h4>3、对象扁平化</h4>
+  <p>
+    <code>
+      // 原数据
+      const obj1 = {
+          a: 1,
+          b: {
+              f: '2',
+              g: '3'
+          },
+          c: {
+              d:[1, 2, {
+                  e: true
+              }]
+          }
+      }
+
+      // 转化为
+      const obj2 = {
+          a:1,
+          'b.f': '2',
+          'b.g': '3',
+          'c.d[0]': 1,
+          'c.d[1]': 2,
+          'c.d[2].e': true
+      }
+
+      function flatten (obj) {
+          return null;
+      }
+
+      console.log(flatten(obj1));
+
+    </code>
+  </p>
+  <p>答案（算法—js实现 对象扁平化）：https://juejin.cn/post/6894577333630418958</p>
+
+  <h3>IBM</h3>
+  <h4>1、vue2和vue3的区别？</h4>
+  <p>（1）vue2和vue3双向数据绑定原理发生了改变</p>
+  <ul>
+    <li>vue2 的双向数据绑定是利用ES5 的一个 API Object.definePropert()对数据进行劫持 结合 发布订阅模式的方式来实现的。</li>
+    <li>vue3 中使用了 es6 的 ProxyAPI 对数据代理。</li>
+  </ul>
+  <dl>
+    <dt>相比于vue2.x，使用proxy的优势如下</dt>
+    <dd>1、defineProperty只能监听某个属性，不能对全对象监听</dd>
+    <dd>2、可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）</dd>
+    <dd>3、可以监听数组，不用再去单独的对数组做特异性操作 vue3.x可以检测到数组内部数据的变化</dd>
+  </dl>
+  <p>（2）Vue3支持碎片(Fragments)，就是说在组件可以拥有多个根节点。</p>
+  <p>（3）Composition API</p>
+  <ul>
+    <li>旧的选项型API在代码里分割了不同的属性: data,computed属性，methods，等等。新的合成型API能让我们用方法（function）来分割，相比于旧的API使用属性来分组，这样代码会更加简便和整洁。</li>
+  </ul>
+  <p>（4）建立数据 data</p>
+  <p>（5）生命周期钩子：setup </p>
+  <p>（6）父子传参不同，setup() 函数特性</p>
+  <p>（7）vue3 Teleport瞬移组件</p>
+  <h4>2、type和interface的区别？泛型是什么？</h4>
+  <p>interface只能用于描述对象和类的形状，而type可以用于创建任何类型的别名。</p>
+  <p>interface可以被类实现(implement)，而type不行。</p>
+  <p>interface可以扩展(extends)其他interface，而type不行。</p>
+  <p>type支持更复杂的类型定义，如联合类型、交叉类型、元组等，而interface不支持。</p>
+  <p>type可以用于定义泛型类型别名，而interface不行。</p>
+  <p>泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。</p>
+  <h4>3、vue2响应式原理？</h4>
+  <h4>4、vue3的数据传递？</h4>
+  <h4>5、前端安全（重点准备）</h4>
+  <h4>6、什么是原型链？</h4>
+  <h4>7、type和interface的区别？</h4>
+  <h4>8、闭包是什么？有什么应用？防抖节流？</h4>
+  <h4>9、vue中jsx用过吗？什么场景？</h4>
+  <h4>10、for of和for in的区别</h4>
+  <p>for in适合遍历对象，for of适合遍历数组</p>
+
+
+  <h3>数字广东外包</h3>
+  <h4>1、nextTick原理是什么？</h4>
+  <p>JS 执⾏是单线程的，它是基于事件循环的。事件循环⼤致分为以下⼏个步骤：</p>
+  <p>（1）所有同步任务都在主线程上执⾏，形成⼀个执⾏栈（executioncontextstack）。</p>
+  <p>（2）主线程之外，还存在⼀个"任务队列"（taskqueue）。只要异步任务有了运⾏结果，就在"任务队列"之中放置⼀个事件。</p>
+  <p>（3）⼀旦"执⾏栈"中的所有同步任务执⾏完毕，系统就会读取"任务队列"，看看⾥⾯有哪些事件。那些对应的异步任务，于是结束等待状态，进⼊执⾏栈，开始执⾏。</p>
+  <p>（4）主线程不断重复上⾯的第三步。</p>
+  <p>Vue 不止使用 setTimeout 实现nextTick；会判断promise是否存在，选择任务类型。如果promise存在，就使用微任务。</p>
+  <h4>2、宏任务和微任务是什么？setTimeout(,1000)真的会在1s后执行吗？</h4>
+  <h4>3、对webpack的理解？loader和plugin的区别？</h4>
+  <p>webpack是把项目当作一个整体，通过给定一个主文件，webpack将从这个主文件开始找到项目中所有依赖的文件，使用loaders处理，最后打包城一个或者多个浏览器可识别的js文件。</p>
+  <h4>4、es module和commonjs的区别？为什么es module能做到tree shaking（没有用到的代码都会被自动抖掉）？</h4>
+  <h4>5、git和svn的区别？</h4>
+  <p>git是分布式的，而svn是集中式的</p>
+  <h4>6、说说vue2中数据变化后到更新dom的过程？涉及哪些方法？有没有断点调试过？</h4>
+  <h4>7、http和https的区别？为什么更安全？</h4>
+  <h4>8、性能优化方案有些？</h4>
+  <h4>9、说说缓存？</h4>
+  <h4>10、vue多个组件如何实现代码复用（重复使用一部分代码逻辑）？mixin和hooks？</h4>
+  <p>vue2使用的是mixins，但是有以下问题：数据来源不清晰；容易造成命名冲突；</p>
+  <p>vue3中可以自定义hooks</p>
+  <p>参考：https://www.jb51.net/article/253200.htm</p>
+  <h4>11、css如何实现响应式布局？</h4>
+  <p>百分比布局、媒体查询布局、rem 响应式布局、vw 响应式布局、flex 弹性布局</p>
+  <p>参考：https://zhuanlan.zhihu.com/p/588468151</p>
+  <h4>11、有没有了解过cicd流程？</h4>
+
+  <h3>外企德科（华为）</h3>
+  <h4>1、华为题库地址：https://www.nowcoder.com/ta/huawei</h4>
+  <h4>2、华为机试真题：https://pycoder.blog.csdn.net/article/details/124648380</h4>
+  <script>
+
+  </script>
+</body>
+
+</html>

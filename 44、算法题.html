@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h3>HJ1 字符串最后一个单词的长度</h3>
+  <p>
+    <code>
+      var readline = require("readline");
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+      rl.on("line", function (line) {
+        let array = line.split(" ");
+        console.log(array[array.length - 1].length);
+      });
+    </code>
+  </p>
+  <h3>HJ2 计算某字符出现次数</h3>
+  <code>
+    var readline = require("readline");
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    const lines = [];
+    rl.on("line", function (line) {
+        lines.push(line);
+        if (lines.length === 2) {
+            const input = lines[0];
+            const target = lines[1];
+            var res = input.match(new RegExp(target, "gim"));
+            if (res === null) console.log(0);
+            else console.log(res.length);
+        }
+    });
+  </code>
+  <script src="./js/algorithm.js"></script>
+</body>
+
+</html>
