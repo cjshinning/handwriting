@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>34、XSS和CSRF</title>
 </head>
+
 <body>
     <!-- <h2>xss反射型</h2>
     <a href="http://localhost:8001/?q=1&p=2">恶意链接</a> -->
-    
+
     <!-- <h2>xss存储型</h2>
     <input type="text" id="txt"/>
     <button id="btn">Submit</button> -->
-    
+
     <h2>xss Dom型</h2>
-    <input type="text" id="txt"/>
+    <input type="text" id="txt" />
     <button id="btn">Submit</button>
     <div id="div"></div>
 
@@ -26,7 +28,7 @@
 
 
     <script>
-        
+
         // 2、分类
         // （1）反射型
         // 反射性XSS只是简单地把用户输入的数据“反射”给浏览器，这种攻击方式往往需要攻击者诱使用户点击一个恶意链接，或者提交一个表单，或者进入一个恶意网站时，注入脚本进入被攻击者的网站。
@@ -49,7 +51,7 @@
         // }, false);
 
         // （3）基于dom
-        // 基于dom的XSS攻击是指通过恶意脚本修改页面的dom结构，时纯粹发生在客户端的攻击。
+        // 基于dom的XSS攻击是指通过恶意脚本修改页面的dom结构，是纯粹发生在客户端的攻击。
         const txt = document.querySelector('#txt');
         const btn = document.querySelector('#btn');
         const div = document.querySelector('#div');
@@ -66,13 +68,13 @@
         // 一、XSS
         // 1、定义：
         // XSS，即Crose Site Script，译为跨站脚本攻击；
-        // XSS攻击是只攻击者在网站上注入恶意的客户端代码，通过恶意脚本对客户端网页进行篡改，从而在用户浏览网页时，对用户浏览器进行控制或者获取用户隐私数据的一种攻击方式。
+        // XSS攻击是指攻击者在网站上注入恶意的客户端代码，通过恶意脚本对客户端网页进行篡改，从而在用户浏览网页时，对用户浏览器进行控制或者获取用户隐私数据的一种攻击方式。
 
         // 3、防范
         // （1）HttpOnly防止截取Cookie
         // （2）用户输入检查
         // （3）服务器的输出检查
-        // 不要相信用户的任何输入。对于用户的输入的数据中是否包含<，>灯特殊字符，则对特殊字符进行过滤或编码。
+        // 不要相信用户的任何输入。对于用户的输入的数据中是否包含<，>等特殊字符，则对特殊字符进行过滤或编码。
 
         // 二、CSRF
         // CSRF，即Cross Site Request Forgery，中译是跨站请求伪造，是一种劫持受限用户向服务器发送非预期请求的攻击方式。
@@ -85,4 +87,5 @@
         // 参考：https://github.com/dwqs/blog/issues/68
     </script>
 </body>
+
 </html>

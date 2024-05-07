@@ -5,105 +5,300 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>试题2023</title>
+
+  <style>
+    .content>div.box {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      /* 容器占满整个父元素 */
+      height: 0;
+      padding-top: 50%;
+      /* 高度是宽度的50% */
+      overflow: hidden;
+      /* 隐藏超出部分 */
+    }
+
+    .placeholder {
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      /* 水平居中（(100%-50%)/2） */
+      width: 50%;
+      /* 宽度是容器的50% */
+      height: 50%;
+      /* 高度与容器相同 */
+      background: url(./img/2.image) no-repeat center center;
+      /* 替换为你的图片URL */
+      background-size: contain;
+      /* 图片适应容器大小 */
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
-  <h3>希音</h3>
-  <p></p>
-  <h3>广州郝特</h3>
-  <p>1、如何做一个矩形占位图？宽和高都50%，图片大小不定？考虑Padding？</p>
-  <p>2、为什么dialog通常是放在body的后面？考虑z-index</p>
-  <p>3、es5如何继承？有哪些缺陷？</p>
-  <p>4、react的fiber了解过吗？</p>
-  <p>5、服务端渲染同构是什么？</p>
-  <p>6、箭头函数的特性？有this吗？</p>
-  <p>7、nodejs除了写命令行，有做过接口处理之类的吗？</p>
-  <p>8、那个https支持的项目修改字符有缺陷？使用buffer是不是更好？</p>
-  <p>9、介绍一下你的这个技术栈升级项目？可以重点介绍怎么实现，项目背景啥的先忽略。</p>
-  <p>10、http2、http3的好处？</p>
-  <p>11、eventBus的缺点？数据来源不清晰？</p>
-  <p>12、vue为什么要在data中定义数据？如何设置一个普通的对象为双向绑定？$set?</p>
-  <p>13、大量不同上游图片到你这里来（类似中游），如何处理？</p>
-  <p>14、如何减少http请求？</p>
-  <p>15、什么时候遇到304?307呢？</p>
-  <p>16、webpack的loader和plugin区别？你用它做过什么</p>
-  <!-- <p>17、gulp和webpack的区别？使用场景</p> -->
+  <!-- <div class="container">
+    <div class="placeholder"></div>
+  </div> -->
+  <div style="width:1000px;margin:0 auto; padding-left: 250px;">
+    </h3>
+    <h3>广州郝特</h3>
+    <h4>1、如何做一个矩形占位图？宽和高都50%，图片大小不定？考虑Padding？</h4>
+    <section>
+      <p>html代码：如上</p>
+      <p>css样式：</p>
+      <code>
+        .container {
+          position: relative;
+          width: 100%; /* 容器占满整个父元素 */
+          height: 0;
+          padding-top: 50%; /* 高度是宽度的50% */
+        }
+    
+        .placeholder {
+          position: absolute;
+          left: 25%;
+          top: 25%;
+          /* 水平居中（(100%-50%)/2） */
+          width: 50%;
+          /* 宽度是容器的50% */
+          height: 50%;
+          /* 高度与容器相同 */
+          background: url(./img/2.image) no-repeat center center;
+          /* 替换为你的图片URL */
+          background-size: contain;
+          /* 图片适应容器大小 */
+          overflow: hidden;
+        }
+      </code>
+    </section>
+    <h4>2、为什么dialog通常是放在body的后面？考虑z-index</h4>
+    <p>因为对话框通常是需要覆盖到页面上的，需要考虑使用z-index</p>
+    <h4>3、es5如何继承？有哪些缺陷？</h4>
+    <section>
+      <ul>
+        <li>原型链继承</li>
+        <li>借用构造函数方式</li>
+        <li>组合继承</li>
+        <li>原型式继承</li>
+        <li>寄生式继承</li>
+        <li>寄生组合继承</li>
+      </ul>
+    </section>
+    <h4>4、react的fiber了解过吗？</h4>
+    <section>
+      <p>React Fiber 是 React 16 中引入的一种新的内部架构，用于增强 React 的性能和可扩展性。Fiber 的主要目标是使 React
+        能够在渲染过程中暂停、中断、恢复和重用工作。这是通过将渲染工作分解成多个小的单元（Fibers），每个单元代表一个组件的渲染工作或更新。</p>
+      <p>主要特点和优势</p>
+      <dl>
+        <dt>1. 增量渲染：</dt>
+        <dd>Fiber 架构允许 React 将渲染工作分割成小的单元，并在需要时暂停和恢复这些工作。这种方式使得主线程可以在执行渲染工作的同时，仍然保持响应用户输入、动画等任务。</dd>
+        <dt>2. 并发模式：</dt>
+        <dd>Fiber 架构是 React 并发模式的基础，它允许多个任务并发执行。这意味着 React 可以在后台准备新的UI更新，而不会阻塞主线程。</dd>
+        <dt>3. 任务优先级：</dt>
+        <dd>Fiber 允许 React 根据任务的优先级来调整工作。例如，动画和用户输入响应具有较高的优先级，而数据获取则可能具有较低的优先级。</dd>
+        <dt>4. 错误边界：</dt>
+        <dd>Fiber 架构改进了</dd>
+      </dl>
+    </section>
+    <h4>5、服务端渲染同构是什么？</h4>
+    <section>
+      <p>服务端渲染同构（Server-Side Rendering, SSR, Isomorphic
+        Rendering）是一种现代web开发技术，它允许JavaScript应用在服务器端和客户端上使用相同的代码进行渲染。这种方法的主要目的是提高首次加载的性能，并改善搜索引擎优化（SEO）。</p>
+      <p>工作原理:</p>
+      <P>
+        在同构应用中，首次访问页面时，页面的HTML是由服务器生成的。服务器执行JavaScript代码，渲染出初始的页面，并将这个完整的HTML发送给客户端。客户端接收到这个HTML后，会变得可交互，因为JavaScript会在客户端重新绑定所有事件处理器和执行必要的客户端特定逻辑。
+      </P>
+      <p>主要优点</p>
+      <dl>
+        <dt>1. 改善SEO：</dt>
+        <dd>由于页面的初始内容是由服务器生成的，搜索引擎爬虫可以更容易地抓取和索引这些内容，这对于使用客户端渲染的单页应用（SPA）来说是一个显著的优势。</dd>
+        <dt>2. 提升性能：</dt>
+        <dd>用户可以更快地看到首屏内容，因为浏览器不需要</dd>
+      </dl>
+    </section>
+    <h4>6、箭头函数的特性？有this吗？</h4>
+    <section>
+      <p>（1）语法更加简洁</p>
+      <p>（2）箭头函数不会创建自己的this</p>
+      <p>（3）箭头函数继承而来的this指向永远不变</p>
+      <p>（4）call(),apply(),bind()无法改变箭头函数中的this的指向</p>
+      <p>（5）箭头函数不能作为构造函数使用</p>
+      <p>（6）箭头函数没有自己的arguments</p>
+      <p>（7）箭头函数没有原型prototype</p>
+      <p>（8）箭头函数不能用作Generator函数，不能使用yeid关键词</p>
+    </section>
+    <h4>7、nodejs除了写命令行，有做过接口处理之类的吗？</h4>
+    <h4>8、那个https支持的项目修改字符有缺陷？使用buffer是不是更好？</h4>
+    <h4>9、介绍一下你的这个技术栈升级项目？可以重点介绍怎么实现，项目背景啥的先忽略。</h4>
+    <h4>10、http2、http3的好处？</h4>
+    <section>
+      <p>HTTP/2 和 HTTP/3 是HTTP协议的新版本，它们引入了多项改进，旨在提高网页加载速度和效率，改善用户体验。下面是HTTP/2和HTTP/3的主要好处：</p>
+      <p>HTTP/2的好处</p>
+      <dl>
+        <dt> 1. 多路复用（Multiplexing）：</dt>
+        <dd>允许多个请求在一个TCP连接上并行传输，解决了HTTP/1.1中的线头阻塞问题，即多个请求可以同时在一个连接上进行，而不需要等待其他请求完成。</dd>
+        <dt>2. 服务器推送（Server Push）：</dt>
+        <dd>服务器可以主动向客户端推送资源，而不需要客户端明确请求，这可以进一步减少加载时间。</dd>
+        <dt>3. 头部压缩（Header Compression）：</dt>
+        <dd>HTTP/2使用HPACK压缩格式减少了头部大小，减少了传输的数据量。</dd>
+        <dt>4. 优先级和依赖性（Prioritization and Dependency）：</dt>
+        <dd>允许客户端指定请求的优先级，使得服务器可以先处理更重要的请求，优化资源的加载顺序。</dd>
+      </dl>
+      <p>HTTP/3的好处</p>
+      <dl>
+        <dt>1. 基于QUIC协议：</dt>
+        <dd>HTTP/3使用QUIC协议，这是一个基于UDP的传输层协议，它结合了TCP的可靠性和UDP的低延迟特性。</dd>
+        <dt>2. 减少连接和恢复时间：</dt>
+        <dd>QUIC协议支持连接迁移和0-</dd>
+      </dl>
+    </section>
+    <h4>11、eventBus的缺点？</h4>
+    <section>
+      <p>EventBus 是一种在不同组件或模块间传递消息的模式，常用于解耦应用中的各个部分。尽管 EventBus 可以提供灵活的通信方式，但它也有一些明显的缺点：</p>
+      <dl>
+        <dt>1. 难以追踪和维护：</dt>
+        <dd>事件的发布和订阅通常是松散耦合的，这使得追踪应用流程变得困难。当系统复杂时，理解和调试由 EventBus 触发的事件流可以变得非常挑战。</dd>
+        <dt>2. 内存泄漏风险：</dt>
+        <dd>如果订阅者没有适当地取消订阅，尤其是在生命周期结束后仍保持订阅状态，可能会导致内存泄漏。这是因为 EventBus 可能持续持有订阅者的引用，阻止垃圾收集器回收。</dd>
+        <dt>3. 过度使用导致的代码混乱：</dt>
+        <dd>EventBus 的使用可能会被过度使用，导致应用中存在大量的事件传递，这会使得代码逻辑变得难以理解和维护。</dd>
+        <dt>4. 测试困难：</dt>
+        <dd>由于事件的处理通常是异步的，并且事件源和处理程序之间的耦合度低，这可能使得编写单元测试变得更加困难。</dd>
+        <dt>5. 类型安全问题：</dt>
+        <dd>在一些静态类型语言中，EventBus 可能不会提供足够的类型安全保证，因为事件的数据通常是动态传递的，这可能导致运行时错误。</dd>
+        <dt>6. 难以保证事件顺序：</dt>
+        <dd>在多线程环境中，不同的事件可能在不同的线程上处理，这可能导致事件处理的顺序不一致，从而引发竞态条件或其他并发问题。</dd>
+      </dl>
+    </section>
+    <h4>12、vue为什么要在data中定义数据？如何设置一个普通的对象为双向绑定？$set?</h4>
+    <section>
+      <p>在 Vue.js 中，将数据定义在 data 中是非常重要的，因为这样做有几个关键的目的和优势：</p>
+      <dl>
+        <dt>1. 响应式系统：</dt>
+        <dd>Vue 的响应式系统可以自动追踪在 data 中定义的数据的变化。当这些数据发生变化时，Vue 会智能地更新 DOM 来反映这些变化。这种自动依赖追踪确保了界面与数据状态保持同步。</dd>
+        <dt>2. 组件实例的状态管理：</dt>
+        <dd>在 data 中定义的数据是组件的状态。这些状态数据是组件渲染和行为的基础。通过将数据定义在 data 中，每个组件实例都会维护一份自己的独立状态，这使得组件的数据管理更清晰、更局部化。</dd>
+        <dt>3. 数据初始化：</dt>
+        <dd>data 函数提供了一个地方来初始化组件的数据。当组件创建时，data
+          函数会被调用，并返回一个对象，该对象包含了组件的初始状态。这样做不仅有助于组织代码，也使得每个组件实例都可以拥有一份独立的数据副本，避免了数据间的意外共享。</dd>
+        <dt>4. 可维护性和可读性：</dt>
+        <dd>将数据定义在 data 中可以使得组件的结构更清晰。开发者可以轻松查看和理解组件的状态结构</dd>
+      </dl>
+      <p> Vue.js 中，如果你想让一个普通的对象变成响应式的，但又不想在 data 中定义它，你可以使用 Vue 提供的一些方法来实现这一点。</p>
+      <p>使用 Vue.set 或 this.$set，这是添加响应式属性到已存在对象</p>
+    </section>
+    <h4>13、大量不同上游图片到你这里来（类似中游），如何处理？</h4>
+    <p>图片压缩和优化、懒加载、缓存策略</p>
+    <h4>14、如何减少http请求？</h4>
+    <h4>15、什么时候遇到304？307呢？</h4>
+    <p>304资源未修改，307资源临时重定向，302和307之间的主要区别在于请求方法不会随着307状态代码而改变。</p>
+    <h4>16、webpack的loader和plugin区别？你用它做过什么</h4>
+    <!-- <p>17、gulp和webpack的区别？使用场景</p> -->
 
-  <h3>文远智行</h3>
-  <p>1、vue3相对于vue2的改变点？</p>
-  <p>2、双向绑定defineProperty和proxy的区别？</p>
-  <p>3、vue2中数组方法重写是怎么实现的？</p>
-  <p>4、洗牌算法？有没有优化方案？从时间复杂度和空间复杂度来看？shuffle</p>
-  <p>5、项目中有哪些难点？说一说nextTick？不要说盒子</p>
+    <h3>文远智行</h3>
+    <h4>1、vue3相对于vue2的改变点？</h4>
+    <h4>2、双向绑定defineProperty和proxy的区别？</h4>
+    <h4>3、vue2中数组方法重写是怎么实现的？</h4>
+    <h4>4、洗牌算法？有没有优化方案？从时间复杂度和空间复杂度来看？shuffle</h4>
+    <h4>5、项目中有哪些难点？说一说nextTick？不要说盒子</h4>
 
-  <h3>建新科技</h3>
-  <p>0、set和map的区别？</p>
-  <p>1、面向对象是什么？有什么特点？说说工作中实际使用继承的案例？</p>
-  <p>2、有没有了解过地图这些业务？</p>
-  <p>3、canvas和svg有了解过吗？</p>
-  <p>4、null instanceof Object返回值是什么？false</p>
-  <p>5、不是javascript中的关键字？ A with B parent C class D void</p>
-  <p>答案：B parent不是javascript的关键字</p>
-  <ul>
-    <li>class是一个保留关键字；</li>
-    <li>void是无返回值；</li>
-    <li>With为某些语句指定默认对象；</li>
-  </ul>
-  <p>6、js中常见的内存泄漏？</p>
-  <ul>
-    <li>（1）意外的全局变量；</li>
-    <li>（2）被遗忘的计时器或回调函数；</li>
-    <li>（3）脱离DOM的引用；</li>
-    <li>（4）闭包</li>
-  </ul>
-  <p>7、构造函数和箭头函数的区别？</p>
-  <ul>
-    <li>（1）语法更加简介、清晰</li>
-    <li>（2）箭头函数不会创建自己的this</li>
-    <li>（3）箭头函数继承而来的this指向永远不变</li>
-    <li>（4）call(),apply(),bind()无法改变箭头函数中的this的指向</li>
-    <li>（5）箭头函数不能作为构造函数使用</li>
-    <li>（6）箭头函数没有自己的arguments</li>
-    <li>（7）箭头函数没有原型prototype</li>
-    <li>（8）箭头函数不能用作Generator函数，不能使用yeid关键词</li>
-  </ul>
-  <p>8、手写一个bind函数</p>
-  <p>9、实现一个随机数取10-100之间的10个数字，并排序</p>
-  <p>10、webpack打包原理？</p>
-  <p>11、用vue和react分别实现3个checkbox全选和全不选？</p>
-  <p>12、工作遇到和上级方案不一致怎么解决？</p>
-  <p>13、紧急情况加班怎么看待？</p>
-  <p>14、你对这个岗位的优势？</p>
-  <p>15、你项目中有遇到哪些难点吗？（重点准备）</p>
-  <p>行政题：https://zhuanlan.zhihu.com/p/445732133</p>
-
-  <h3>碧桂园</h3>
-  <p>1、vue和react的区别？</p>
-  <p>2、vue响应式原理？涉及到哪些方法？</p>
-  <section>
-    <p>虚拟dom、diff算法、真实dom（梳理一下）</p>
-    <p>大致流程：把模板转换成对应的渲染函数 => 虚拟dom概念 vnode => diff算法 更新虚拟 => 产生真实节点、更新</p>
-    <p>也可以表示为：html => ast（只能描述语法 语法不存在的属性无法描述） => render函数 + (with + new Function) => 虚拟dom（增加额外的属性） => 生成真实dom</p>
-    <p>parserHTML流程：</p>
-    <p>html字符串解析成dom树
-      <code><div id="app">{{name}}</div></code>
+    <h3>建新科技</h3>
+    <h4>0、set和map的区别？</h4>
+    <h4>1、面向对象是什么？有什么特点？说说工作中实际使用继承的案例？</h4>
+    <h4>2、有没有了解过地图这些业务？</h4>
+    <h4>3、canvas和svg有了解过吗？</h4>
+    <h4>4、null instanceof Object返回值是什么？false</h4>
+    <h4>5、不是javascript中的关键字？ A with B parent C class D void</h4>
+    <p>答案：B parent不是javascript的关键字</p>
+    <ul>
+      <li>class是一个保留关键字；</li>
+      <li>void是无返回值；</li>
+      <li>With为某些语句指定默认对象；</li>
+    </ul>
+    <h4>6、js中常见的内存泄漏？</h4>
+    <ul>
+      <li>（1）意外的全局变量；</li>
+      <li>（2）被遗忘的计时器或回调函数；</li>
+      <li>（3）脱离DOM的引用；</li>
+      <li>（4）闭包</li>
+    </ul>
+    <h4>7、构造函数和箭头函数的区别？</h4>
+    <ul>
+      <li>（1）语法更加简介、清晰</li>
+      <li>（2）箭头函数不会创建自己的this</li>
+      <li>（3）箭头函数继承而来的this指向永远不变</li>
+      <li>（4）call(),apply(),bind()无法改变箭头函数中的this的指向</li>
+      <li>（5）箭头函数不能作为构造函数使用</li>
+      <li>（6）箭头函数没有自己的arguments</li>
+      <li>（7）箭头函数没有原型prototype</li>
+      <li>（8）箭头函数不能用作Generator函数，不能使用yeid关键词</li>
+    </ul>
+    <h4>8、手写一个bind函数</h4>
+    <h4>9、实现一个随机数取10-100之间的10个数字，并排序</h4>
+    <p>
+      <code>
+        function random(min, max, n) {
+          let arr = [];
+          for (let i = 0; i < n; i++) {
+            arr.push(Math.floor(Math.random() * (max - min) + min));
+          }
+          arr.sort((a, b) => a - b);
+          return arr;
+        }
+        console.log(random(10, 100, 10))
+      </code>
     </p>
-    <p>将我们的html => 词法解析 （开始标签，结束标签，属性，文本）</p>
-    <p>ast(语法层面的描述 js css html) vdom（dom节点）用来描述html语法的 stack=[]</p>
-    <p>codegen <code><div>hello</div> => _c('div', {}, 'hello') </code>=> 让字符串执行</p>
-    <p>模板引擎 new Function + with 来实现</p>
-    <p>参考：https://www.jb51.net/article/269909.htm</p>
-    <p>参考二：https://blog.csdn.net/web220507/article/details/127679080</p>
-  </section>
-  <p>3、浏览器渲染原理？详细介绍比如html如何映射为DOM树，css如何映射为css OM树？</p>
-  <p>4、浏览器输入网址到页面渲染全过程？详细点</p>
-  <p>5、typescript和javascript的区别？</p>
+    <p>参考：<a href="https://juejin.cn/post/7093531510862512136"
+        target="_blank">https://juejin.cn/post/7093531510862512136</a></p>
+    <h4>10、webpack打包原理？</h4>
+    <h4>11、用vue和react分别实现3个checkbox全选和全不选？</h4>
+    <h4>12、工作遇到和上级方案不一致怎么解决？</h4>
+    <h4>13、紧急情况加班怎么看待？</h4>
+    <h4>14、你对这个岗位的优势？</h4>
+    <h4>15、你项目中有遇到哪些难点吗？（重点准备）</h4>
+    <p>行政题：https://zhuanlan.zhihu.com/p/445732133</p>
 
-  <h3>腾讯云</h3>
-  <h4>1、多数元素</h4>
-  <p>
-    <code>
+    <h3>碧桂园</h3>
+    <p>1、vue和react的区别？</p>
+    <p>2、vue响应式原理？涉及到哪些方法？</p>
+    <section>
+      <p>虚拟dom、diff算法、真实dom（梳理一下）</p>
+      <p>大致流程：把模板转换成对应的渲染函数 => 虚拟dom概念 vnode => diff算法 更新虚拟 => 产生真实节点、更新</p>
+      <p>也可以表示为：html => ast（只能描述语法 语法不存在的属性无法描述） => render函数 + (with + new Function) => 虚拟dom（增加额外的属性） => 生成真实dom</p>
+      <p>parserHTML流程：</p>
+      <p>html字符串解析成dom树
+        <code><div id="app">{{name}}</div></code>
+      </p>
+      <p>将我们的html => 词法解析 （开始标签，结束标签，属性，文本）</p>
+      <p>ast(语法层面的描述 js css html) vdom（dom节点）用来描述html语法的 stack=[]</p>
+      <p>codegen <code><div>hello</div> => _c('div', {}, 'hello') </code>=> 让字符串执行</p>
+      <p>模板引擎 new Function + with 来实现</p>
+      <p>参考：https://www.jb51.net/article/269909.htm</p>
+      <p>参考二：https://blog.csdn.net/web220507/article/details/127679080</p>
+    </section>
+    <p>3、浏览器渲染原理？详细介绍比如html如何映射为DOM树，css如何映射为css OM树？</p>
+    <ul>
+      <li>（1）解析HTML生成DOM树</li>
+      <li>（2）解析CSS生成CSS规则树</li>
+      <li>（3）根据DOM树和CSS规则树生成render树</li>
+      <li>（4）根据渲染树进行Layout布局（回流）。这一阶段浏览器要做的是要弄清楚各个节点在页面中的确切位置和大小。</li>
+      <li>（5）布局结束后进入绘制阶段，遍历渲染树并调用渲染对象的paint方法将他们的内容显示在屏幕上，绘制出UI基础组件。</li>
+    </ul>
+    <p>4、浏览器输入网址到页面渲染全过程？详细点</p>
+    <p>5、typescript和javascript的区别？</p>
+
+    <h3>腾讯云</h3>
+    <h4>1、多数元素</h4>
+    <p>
+      <code>
       // 给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
 
       // 你可以假设数组是非空的，并且给定的数组总是存在多数元素。
@@ -116,11 +311,11 @@
       
       };
     </code>
-  </p>
-  <p>答案（js数据结构与算法——多数元素）：https://blog.csdn.net/Vevean2545116309/article/details/119975233</p>
-  <h4>2、路径求和</h4>
-  <p>
-    <code>
+    </p>
+    <p>答案（js数据结构与算法——多数元素）：https://blog.csdn.net/Vevean2545116309/article/details/119975233</p>
+    <h4>2、路径求和</h4>
+    <p>
+      <code>
       // 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum ，判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。
 
       // 叶子节点 是指没有子节点的节点。
@@ -149,12 +344,12 @@
       };
 
     </code>
-  </p>
-  <p>答案（js 路径求和）：https://www.cnblogs.com/PaturNax/p/16656574.html</p>
+    </p>
+    <p>答案（js 路径求和）：https://www.cnblogs.com/PaturNax/p/16656574.html</p>
 
-  <h4>3、对象扁平化</h4>
-  <p>
-    <code>
+    <h4>3、对象扁平化</h4>
+    <p>
+      <code>
       // 原数据
       const obj1 = {
           a: 1,
@@ -186,81 +381,1226 @@
       console.log(flatten(obj1));
 
     </code>
-  </p>
-  <p>答案（算法—js实现 对象扁平化）：https://juejin.cn/post/6894577333630418958</p>
+    </p>
+    <p>答案（算法—js实现 对象扁平化）：https://juejin.cn/post/6894577333630418958</p>
 
-  <h3>IBM</h3>
-  <h4>1、vue2和vue3的区别？</h4>
-  <p>（1）vue2和vue3双向数据绑定原理发生了改变</p>
-  <ul>
-    <li>vue2 的双向数据绑定是利用ES5 的一个 API Object.definePropert()对数据进行劫持 结合 发布订阅模式的方式来实现的。</li>
-    <li>vue3 中使用了 es6 的 ProxyAPI 对数据代理。</li>
-  </ul>
-  <dl>
-    <dt>相比于vue2.x，使用proxy的优势如下</dt>
-    <dd>1、defineProperty只能监听某个属性，不能对全对象监听</dd>
-    <dd>2、可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）</dd>
-    <dd>3、可以监听数组，不用再去单独的对数组做特异性操作 vue3.x可以检测到数组内部数据的变化</dd>
-  </dl>
-  <p>（2）Vue3支持碎片(Fragments)，就是说在组件可以拥有多个根节点。</p>
-  <p>（3）Composition API</p>
-  <ul>
-    <li>旧的选项型API在代码里分割了不同的属性: data,computed属性，methods，等等。新的合成型API能让我们用方法（function）来分割，相比于旧的API使用属性来分组，这样代码会更加简便和整洁。</li>
-  </ul>
-  <p>（4）建立数据 data</p>
-  <p>（5）生命周期钩子：setup </p>
-  <p>（6）父子传参不同，setup() 函数特性</p>
-  <p>（7）vue3 Teleport瞬移组件</p>
-  <h4>2、type和interface的区别？泛型是什么？</h4>
-  <p>interface只能用于描述对象和类的形状，而type可以用于创建任何类型的别名。</p>
-  <p>interface可以被类实现(implement)，而type不行。</p>
-  <p>interface可以扩展(extends)其他interface，而type不行。</p>
-  <p>type支持更复杂的类型定义，如联合类型、交叉类型、元组等，而interface不支持。</p>
-  <p>type可以用于定义泛型类型别名，而interface不行。</p>
-  <p>泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。</p>
-  <h4>3、vue2响应式原理？</h4>
-  <h4>4、vue3的数据传递？</h4>
-  <h4>5、前端安全（重点准备）</h4>
-  <h4>6、什么是原型链？</h4>
-  <h4>7、type和interface的区别？</h4>
-  <h4>8、闭包是什么？有什么应用？防抖节流？</h4>
-  <h4>9、vue中jsx用过吗？什么场景？</h4>
-  <h4>10、for of和for in的区别</h4>
-  <p>for in适合遍历对象，for of适合遍历数组</p>
+    <h3>IBM</h3>
+    <h4>1、vue2和vue3的区别？</h4>
+    <section>
+      <p>（1）vue2和vue3双向数据绑定原理发生了改变</p>
+      <ul>
+        <li>vue2 的双向数据绑定是利用ES5 的一个 API Object.definePropert()对数据进行劫持 结合 发布订阅模式的方式来实现的。</li>
+        <li>vue3 中使用了 es6 的 Proxy API 对数据代理。</li>
+      </ul>
+      <dl>
+        <dt>相比于vue2.x，使用proxy的优势如下</dt>
+        <dd>1、defineProperty只能监听某个属性，不能对全对象监听</dd>
+        <dd>2、可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）</dd>
+        <dd>3、可以监听数组，不用再去单独的对数组做特异性操作 vue3.x可以检测到数组内部数据的变化</dd>
+      </dl>
+      <p>（2）Vue3支持碎片(Fragments)，就是说在组件可以拥有多个根节点。</p>
+      <p>（3）Composition API</p>
+      <ul>
+        <li>旧的选项型API在代码里分割了不同的属性: data,computed属性，methods，等等。新的合成型API能让我们用方法（function）来分割，相比于旧的API使用属性来分组，这样代码会更加简便和整洁。
+        </li>
+      </ul>
+      <p>（4）建立数据 data</p>
+      <p>（4）（或者说）定义数据变量和方法的改变</p>
+      <ul>
+        <li>在vue2中定义数据变量是data(){}，创建的方法要在methods:{}中。</li>
+        <li>而在vue3中直接在setup(){}中，在这里面定义的变量和方法因为最终要在模板中使用，所以最后都得 return。</li>
+      </ul>
+      <p>（5）生命周期钩子：setup </p>
+      <p>vue2中的生命周期：</p>
+      <ul>
+        <li>beforeCreate 组件创建之前</li>
+        <li>created 组件创建之后</li>
+        <li>beforeMount 组价挂载到页面之前执行</li>
+        <li>mounted 组件挂载到页面之后执行</li>
+        <li>beforeUpdate 组件更新之前</li>
+        <li>updated 组件更新之后</li>
+      </ul>
+      <p>vue3中的生命周期：</p>
+      <ul>
+        <li>setup 开始创建组件</li>
+        <li>onBeforeMount 组价挂载到页面之前执行</li>
+        <li>onMounted 组件挂载到页面之后执行</li>
+        <li>onBeforeUpdate 组件更新之前</li>
+        <li>onUpdated 组件更新之后</li>
+      </ul>
+      <p>（6）父子传参不同，setup() 函数特性</p>
+      <p>（7）vue3 Teleport瞬移组件</p>
+      <p>（8）diff算法的优化</p>
+      <p>其他参考：<a href="https://juejin.cn/post/7185449117999431741"
+          target="_blank">https://juejin.cn/post/7185449117999431741</a></p>
+      <p>参考二：<a href="https://www.cnblogs.com/zhanghaoqing/p/16398258.html"
+          target="_blank">https://www.cnblogs.com/zhanghaoqing/p/16398258.html</a></p>
+    </section>
+    <h4>2、type和interface的区别？泛型是什么？</h4>
+    <p>interface只能用于描述对象和类的形状，而type可以用于创建任何类型的别名。</p>
+    <p>interface可以被类实现(implement)，而type不行。</p>
+    <p>interface可以扩展(extends)其他interface，而type不行。</p>
+    <p>type支持更复杂的类型定义，如联合类型、交叉类型、元组等，而interface不支持。</p>
+    <p>type可以用于定义泛型类型别名，而interface不行。</p>
+    <p>泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。</p>
+    <h4>3、vue2响应式原理？</h4>
+    <h4>4、vue3的数据传递？</h4>
+    <section>
+      <p>父传子：props</p>
+      <p>子传父：emit</p>
+      <p>Provide/Inject</p>
+      <p>参考：<a href="https://juejin.cn/post/7026551046197477389"
+          target="_blank">https://juejin.cn/post/7026551046197477389</a></p>
+    </section>
+    <h4>5、前端安全（重点准备）</h4>
+    <h4>6、什么是原型链？</h4>
+    <h4>7、type和interface的区别？</h4>
+    <h4>8、闭包是什么？有什么应用？防抖节流？</h4>
+    <h4>9、vue中jsx用过吗？什么场景？</h4>
+    <h4>10、for of和for in的区别</h4>
+    <p>for in适合遍历对象，for of适合遍历数组</p>
 
 
-  <h3>数字广东外包</h3>
-  <h4>1、nextTick原理是什么？</h4>
-  <p>JS 执⾏是单线程的，它是基于事件循环的。事件循环⼤致分为以下⼏个步骤：</p>
-  <p>（1）所有同步任务都在主线程上执⾏，形成⼀个执⾏栈（executioncontextstack）。</p>
-  <p>（2）主线程之外，还存在⼀个"任务队列"（taskqueue）。只要异步任务有了运⾏结果，就在"任务队列"之中放置⼀个事件。</p>
-  <p>（3）⼀旦"执⾏栈"中的所有同步任务执⾏完毕，系统就会读取"任务队列"，看看⾥⾯有哪些事件。那些对应的异步任务，于是结束等待状态，进⼊执⾏栈，开始执⾏。</p>
-  <p>（4）主线程不断重复上⾯的第三步。</p>
-  <p>Vue 不止使用 setTimeout 实现nextTick；会判断promise是否存在，选择任务类型。如果promise存在，就使用微任务。</p>
-  <h4>2、宏任务和微任务是什么？setTimeout(,1000)真的会在1s后执行吗？</h4>
-  <h4>3、对webpack的理解？loader和plugin的区别？</h4>
-  <p>webpack是把项目当作一个整体，通过给定一个主文件，webpack将从这个主文件开始找到项目中所有依赖的文件，使用loaders处理，最后打包城一个或者多个浏览器可识别的js文件。</p>
-  <h4>4、es module和commonjs的区别？为什么es module能做到tree shaking（没有用到的代码都会被自动抖掉）？</h4>
-  <h4>5、git和svn的区别？</h4>
-  <p>git是分布式的，而svn是集中式的</p>
-  <h4>6、说说vue2中数据变化后到更新dom的过程？涉及哪些方法？有没有断点调试过？</h4>
-  <h4>7、http和https的区别？为什么更安全？</h4>
-  <h4>8、性能优化方案有些？</h4>
-  <h4>9、说说缓存？</h4>
-  <h4>10、vue多个组件如何实现代码复用（重复使用一部分代码逻辑）？mixin和hooks？</h4>
-  <p>vue2使用的是mixins，但是有以下问题：数据来源不清晰；容易造成命名冲突；</p>
-  <p>vue3中可以自定义hooks</p>
-  <p>参考：https://www.jb51.net/article/253200.htm</p>
-  <h4>11、css如何实现响应式布局？</h4>
-  <p>百分比布局、媒体查询布局、rem 响应式布局、vw 响应式布局、flex 弹性布局</p>
-  <p>参考：https://zhuanlan.zhihu.com/p/588468151</p>
-  <h4>11、有没有了解过cicd流程？</h4>
+    <h3>数字广东外包</h3>
+    <h4>1、nextTick原理是什么？</h4>
+    <p>JS 执⾏是单线程的，它是基于事件循环的。事件循环⼤致分为以下⼏个步骤：</p>
+    <p>（1）所有同步任务都在主线程上执⾏，形成⼀个执⾏栈（executioncontextstack）。</p>
+    <p>（2）主线程之外，还存在⼀个"任务队列"（taskqueue）。只要异步任务有了运⾏结果，就在"任务队列"之中放置⼀个事件。</p>
+    <p>（3）⼀旦"执⾏栈"中的所有同步任务执⾏完毕，系统就会读取"任务队列"，看看⾥⾯有哪些事件。那些对应的异步任务，于是结束等待状态，进⼊执⾏栈，开始执⾏。</p>
+    <p>（4）主线程不断重复上⾯的第三步。</p>
+    <p>nextTick 的原理，用一句话总结就是『利用 Event loop 事件线程去异步操作』。本质上就是注册异步任务来对任务进行处理。不同的是，在 Vue 的不同版本对这个异步任务的优雅降级不太一样。</p>
+    <p>Vue 不止使用 setTimeout 实现nextTick；会判断promise是否存在，选择任务类型。如果promise存在，就使用微任务。</p>
+    <h4>2、宏任务和微任务是什么？setTimeout(,1000)真的会在1s后执行吗？</h4>
+    <p>事件循环中的异步队列有两种，宏任务队列和微任务队列：</p>
+    <p>宏任务包括：script、setTimeout、setInterval、setImmediate、I/O、UI rendering</p>
+    <p>微任务包括：MutationObserver、Promise.then()、以Promise为基础开发的其他技术，例如fetch API、V8的垃圾回收过程、Node独有的process.nextTick</p>
+    <h4>3、对webpack的理解？loader和plugin的区别？</h4>
+    <p>webpack是把项目当作一个整体，通过给定一个主文件，webpack将从这个主文件开始找到项目中所有依赖的文件，使用loaders处理，最后打包成一个或者多个浏览器可识别的js文件。</p>
+    <p>loader，它是一个转换器，将A文件进行编译城B文件，比如：将A.less转换城A.css，单纯的文件转换过程。</p>
+    <p>plugin是一个扩展器，它丰富了webpack，针对是loader结束后，webpack打包的整个过程，它并不直接操作文件，而是基于事件的机制工作，会监听webpack打包过程中的某些节点，执行广泛的任务。
+    </p>
+    <h4>4、es module和commonjs的区别？为什么es module能做到tree shaking（没有用到的代码都会被自动抖掉）？</h4>
+    <section>
+      <p>commonjs模块是拷贝，可以修改值，ES6模块是引用，只读状态，不能修改值。</p>
+      <p>commonjs模块是运行时加载，ES6模块是编译时输出接口。</p>
+    </section>
+    <h4>5、git和svn的区别？</h4>
+    <p>git是分布式的，而svn是集中式的</p>
+    <h4>6、说说vue2中数据变化后到更新dom的过程？涉及哪些方法？有没有断点调试过？</h4>
+    <section>
+      <p>在 Vue 2 中，数据变化到 DOM 更新的过程涉及以下关键方法和概念：</p>
+      <dl>
+        <dt>1. 响应式系统的实现：</dt>
+        <dd>Object.defineProperty()：用于在初始化组件状态时将数据属性转换为响应式属性。这包括设置 getter 和 setter，以便进行依赖收集和变更通知。</dd>
+        <dt>2. 依赖收集：</dt>
+        <dd>Watcher：每个组件实例都有相应的 watcher 实例，它在组件渲染过程中作为渲染 watcher。当数据属性被访问时，通过属性的 getter 进行依赖收集，将当前的 watcher
+          添加到该属性的依赖列表中。</dd>
+        <dt>3. 变更检测：</dt>
+        <dd>当响应式数据发生变化时，通过属性的 setter 方法触发变更通知，通知所有依赖的 watcher 更新。</dd>
+        <dt>4. 虚拟 DOM 重渲染：</dt>
+        <dd>重新渲染：当 watcher 接收到更新信号时，会重新执行其包含的渲染函数，生成新的虚拟 DOM 树。</dd>
+        <dt>5. Diff 算法：</dt>
+        <dd>虚拟 DOM 对比：Vue 的 Diff 算法对比新旧虚拟 DOM 树，找出最小差异。 patch 函数：根据 Diff 算法的结果，patch 函数负责将必要的更改应用到实际的 DOM 上。</dd>
+        <dt>6. DOM 更新：</dt>
+        <dd>执行实际的 DOM 更新操作，这些操作是基于虚拟 DOM 的对比结果。</dd>
+        <dt>7. 生命周期钩子：</dt>
+        <dd>beforeUpdate 和 updated</dd>
+      </dl>
+    </section>
+    <h4>7、http和https的区别？为什么更安全？</h4>
+    <h4>8、性能优化方案有些？</h4>
+    <h4>9、说说缓存？</h4>
+    <h4>10、vue多个组件如何实现代码复用（重复使用一部分代码逻辑）？mixin和hooks？</h4>
+    <p>vue2使用的是mixins，但是有以下问题：数据来源不清晰；容易造成命名冲突；</p>
+    <p>vue3中可以自定义hooks</p>
+    <p>参考：https://www.jb51.net/article/253200.htm</p>
+    <h4>11、css如何实现响应式布局？</h4>
+    <p>百分比布局、媒体查询布局、rem 响应式布局、vw 响应式布局、flex 弹性布局</p>
+    <p>参考：https://zhuanlan.zhihu.com/p/588468151</p>
+    <h4>11、有没有了解过cicd流程？</h4>
+    <section>
+      <p>CI/CD（持续集成/持续部署）是现代软件开发流程中的一个关键实践，旨在通过自动化软件的构建、测试和部署来加快开发周期、提高软件质量和增强部署的可靠性。以下是CI/CD的大致流程：</p>
+      <dl>
+        <dt>1. 源代码管理</dt>
+        <dd>开发人员将代码更改提交到版本控制系统（如 Git）。通常，这些更改会提交到特定的分支。</dd>
+        <dt>2. 持续集成（CI）</dt>
+        <dd>自动构建：当代码被推送到仓库（如 GitHub、GitLab等）时，CI工具（如 Jenkins、Travis CI、GitLab CI等）会自动触发构建过程。</dd>
+        <dd>运行测试：构建过程中包括自动运行单元测试、集成测试等，以确保新代码的更改不会破坏现有功能。</dd>
+        <dd>代码质量检查：可能包括静态代码分析、代码覆盖率检查等，以确保代码质量符合预定标准。</dd>
+        <dt>3. 持续部署（CD）</dt>
+        <dd>自动部署：在代码通过所有测试和检查后，CD工具会自动将代码部署到生产环境</dd>
+      </dl>
+    </section>
 
-  <h3>外企德科（华为）</h3>
-  <h4>1、华为题库地址：https://www.nowcoder.com/ta/huawei</h4>
-  <h4>2、华为机试真题：https://pycoder.blog.csdn.net/article/details/124648380</h4>
+    <h3>外企德科（华为）</h3>
+    <h4>1、华为题库地址：https://www.nowcoder.com/ta/huawei</h4>
+    <h4>2、华为机试真题：https://pycoder.blog.csdn.net/article/details/124648380</h4>
+
+    <h3>伯纳德集团</h3>
+    <h4>1、浅拷贝和深拷贝为什么会出现？他们区别是什么？如何实现深拷贝？JSON.parse和JSON.stringify为什么能实现深拷贝？</h4>
+    <p>从内存空间分配来看</p>
+    <h4>2、typescript和javascript区别？优势有哪些？泛型是什么？</h4>
+    <p>泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。</p>
+    <h4>3、如何封装组件？slot插槽有哪些种类？</h4>
+    <section>
+      <ul>
+        <li>1.普通公共组件封装：父子通信，v-model</li>
+        <li>2.通过渲染函数封装组件：h 函数与 render 函数运用</li>
+      </ul>
+    </section>
+    <p>回答二：组件调用、函数调用、插件调用</p>
+    <p><a href="https://juejin.cn/post/7136126279773847565"
+        target="_blank">https://juejin.cn/post/7136126279773847565</a></p>
+    <h4>4、react函数式组件和component组件的区别？优势？有哪些优化方式？</h4>
+    <section>
+      <p>函数组件相比较类组件，优点是更轻量与灵活，便于逻辑的拆分复用。</p>
+      <p>函数式组件捕获了渲染时所使用的值，这是两类组件最大的不同。</p>
+      <p><a href="https://github.com/jappp/Blog/issues/12" target="_blank">https://github.com/jappp/Blog/issues/12</a>
+      </p>
+    </section>
+    <h4>5、map和foEach区别？哪个会更改原函数？</h4>
+    <section>
+      <h5>共同点</h5>
+      <ul>
+        <li>对空数组都不会执行回调函数的</li>
+        <li>都能对数组进行循环</li>
+      </ul>
+      <h5>区别</h5>
+      <ul>
+        <li>map不会改变原始数组，并且会返回一个新的数组</li>
+        <li>forEach会改变原始数组，返回值为undefined</li>
+      </ul>
+    </section>
+
+    <h3>绿瘦集团</h3>
+    <h4>1、new操作符做了什么？</h4>
+    <p>new操作符创建了一个空对象，然后将这个对象的原型指向构造函数的prototype，执行构造函数后返回这个对象。</p>
+    <h4>2、说说this</h4>
+    <p>this是函数执行时的上下文，它的值取决于函数的调用方式，而不是定义方式。</p>
+    <h4>3、vue生命周期？beforeCreate中是否有this？created有没有this、data是否可用？注意细节</h4>
+    <p>beforeCreate在组件实例初始化完成之后立即调用，有this的</p>
+    <p>created在组件实例处理完所有与状态相关的选项后调用。当这个钩子被调用时，以下内容已经设置完成：响应式数据、计算属性、方法和侦听器。然而，此时挂载阶段还未开始，因此 $el 属性仍不可用。所以有data属性。</p>
+    <p></p>
+    <p><a href="https://cn.vuejs.org/api/options-lifecycle.html"
+        target="_blank">https://cn.vuejs.org/api/options-lifecycle.html</a></p>
+    <h4>4、空窗期在做什么？是否焦虑？</h4>
+    <section>
+      <p>学习提升：通过之前工作中自己的不足，进行短板的强化升级，为之后工作储备力量，夯实基础。</p>
+      <p>为自己充电：当从一个工作抽离出来，先让自己得到充足的休息，一个人的身体对于工作的重要性不言而喻，可以解释你为什么中间是空档期。（或者说，做一个适当的休息调整）</p>
+    </section>
+    <h4>5、有没有其他公司的offer？</h4>
+    <h4>6、你想了解什么？绩效考核、晋升机制、加班情况、福利待遇</h4>
+
+    <h3>工商银行外包</h3>
+    <h4>1.vue数据更新后如何拿到最新的dom元素？nextTick更新机制</h4>
+    <section>
+      <p>回答一：</p>
+      <p>在 Vue 中，由于数据更新和 DOM 渲染是异步的，直接在数据变化后访问 DOM 可能无法获取到最新的 DOM 状态。为了确保在数据更新后能够访问到最新的 DOM 元素，Vue 提供了几种方法来处理这种情况：</p>
+      <p>使用 this.$nextTick()</p>
+      <p>$nextTick() 是 Vue 实例的一个方法，它用于在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，可以在回调函数中访问更新后的 DOM。</p>
+    </section>
+    <section>
+      <p>回答二：</p>
+      <p>nextTick 本质就是执行延迟回调的钩子，接受一个回调函数作为参数，在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。</p>
+      <p>nextTick 的原理，用一句话总结就是『利用 Event loop 事件线程去异步操作』。本质上就是注册异步任务来对任务进行处理。不同的是，在 Vue 的不同版本对这个异步任务的优雅降级不太一样。</p>
+    </section>
+    <h4>2.找出字符串中最多出现的字符并且拿到其个数？</h4>
+    <p>
+      <a href="https://blog.51cto.com/marsxh/3823270">https://blog.51cto.com/marsxh/3823270</a>
+    </p>
+    <h4>3.对数组中的数字进行从小到大排序，两种方法？</h4>
+    <p>
+      <a
+        href="https://juejin.cn/s/js%E6%95%B0%E5%AD%97%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F">https://juejin.cn/s/js%E6%95%B0%E5%AD%97%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F</a>
+    </p>
+    <h4>4.如何更换两个变量的值？不使用中间变量，也不能使用es6的解构？比如const a=1;const b=2;转换成a=2;b=1;</h4>
+    <p>
+      <a href="https://juejin.cn/post/6844903492608327688">https://juejin.cn/post/6844903492608327688</a>
+    </p>
+    <h4>5.nodejs的异步io机制是怎样？相比java等语言有啥区别？</h4>
+    <section>
+      <p>事件驱动、异步io、事件循环</p>
+      <p>Node适合大并发的IO处理，不适合CPU密集型的计算操作。Web开发大部分都是耗时IO操作，所以Node非常适合进行Web开发。</p>
+      <p>IO密集型适合C、C++、Java、Go等语言实现</p>
+      <p>
+        <a
+          href="https://www.cnblogs.com/ZheOneAndOnly/p/15946930.html">IO机制1：https://www.cnblogs.com/ZheOneAndOnly/p/15946930.html</a>
+      </p>
+      <p>
+        <a href="https://www.developers.pub/article/616">IO机制1：https://www.developers.pub/article/616</a>
+      </p>
+      <p>
+        <a href="https://juejin.cn/post/7010308647792148511">事件循环：https://juejin.cn/post/7010308647792148511</a>
+      </p>
+    </section>
+
+    <h3>惠州农商银行</h3>
+    <h4><strong>笔试</strong></h4>
+    <h4>1、js中循环语句有哪些？</h4>
+    <p>for循环、for...in循环、while循环、do while循环、forEach循环（注意大小写）、map、filter、Object.keys遍历对象</p>
+    <h4>2、123['toString']['length'] + '12345'.substring(1, 4) + '12345'.substr(1, 4)返回什么？</h4>
+    <section>
+      <p>12342345，语法：substr(start,length)；语法:substring(star,end)，end不包含最后一个</p>
+      <p>考察字符串方法的区别：substring()、substr()</p>
+      <ul>
+        <li>substr(start,length)返回该字符串的一部分，从指定的索引开始，然后扩展到给定数量的字符；</li>
+        <li>substring(start,end)返回该字符串从起始索引到结束索引（不包括）的部分，如果未提供结束索引，则返回到字符串末尾的部分；</li>
+      </ul>
+    </section>
+    <h4>3、HTML是一门编程语言吗？</h4>
+    <p>HTML的英文全称是 Hyper Text Markup Language，即超文本标记语言。不是一门编程语言。</p>
+    <h4>4、https的ssl双向认证？</h4>
+    <p>https://zhuanlan.zhihu.com/p/330393659</p>
+    <h4>5、try...catch...finally中finally在try返回值为false的时候会执行吗？</h4>
+    <p>finally子句在try块和catch块之后执行但是在下一个try声明之前执行。无论是否有异常抛出或捕获它总是执行。</p>
+    <h4><strong>面试</strong></h4>
+    <h4>1、说说http状态码？（1-12道题任选一题）</h4>
+    <section>
+      <h5>概念：</h5>
+      <p>http状态码的作用是服务器告诉客户端当前请求响应的状态，通过状态码就能判断和分析服务器的运行状态</p>
+      <h5>分类：</h5>
+      <ul>
+        <li>1 表示消息</li>
+        <li>2 表示成功</li>
+        <li>3 表示重定向</li>
+        <li>4 表示请求错误</li>
+        <li>5 表示服务器错误</li>
+      </ul>
+      <p>参考：<a href="https://github.com/febobo/web-interview/issues/144"
+          target="_blank">https://github.com/febobo/web-interview/issues/144</a></p>
+    </section>
+    <h4>2、如果遇到大量数据，如何处理？</h4>
+    <section>
+      <h5>回答一：</h5>
+      <p>
+        因为js是单线程运行的，在遇到一些需要处理大量数据的js时，可能会阻塞页面的加载，造成页面的假死。这时我们可以使用worker来开辟一个独立于主线程的子线程来进行那些大量运算。这样就不会造成页面卡死。也说明worker可以用来解决大量运算是造成页面卡死的问题。
+      </p>
+      <p>分类实现：<a
+          href="https://blog.csdn.net/lwf3115841/article/details/131276380">https://blog.csdn.net/lwf3115841/article/details/131276380</a>
+      </p>
+      <p>worker实现：<a href="https://juejin.cn/post/6844903821278199822"
+          target="_blank">https://juejin.cn/post/6844903821278199822</a></p>
+      <h5>回答二：</h5>
+      <ul>
+        <li>从数据上处理：分页分表，比如前端可以把数据分页展示，后端也分段吐数据</li>
+        <li>从渲染上解决：</li>
+        <ul>
+          <li>异步渲染，比如进入页面先不渲染，然后加载好页面再渲染；（异步加载）</li>
+          <li>局部渲染：只渲染目前可视区域的数据，再渲染次屏数据；（虚拟列表）</li>
+          <li>性能瓶颈，可以考虑web worker做压缩和解码，也可以考虑离屏canvas做预渲染</li>
+        </ul>
+        <li>减少网络耗时：压缩数据，gzip等</li>
+      </ul>
+      <h5>回答三：</h5>
+      <dl>
+        <dt>1. 分页和懒加载</dt>
+        <dd>分页：将数据分成多个部分，每次只加载一个部分。这可以通过传统的分页或无限滚动来实现。</dd>
+        <dd>懒加载：只加载用户可以看到的数据。当用户滚动到页面的底部时，再加载更多数据。</dd>
+        <dt>2. 虚拟滚动</dt>
+        <dd>对于长列表数据，虚拟滚动（或窗口化技术）可以极大地提高性能。这种技术只渲染可视区域内的元素，并在滚动时动态加载和卸载元素。</dd>
+        <dt>3. 数据缓存</dt>
+        <dd>前端缓存：使用浏览器的本地存储，如 localStorage 或 IndexedDB，来存储已加载的数据，减少不必要的网络请求。</dd>
+        <dd>服务端缓存：在服务器端缓存数据，可以快速响应前端请求，减少数据库的查询压力。</dd>
+        <dt>4. 数据压缩</dt>
+        <dd>在服务器端压缩数据（如使用 gzip），在传输到前端之前减少数据的体积，可以加快加载速度。</dd>
+        <dt>5. Web Workers</dt>
+        <dd>使用 Web Workers 处理数据，可以在后台线程中执行数据处理任务，避免阻塞主线程，从而提高页面响应性。</dd>
+        <dt>6. 优化渲染性能</dt>
+        <dd>避免重绘和回流：优化 CSS 和动态</dd>
+      </dl>
+    </section>
+    <h4>3、如何管理一个项目？微前端了解过没？</h4>
+    <p>考察点：组件、插件、微前端？</p>
+    <h4>4、你在项目中充当什么角色？</h4>
+    <p>暂时：大部分的时候是一个开发者的角色，实现功能，与后端进行数据联调，解决测试bug等。也做过一些主导者的角色，比如官网技术栈升级这个项目就是自己主导推进的，其中跟产品、运营、设计、后端、运维等都有打交道。</p>
+    <h4>5、37之后一直是离职状态吗？为什么想来惠州？</h4>
+    <section>
+      <p>考察员工稳定性：</p>
+      <p>比起地理位置更看重发展机会。</p>
+      <p>贵公司规模也挺大，符合个人发展方向。（吹一吹）</p>
+    </section>
+
+    <h3>美的</h3>
+    <h4>1、fetch和ajax区别？</h4>
+    <section>
+      <p>AJAX (XMLHttpRequest)：是一种较老的技术，支持自 Internet Explorer 5 以来的所有浏览器。它提供了一个通过 JavaScript 发送 HTTP 请求的接口。</p>
+      <p>Fetch API：是一种现代的替代 XMLHttpRequest 的技术，提供了一个更简洁、更强大的 API。它是基于 Promise 的，使得处理异步请求更加方便</p>
+    </section>
+    <h4>2、跨域有哪些方式？（设置代理）</h4>
+    <section>
+      <ul>
+        <li>通过jsonp跨域</li>
+        <li>document.domain+iframe</li>
+        <li>location.hash+iframe</li>
+        <li>window.name+iframe</li>
+        <li>window.postMessage</li>
+        <li>跨域资源共享（CORS）</li>
+        <li>nodejs中间件代理跨域</li>
+        <li>websocket协议跨域</li>
+        <li>Nginx代理跨域</li>
+      </ul>
+    </section>
+    <h4>3、宏任务和微任务</h4>
+    <h4>4、url输入的全过程？记得说缓存</h4>
+    <h4>5、jsonp的缺点？</h4>
+    <p>只支持Get方式</p>
+    <h4>6、手写发布订阅者模式？</h4>
+    <h4>7、有部署过项目吗？环境变量有用过不？考察运维相关的</h4>
+    <h4>8、说说盒模型</h4>
+    <h4>9、内联元素和块级元素的区别？</h4>
+    <h4>10、响应式布局有哪些？记得媒体查询</h4>
+    <h4>11、动画实现方式有哪些？如遇性能问题如何解决？（再查查）</h4>
+    <section>
+      <p>css3动画</p>
+      <p>可能会遇到卡顿问题，解决方案是：</p>
+      <p>在使用css3 transtion做动画效果时，优先选择transform，尽量不要使用height，width，margin和padding。</p>
+      <p>js动画</p>
+      <p>卡顿问题，主要是单线程引起的</p>
+      <p>回答二：</p>
+      <dl>
+        <dt>1. CSS Transitions</dt>
+        <dd>适用于简单的从一个状态过渡到另一个状态的动画。</dd>
+        <dd>通过指定属性的初始状态和结束状态，浏览器会自动计算中间状态。</dd>
+        <dt>2. CSS Animations</dt>
+        <dd>适用于更复杂的关键帧动画。</dd>
+        <dd>可以定义多个关键帧，控制动画的中间状态。</dd>
+        <dt>3. JavaScript Animations</dt>
+        <dd>使用 JavaScript 直接通过代码控制动画。</dd>
+        <dd>适用于需要复杂逻辑控制的动画，如基于用户交互的动态效果。</dd>
+        <dt>4. SVG Animations</dt>
+        <dd>适用于矢量图形的动画。</dd>
+        <dd>可以通过 CSS 或 JavaScript 控制 SVG 属性或使用 SMIL（同步多媒体集成语言）。</dd>
+        <dt>5. Canvas Animations</dt>
+        <dd>适用于需要</dd>
+      </dl>
+    </section>
+
+    <h4>1、继承的方式有哪些？</h4>
+    <p>继承：原型链继承、借用构造函数法、组合继承、原型式继承、寄生式继承、寄生组合继承</p>
+    <h4>2、npm和pnpm在包管理上的区别？缓存？</h4>
+    <section>
+      <p>1.安装速度</p>
+      <ul>
+        <li>npm：相对较慢，特别是在有大量依赖项的项目中</li>
+        <li>pnpm：安装速度较快，尤其是在多项目工作区中</li>
+      </ul>
+      <p>2.磁盘空间占用</p>
+      <ul>
+        <li>npm：默认将依赖赋值到项目的node_modules，可能导致重复占用磁盘空间</li>
+        <li>pnpm：通过符号链接共享依赖项，减少了磁盘空间占用</li>
+      </ul>
+      <p>3.并发安装</p>
+      <ul>
+        <li>npm：不支持并发安装，会一个一个的安装依赖项</li>
+        <li>pnpm：支持并发安装，提高了安装速度</li>
+      </ul>
+      <p>4.稳定性</p>
+      <ul>
+        <li>npm：稳定、成熟、广泛使用</li>
+        <li>pnpm：相对较新，但社区正在不断发展</li>
+      </ul>
+    </section>
+    <h4>3、vue2和vue3区别？diff算法有哪些优化？</h4>
+    <section>
+      <p>vue2中的虚拟dom是进行全量的对比。</p>
+      <p>vue3中新增了静态标记：在与上次虚拟节点进行对比的时候，只对比带有patch flag的节点，并且可以通过flag的信息得知当前节点要对比的具体内容变化。</p>
+    </section>
+    <h4>4、html2Canvas如何实现的？考察原理还是配置？</h4>
+
+    <h3>趣玩网络科技</h3>
+    <h4>1、http和https的区别？你们的ssl用的什么版本？</h4>
+    <h4>2、对于一个比较耗时的任何任务？如何解决？后端主动推送？</h4>
+    <section>
+      <p>1. 异步处理</p>
+      <ul>
+        <li>使用异步操作：将耗时任务放在异步操作中，以避免阻塞主线程，保持应用的响应性。</li>
+        <li>Web Workers：将任务放在 Web Workers 中运行，以在后台线程中处理，不影响主线程。</li>
+      </ul>
+      <p>2. 任务分割</p>
+      <ul>
+        <li>分割任务：将大任务分割成多个小任务，逐个处理，以减少单个任务的执行时间。</li>
+        <li>批处理：将任务分成批次处理，每次处理一部分数据，以降低单次处理的负担。</li>
+      </ul>
+      <p>3. 优化算法</p>
+      <ul>
+        <li>优化算法：审查任务的实现，寻找可以优化的地方，提高算法效率。</li>
+        <li>数据结构：选择合适的数据结构，以提高数据操作的效率。</li>
+      </ul>
+      <p>4. 缓存</p>
+      <ul>
+        <li>结果缓存：对于重复性任务，缓存已经计算过的结果，避免重复计算。</li>
+        <li>数据缓存：将频繁访问的数据缓存起来，减少重复获取数据的开销。</li>
+      </ul>
+      <p>5. 并行处理</p>
+      <ul>
+        <li>并行处理：将任务并行化处理，利用多核 CPU 或多线程来加速任务执行。</li>
+        <li>并发控制：控制并发任务的数量，避免过度并发导致系统负载过高。</li>
+      </ul>
+      <p>6. 延迟加载</p>
+      <ul>
+        <li>延迟加载：延迟加载不是立即需要的资源，以提高页面加载速度和响应性。</li>
+      </ul>
+    </section>
+    <h4>3、js单线程的原理是什么？</h4>
+    <section>
+      <p>
+        JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？
+      </p>
+      <p>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。</p>
+      <p>参考：<a href="https://segmentfault.com/a/1190000015806981"
+          target="_blank">https://segmentfault.com/a/1190000015806981</a></p>
+    </section>
+    <h4>4、你在项目中有遇到哪些难点吗？</h4>
+    <h4>5、性能优化有哪些？</h4>
+    <h4>6、单线程和多线程的区别？</h4>
+    <section>
+      <p>单线程（Single-threaded）</p>
+      <ul>
+        <li>定义：单线程指的是程序在任意时刻只能执行一个任务。</li>
+        <li>执行方式：任务按顺序执行，一个任务执行完毕后才能执行下一个任务。</li>
+        <li>
+          <p>优势：</p>
+          <ul>
+            <li>简单性：避免了多线程的复杂性，减少了死锁和竞态条件的风险。</li>
+            <li>可靠性：避免了多线程并发带来的问题，提高了代码的可靠性。</li>
+          </ul>
+        </li>
+        <li>适用场景：适合处理前端交互、事件驱动的应用，保证了事件的顺序执行。</li>
+      </ul>
+      <p>多线程（Multi-threaded）</p>
+      <ul>
+        <li>定义：多线程指的是程序同时执行多个任务，每个任务都有自己的执行路径。</li>
+        <li>执行方式：多个任务可以并行执行，提高了系统的并发性能。</li>
+        <li>
+          <p>优势：</p>
+          <ul>
+            <li>并发性：充分利用多核 CPU，提高系统的并发处理能力。</li>
+            <li>高效性：可以同时处理多个任务，提高系统的响应速度和效率。</li>
+          </ul>
+        </li>
+        <li>
+          <p>挑战：</p>
+          <ul>
+            <li>同步问题：需要处理线程间的同步和通信，避免竞态条件和死锁。</li>
+            <li>资源竞争：多线程共享资源时可能出现资源竞争问题。</li>
+          </ul>
+        </li>
+      </ul>
+      <p>总结</p>
+      <ul>
+        <li>单线程适合简单的任务和事件驱动的应用，保证了代码的简洁性和可靠性。</li>
+        <li>多线程适合需要并发处理和高性能的场景，但需要处理同步和资源竞争等问题。</li>
+      </ul>
+    </section>
+    <h4>7、如何根据后端返回生成不同的代码？考虑模板template？</h4>
+    <section>
+      <p>1. 动态模板渲染</p>
+      <ul>
+        <li>使用模板引擎（如 Handlebars、EJS）或前端框架（如 Vue、React）来动态生成代码。</li>
+        <li>根据后端返回的数据，填充模板中的变量，生成不同的代码片段。</li>
+      </ul>
+      <p>2. 条件渲染</p>
+      <ul>
+        <li>根据后端返回的数据，使用条件语句（如 if、switch）来判断生成不同的代码。</li>
+        <li>根据不同条件分支，动态生成相应的代码块。</li>
+      </ul>
+      <p>3. 动态组件</p>
+      <ul>
+        <li>在前端框架中，可以根据后端返回的数据动态渲染不同的组件。</li>
+        <li>使用组件化的方式，根据后端返回的数据动态加载不同的组件，实现灵活的代码生成。</li>
+      </ul>
+      <p>4. 代码生成工具</p>
+      <ul>
+        <li>可以开发一个代码生成工具，根据后端返回的数据结构自动生成对应的代码。</li>
+        <li>这种方式可以提高代码生成的效率和一致性。</li>
+      </ul>
+      <p>5. 动态执行代码</p>
+      <ul>
+        <li>在某些情况下，可以根据后端返回的数据动态执行 JavaScript 代码。</li>
+        <li>注意安全性和风险，确保执行的代码是可信的，避免安全漏洞。</li>
+      </ul>
+    </section>
+    <h4>8、如何让你的页面加载起来更快？</h4>
+    <section>
+      <p>1. 优化图片</p>
+      <ul>
+        <li>压缩图片：使用工具（如 ImageOptim、TinyPNG）压缩图片，减小文件大小。</li>
+        <li>使用适当格式：选择合适的图片格式（如 WebP、JPEG 2000）以减小文件大小。</li>
+        <li>懒加载：延迟加载图片，只在用户滚动到可见区域时加载。</li>
+      </ul>
+      <p>2. 减少 HTTP 请求</p>
+      <ul>
+        <li>合并文件：将多个 CSS 或 JavaScript 文件合并成一个，减少 HTTP 请求次数。</li>
+        <li>使用 CSS Sprites：将多个小图标合并成一个图片，减少图片请求次数。</li>
+      </ul>
+      <p>3. 缓存</p>
+      <ul>
+        <li>浏览器缓存：利用浏览器缓存机制，设置合适的缓存头，减少重复加载资源。</li>
+        <li>CDN 缓存：使用 CDN 加速，将静态资源缓存在 CDN 上，加快资源加载速度。</li>
+      </ul>
+      <p>4. 代码优化</p>
+      <ul>
+        <li>压缩代码：压缩 JavaScript、CSS 文件，减小文件大小。</li>
+        <li>延迟加载：将不必要立即加载的 JavaScript 延迟加载，提高首屏加载速度。</li>
+      </ul>
+      <p>5. 优化 CSS 和 JavaScript</p>
+      <ul>
+        <li>内联关键 CSS：将关键 CSS 内联到 HTML 中，避免阻塞渲染。</li>
+        <li>异步加载 JavaScript：使用 async 或 defer 属性加载 JavaScript，避免阻塞页面加载。</li>
+      </ul>
+      <p>6. 服务端渲染</p>
+      <ul>
+        <li>使用服务端渲染（SSR）或预渲染技术，提前生成页面内容，加快首屏加载速度。</li>
+      </ul>
+      <p>7. 响应式设计</p>
+      <ul>
+        <li>使用响应式设计，根据不同设备加载不同的资源，提高移动端加载速度。</li>
+      </ul>
+      <p>8. 性能监控</p>
+      <ul>
+        <li>使用工具（如 Lighthouse、WebPageTest）进行性能监控和分析，找出性能瓶颈并优化。</li>
+      </ul>
+    </section>
+
+    <h3>程丰速运</h3>
+    <h4>1、nextTick原理是什么？</h4>
+    <h4>2、说说事件循环？宏任务和微任务</h4>
+    <h4>3、如何给localstorage设置过期时间？用什么数据结构合适？</h4>
+    <p>参考：<a href="https://www.jianshu.com/p/50b4c89d3be3" target="_blank">https://www.jianshu.com/p/50b4c89d3be3</a>
+    </p>
+    <h4>4、vue组件开发时，如果将父组件属性透传给子组件？而不是把props都加上？$attrs</h4>
+    <h4>5、webpack的loader和plugin的区别？</h4>
+    <h4>6、npm和pnpm的区别？</h4>
+    <h4>7、如何管理组件？内部npm、git-sum-model？传统方案？</h4>
+    <h4>8、缓存用到哪些？</h4>
+    <h4>9、element ui和ant design区别？如何将element ui改成ant design的模式？</h4>
+    <ul>
+      <li>1、从体验上来看，elementUI更加漂亮，使用起来更加容易上手，elementUI这个框架更加适合于面向外部开发。Ant Design也有一定的优势，从功能上来说，后者更加齐全，比如回到顶部、树形选择等，Ant
+        Design更加适合管理平台的开发。</li>
+      <li>2、从使用上来看，对于prop版本，vue-element-admin允许初始化基础版，而ant-design-prop这个初始化后有大量的例子，开发之前需要把例子删掉。</li>
+      <li>
+        3、总之，如果想快速上手，又希望ui更加漂亮，建议用elementUI；如果追求的是比较复杂的后台管理平台，可以考虑采用ant-design-pro，而且ant-design-pro无论表格还是表单，都是高度可配置化的。这点相对于elementUI来说，ant-design-pro虽然稍微复杂了点，但是换来更大的便利。
+      </li>
+    </ul>
+    <h4>10、从0到1搭建一个项目，你会考虑哪些方面？时间成本、可维护性、可扩展性？技术选型、组件维护</h4>
+    <section>
+      <p>1.项目规划</p>
+      <ul>
+        <li>需求分析：明确项目的需求和目标，确定项目的功能和范围。</li>
+        <li>技术选项：选择合适的技术栈和工具，根据项目需求决定使用的框架、库等。</li>
+      </ul>
+      <p>2.架构设计</p>
+      <ul>
+        <li>项目结构：设计项目的文件结构，包括组织代码、资源文件等。</li>
+        <li>组件设计：根据功能模块划分组件，设计组件之间的关系和通信方式。</li>
+      </ul>
+      <p>3.页面设计和布局</p>
+      <ul>
+        <li>HTML/CSS/JavaScript：编写页面结构、样式和交互逻辑。</li>
+        <li>框架/库：选择合适的前端框架或库，加速开发并提高效率。</li>
+      </ul>
+      <p>4.测试和部署</p>
+      <ul>
+        <li>单元测试：编写单元测试确保代码质量。</li>
+        <li>部署流程：设置自动化部署流程，将项目部署到生产环境。</li>
+      </ul>
+      <p>5. 优化和维护</p>
+      <ul>
+        <li>性能优化：优化页面加载速度、响应时间等，提升用户体验。</li>
+        <li>持续维护：定期更新和维护项目，修复 bug 和添加新功能。</li>
+      </ul>
+    </section>
+    <h4>11、日常封装的组件哪种类型的比较多？业务组件还是基础组件？具体有哪些？</h4>
+    <h4>12、vue指令用的比较多的有哪些？</h4>
+    <p>v-text,v-html,v-once,v-if/v-else-if/v-else,v-for,v-model,v-bind,v-show,v-on,v-cloak,v-pre</p>
+    <h4>12、还有什么要问的？</h4>
+    <section>
+      <p>回答一：</p>
+      <p>1. 关于公司：</p>
+      <ul>
+        <li>了解公司的发展规划和文化是什么样的？</li>
+        <li>公司的团队规模和组织结构是怎样的？</li>
+        <li>公司对员工的培训和职业发展支持程度如何？</li>
+      </ul>
+      <p>2. 关于团队和项目：</p>
+      <ul>
+        <li>你将会加入的团队是怎样的？团队成员之间的合作氛围如何？</li>
+        <li>你将会负责的项目或任务是什么？项目的技术栈和挑战是什么？</li>
+      </ul>
+      <p>3. 关于工作环境：</p>
+      <ul>
+        <li>公司的工作制度和灵活性如何？是否支持远程办公或弹性工作时间？</li>
+        <li>公司对员工的福利和福利待遇是怎样的？</li>
+      </ul>
+      <p>4. 关于面试流程：</p>
+      <ul>
+        <li>接下来的面试流程是怎样的？大概的时间安排和下一步的步骤是什么？</li>
+      </ul>
+    </section>
+    <ul>
+      <li>本次招聘属于新增还是替补？</li>
+      <li>岗位具体事项？比如业务类型？</li>
+      <li>团队目前最大的挑战是什么？</li>
+      <li>如果我能加入这个团队，你对我有什么期望？或者说您对候选人的期望是怎样的？</li>
+      <li>企业文化是怎样的？</li>
+      <li>公司的晋升机制？福利待遇</li>
+      <li>试用期多久？试用期薪资如何计算？</li>
+      <li>参考：<a href="https://blog.csdn.net/qq_46580087/article/details/124541364"
+          target="_blank">https://blog.csdn.net/qq_46580087/article/details/124541364</a></li>
+    </ul>
+    <h4>13、如何做一个数据权限的管理？</h4>
+    <section>
+      <p>1. 前端权限控制</p>
+      <ul>
+        <li>动态渲染：根据用户的权限动态渲染页面元素，只展示用户有权限访问的数据和功能。</li>
+        <li>路由守卫：使用路由守卫控制页面访问权限，根据用户权限决定是否允许访问特定页面。</li>
+      </ul>
+      <p>2. API 权限控制</p>
+      <ul>
+        <li>后端接口权限：在后端接口中实现权限控制，根据用户角色和权限过滤返回的数据。</li>
+        <li>Token 鉴权：使用 Token 或 JWT 鉴权机制，验证用户身份和权限，限制用户访问接口的数据范围。</li>
+      </ul>
+      <p>3. 数据过滤</p>
+      <ul>
+        <li>前端数据过滤：在前端对接收到的数据进行过滤，只展示用户有权限访问的数据。</li>
+        <li>后端数据过滤：在后端根据用户权限过滤数据库查询结果，只返回用户有权限访问的数据。</li>
+      </ul>
+      <p>4. 角色管理</p>
+      <ul>
+        <li>角色定义：定义不同的用户角色，每个角色拥有不同的权限和数据访问范围。</li>
+        <li>角色分配：将用户分配到不同的角色，根据角色确定用户的权限和数据访问范围。</li>
+      </ul>
+      <p>5. 审计日志</p>
+      <ul>
+        <li>操作日志：记录用户的操作行为和数据访问记录，用于审计和追踪用户操作。</li>
+        <li>异常处理：对于权限不足的操作，提供友好的提示和异常处理机制。</li>
+      </ul>
+    </section>
+    <h4>14、react双向绑定的原理？</h4>
+    <section>
+      <ul>
+        <li>表单输入->数据更新：通过将表单元素的值绑定到 state，并在 onChange 事件中更新 state，可以实现双向绑定的效果。</li>
+        <li>数据变化->表单更新：当 state 更新时，表单元素的值也会随之更新，从而实现双向数据流。</li>
+      </ul>
+      <p>虽然 React 并没有直接实现双向绑定的概念，但通过上述方法，可以在 React </p>
+    </section>
+
+    <h3>广东慧天</h3>
+    <h4>1、js的数据类型有哪些？基础类型和复合类型的区别？</h4>
+    <section>
+      <p>基本类型（值类型）：字符串（String）、数字（Number）、布尔（Boolean）、空（Null）、未定义（Undefined）、Symbol</p>
+      <p>引用类型：对象（Object）、数组（Array）、函数（Function），还有两个特殊的对象正则（RegExp）和日期（Date）</p>
+      <p>基础类型是存储在栈中，它的值是不可变的，按值传递，用typeof检查类型。</p>
+      <p>引用类型存储是：引用存在栈中，值在堆中，它的值是可变的，用instanceof来判断类型。</p>
+    </section>
+    <h4>2、堆和栈的区别？</h4>
+    <section>
+      <ul>
+        <li>栈：存放基本数据类型，系统会自动分配内存空间，由系统自动释放，占据固定大小的空间；</li>
+        <li>堆：存放引用类型数据，系统会动态分配内存空间，系统不会自动释放，且占据的空间大小不定；</li>
+      </ul>
+      <p>在JS中，声明一个引用类型时，会在堆内存中保存一个对象，在栈中保存变量名和一个指针，这个指针指向的是堆内存中对应的对象。</p>
+      <p>指针指的是堆内存中的引用地址，通过这个引用地址可以快速查找到保存中堆内存中的对象。而由于JS不额可以对堆内存进行直接访问和操作，又延伸出两种访问方式：</p>
+      <ul>
+        <li>按值访问：对于基本类型，可以直接操作保存在栈中的实际值；</li>
+        <li>按引用访问：对于引用类型，通过栈中的引用地址连接到堆中对象，操作的是堆中的对象而不是栈中的地址。</li>
+      </ul>
+    </section>
+    <h4>3、object、set、map、array有什么区别？</h4>
+    <section>
+      <ul>
+        <li>Map数据结构。它类似于对象，也是健值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。</li>
+        <li>WeakMap结构与Map结构类似，也是用于生成键值对的集合。但是WeakMap只接受对象作为键名（null）除外，不接受其他类型的值作为键名。而且WeakMap的键名所指向的对象，不计入垃圾回收机制。</li>
+        <li>ES6提供了新的数据结构Set，它类似于数组，但是成员的值都是唯一的，没有重复的值。</li>
+      </ul>
+    </section>
+    <h4>4、说说你对vue的理解？</h4>
+    <h4>5、vue2有哪些缺点？（想想如果换成vue的缺点呢？）</h4>
+    <section>
+      <ul>
+        <li>1、defineProperty只能监听某个属性，不能对全对象监听</li>
+        <li>2、使用for in、闭包等内容来效率低</li>
+        <li>3、无法检测通过索引改变数组的操作，也无法检测数组和对象的新增</li>
+      </ul>
+    </section>
+    <h4>6、vue2如何监测数组下标的变化？$set的原理是什么？</h4>
+    <section>
+      <p>Object.defineProperty 本身是可以监控到数组下标的变化的，只是在 Vue 的实现中，从性能/体验的性价比考虑，便放弃了这个特性。</p>
+      <p>vue 无法监听数组变化的解决方案：</p>
+      <ul>
+        <li>this.$set(arr, index, newVal)</li>
+        <li>通过splice(index，num，val)</li>
+      </ul>
+      <p>$set原理：</p>
+      <ul>
+        <li>首先它会判断是不是数组,如果是数组则使用splice方法将数据修改成为响应式</li>
+        <li>如果是对象使用in方法判断是否在目标对象里面,如果存在直接修改数据； 如果不存在添加属性,并赋值最后使用defindeRactive添加响应式，然后通知更新</li>
+      </ul>
+      <p>代码参考：<a href="https://juejin.cn/post/7076138220970311688"
+          target="_blank">https://juejin.cn/post/7076138220970311688</a></p>
+    </section>
+    <h4>7、vue2和vue3的区别？</h4>
+    <h4>8、数据过滤的方法有哪些？some和every的区别？map和forEach的区别？</h4>
+    <section>
+      <p>js中every()和some()方法都是JS中数组的迭代方法，方法用于检测数组所有元素是否都符合条件，会检测数组中的所有元素。</p>
+      <p>every()是对数组中每一项运行给定函数，如果该函数对每一项返回true，则返回true；</p>
+      <ul>
+        <li>如果数组中检测到有一个元素不满足，则整个表达式返回false，且剩余的元素不会再检测；</li>
+        <li>如果所有的元素都满足条件，则返回true；</li>
+      </ul>
+      <p>some()是对数组中每一项运行给定函数，如果该函数对任一项返回true，则返回true；</p>
+      <ul>
+        <li>如果一个元素满足条件，则表达式返回true，剩余的元素不会再执行检测；</li>
+        <li>如果没有满足条件的元素，则返回false。</li>
+      </ul>
+      <code>
+        var arr = [ 1, 2, 3, 4, 5, 6 ]; 
+
+        console.log( arr.some( function( item, index, array ){ 
+            console.log( 'item=' + item + ',index='+index+',array='+array ); 
+            return item > 3; 
+        })); // true
+
+        console.log( arr.every( function( item, index, array ){ 
+            console.log( 'item=' + item + ',index='+index+',array='+array ); 
+            return item > 3; 
+        })); // false
+      </code>
+      <p>map和forEach区别：</p>
+      <ul>
+        <li>map()不会改变原始数组，并且会返回一个新的数组；</li>
+        <li>forEach()会改变原始数组，返回值为undefined；</li>
+      </ul>
+    </section>
+    <h4>9、vue中如何设置动态路由？不同用户权限不一样该如何处理？</h4>
+    <h4>10、js的类如何实现私有方法？object.freeze用过没？如何解除freeze？</h4>
+    <section>
+      <ul>
+        <li>通过下划线 _prop 从命名上区分</li>
+        <li>通过 Proxy 来定义 get、set、ownKeys 的逻辑</li>
+        <li>通过 Symbol 来定义唯一的属性名，不能通过 keys 拿到</li>
+        <li>通过 WeakMap 来保存所有对象的私有属性和方法</li>
+        <li>通过 #prop 的 es 新语法实现私有，babel 和 tsc 会把它们编译成 WeakMap 的方式</li>
+        <li>通过 ts 的 private 在编译时约束</li>
+      </ul>
+      <p><a href="https://juejin.cn/post/7080131411503972366"
+          target="_blank">https://juejin.cn/post/7080131411503972366</a></p>
+    </section>
+    <h4>11、websocket有了解吗？常用的方法有哪些？</h4>
+    <h4>12、如何实现垂直居中？</h4>
+    <h4>13、你在项目中有遇到什么困难吗？</h4>
+    <h4>14、你们前后端是如何合作的？跟他人有冲突如何解决？</h4>
+    <h4>15、你的学习能力怎样？</h4>
+    <h4>16、你眼中的好团队是怎样的？</h4>
+    <section>
+      明确的团队目标、共享、不同的角色、良好的沟通、共同的价值观和行为规范、归属感、有效的授权
+    </section>
+
+    <h3>广东热剧向上科技有限公司</h3>
+    <h4>1、有遇到高并发的情况吗？前端会做些什么？</h4>
+    <h4>2、前端安全有哪些？</h4>
+    <h4>3、网页性能优化有哪些？</h4>
+
+    <h3>广州珂诚信息</h3>
+    <h4>1、白屏是什么导致的？如何解决？</h4>
+    <section>
+      <p>白屏时间：即用户点击一个链接或打开浏览器输入url地址后，从屏幕空白到显示第一个画面的时间。</p>
+      <p>重要性：当用户点开一个链接或打开浏览器输入url开始进行访问时，就开始等待页面展示。页面渲染的时间越短，用户等待的时间就越短，用户感知到页面的速度就越快。这样可以极大的提升用户的体验，减少用户的跳出，提升页面的留存率。
+      </p>
+      <p>白屏的过程：</p>
+      <ul>
+        <li>1、首先，在浏览器中输入url</li>
+        <li>2、浏览器先查看浏览器缓存-系统缓存-路由缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则直接跳到第三步操作</li>
+        <li>3、在发送http请求前，需要域名解析（DNS解析），解析获取相应的IP地址</li>
+        <li>4、浏览器向服务器发起tcp连接，与服务器建立tcp三次握手</li>
+        <li>5、握手成功后，浏览器向服务器发送http请求，请求数据包</li>
+        <li>6、服务器处理收到的请求，将数据返回至浏览器</li>
+        <li>7、浏览器收到HTTP响应</li>
+        <li>8、读取页面内容，浏览器渲染，解析html源码</li>
+        <li>9、生成DOM树、解析CSS样式、js交互，渲染页面</li>
+      </ul>
+      <p>白屏-性能优化</p>
+      <dl>
+        <dt>1、DNS解析优化</dt>
+        <dd>DNS缓存优化、DNS预加载策略、稳定可靠的DNS服务器</dd>
+        <dt>2、TCP网络链路优化</dt>
+        <dt>3、服务端处理优化</dt>
+        <dd>比如Redis缓存、数据库存储优化、系统中间件、Gzip压缩等等</dd>
+        <dt>4、浏览器下载、解析、渲染页面优化</dt>
+        <dd>尽可能精简HTML的代码和结构</dd>
+        <dd>尽可能的优化CSS文件和结构</dd>
+        <dd>合理放置JS代码，尽量不要使用内联的JS代码</dd>
+        <dd>将渲染首屏内容所需的关键CSS内联到HTML中，能使CSS更快速地下载。在HTML下载完成之后就能渲染了，页面渲染的时间提前，从而缩短首屏渲染时间</dd>
+        <dd>延迟首屏不需要的图片加载，而优先加载首屏所需的图片</dd>
+      </dl>
+      <p>参考：<a href="https://juejin.cn/post/7220422095392751673"
+          target="_blank">https://juejin.cn/post/7220422095392751673</a></p>
+    </section>
+    <h4>2、性能监控指标有哪些？用过哪种框架？</h4>
+    <section>
+      <p>核心的性能指标包括：TTFB、FP、FCP、LCP、TTI、DCL。</p>
+      <dl>
+        <dt>TTFB</dt>
+        <dd>
+          <p>TTFB指代从资源的请求到响应第一个字节的时间跨度。</p>
+          <p>TTFB = responseStart - navigationStart</p>
+        </dd>
+        <dt>FP（白屏时间）</dt>
+        <dd>
+          <p>FP指代用户发起请求到浏览器开始渲染页面内第一个像素点所经过的时间。一般html解析结束之后就会开始触发。白屏时间长短对用户体验影响极大，因此计算时尽量保证准确。！！！</p>
+          <p>
+            计算FP的方法：<code>performance.getEntries('paint').filter(entry => entry.name == 'first-paint')[0].startTime</code>
+          </p>
+        </dd>
+        <dt>FCP（首次内容绘制）</dt>
+        <dd>
+          <p>FCP指代测量页面从开始加载到页面内容的任何部分在屏幕上完成渲染的时间。</p>
+          <p>
+            计算FCP的方法：<code>performance.getEntries('paint').filter(entry => entry.name == 'first-contentful-paint')[0].startTime;</code>
+          </p>
+        </dd>
+        <dt>LCP (最大内容渲染时间)</dt>
+        <dd>
+          <p>LCP指代页面中最大的内容完成绘制的时间。</p>
+          <p>计算LCP的方法：</p>
+          <p>
+            <code>
+              new PerformanceObserver((entryList) => {  
+                for (const entry of entryList.getEntries()) {  
+                    // entry.startTime 的值即为LCP 
+                }  
+            }).observe({type: 'largest-contentful-paint', buffered: true});
+            </code>
+          </p>
+        </dd>
+        <dt>TTI (最早可交互时间)</dt>
+        <dd>
+          <p>TTI指代页面从加载资源到页面渲染，最早可以与用户进行完全可交互的时间，也可以用来描述页面的响应快慢，如果TTI过长容易被用户将页面当成已失败处理。</p>
+          <p>通过监听第一个长任务去计算TTI</p>
+        </dd>
+        <dt>DCL (DOMContentLoaded)</dt>
+        <dd>
+          <p>DCL指代当HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，无需等待样式，图像和子框架的完成加载的时间。</p>
+          <p>计算DCL的方法：</p>
+          <p>
+            <code>
+              document.addeventListener('DOMContentLoaded', function() {
+                +new Date() - window.performanceObser.timing.navigationStart
+              }, false);
+            </code>
+          </p>
+        </dd>
+      </dl>
+      <p>
+        <a href="https://juejin.cn/post/7223280402475089978"
+          target="_blank">https://juejin.cn/post/7223280402475089978</a>
+      </p>
+    </section>
+    <h4>3、遇到大量数据如何处理？</h4>
+    <h4>4、性能优化方案？</h4>
+    <h4>5、vite和webpack区别？</h4>
+    <section>
+      <dl>
+        <dt>开发模式不同</dt>
+        <dd>
+          <p>Webpack在开发模式下依然会对所有模块进行打包操作，虽然提供了热更新，但大型项目中依然可能会出现启动和编译缓慢的问题；而Vite则采用了基于ES
+            Module的开发服务器，只有在需要时才会编译对应的模块，大幅度提升了开发环境的响应速度。</p>
+        </dd>
+        <dt>打包效率不同</dt>
+        <dd>
+          <p>Webpack在打包时，会把所有的模块打包成一个bundle，这会导致初次加载速度较慢；而Vite则利用了浏览器对ES Module的原生支持，只打包和缓存实际改动的模块，从而极大提高了打包效率。</p>
+        </dd>
+        <dt>插件生态不同</dt>
+        <dd>
+          <p>Webpack的插件生态非常丰富，有大量社区和官方插件可以选择，覆盖了前端开发的各个方面；而Vite的插件生态尽管在不断发展，但相比Webpack来说还显得较为稀少。</p>
+        </dd>
+        <dt>配置复杂度不同</dt>
+        <dd>
+          <p>Webpack的配置相对复杂，对新手不够友好；而Vite在设计上更注重开箱即用，大部分场景下用户无需自己写配置文件。</p>
+        </dd>
+        <dt>热更新机制不同</dt>
+        <dd>
+          <p>Webpack的热更新需要整个模块链重新打包和替换，对于大型项目可能会有延迟；Vite的热更新则只会针对改动的模块进行更新，提高了更新速度</p>
+        </dd>
+      </dl>
+      <p>参考：<a href="https://juejin.cn/post/7240288077867548730"
+          target="_blank">https://juejin.cn/post/7240288077867548730</a></p>
+    </section>
+    <h4>6、小程序和h5的区别？</h4>
+    <section>
+      <p>1、运行环境</p>
+      <ul>
+        <li>小程序：运行在特定的App（如微信、支付宝）内；</li>
+        <li>h5：运行在各种浏览器中。</li>
+      </ul>
+      <p>2、开发环境和工具</p>
+      <ul>
+        <li>小程序：需要使用特定的开发工具，如微信开发者工具；</li>
+        <li>h5：开发工具和库非常丰富，可以根据喜好选择；</li>
+      </ul>
+      <p>3、性能和体验</p>
+      <ul>
+        <li>小程序：由于小程序的代码运行在一个相对封闭和优化过的环境中，因此其运行效率和性能比h5更高。而且小程序可以实现类似元素App的体验，如离线访问、深度集成等。</li>
+      </ul>
+      <p>4、更新机制</p>
+      <ul>
+        <li>小程序：代码打包发布新版本后，需要用户重新打开小程序时才会下载新的代码包。</li>
+        <li>h5：更新更为简单，只需要在服务器更新网页和资源文件即可。</li>
+      </ul>
+      <p>5、渲染机制</p>
+      <ul>
+        <li>H5 页面的渲染和逻辑都在同一个线程（主线程）中运行</li>
+        <li>而小程序则分别在 WebView 线程和 JavaScriptCore 线程中运行</li>
+      </ul>
+      <p>6、开发成本</p>
+      <ul>
+        <li>小程序脱离W3C标准，很多第三方库不能直接使用了。小程序本身会增加学习成本。</li>
+        <li>h5兼容性更复杂</li>
+      </ul>
+    </section>
+    <h4>7、如何实现拖拽生成网页？类似问卷星那种</h4>
+
+    <h3>广州畅指网络</h3>
+    <h3>1、说说ssr</h3>
+    <section>
+      <p>（1）vue的ssr有什么优势？</p>
+      <p>spa页面
+      <div id="app"></div>无法爬取dom元素 不利于seo优化</p>
+      <p>多页面应用有利于seo优化 像原生开发页面可以简历很多html 去实现seo</p>
+      <p>vue-server-render vue实现了可以在node中解析vue 实现将实例渲染成一个字符串</p>
+
+      <p>（2）spa单页面如何做seo优化?</p>
+      <p>预渲染（启动一个浏览器 生成html，加载这个页面的时候先显示html在进行替换，适合一些静态页面）</p>
+      <p>服务端渲染</p>
+
+      <p>（3）SSR的缺陷：</p>
+      <ul>
+        <li>SSR会占用很多服务器内存（缓存）</li>
+        <li>浏览器api无法正常使用了 比如mounted，只有beforeCreat created可以用</li>
+        <li>页面渲染后发起ajax请求数据，用请求来的数据渲染页面（js很大，首屏白屏问题）。服务端渲染在后台中请求数据直接用于渲染（可以减少白屏）</li>
+      </ul>
+
+      <p>（4）SSR原理：</p>
+      <ul>
+        <li>通过一份代码打包出两份代码 -> 用node渲染打包的结果 -> 字符串（没有交互能力） 再把另一份打包的结果插入到页面中</li>
+      </ul>
+    </section>
+    <h4>2、vue组件通信方式有哪些？</h4>
+    <ul>
+      <li>prop和$emit 父组件向子组件传递数据通过props传递，子组件传递数据给父组件通过$emit触发事件来做到</li>
+      <li>$parent和$children</li>
+      <li>$attrs和$listeners A->B->C</li>
+      <li>父组件通过provide来提供变量，然后子组件通过inject来注入变量</li>
+      <li>$refs获取实例</li>
+      <li>eventBus 平级/跨级组件数据传递 这个情况下可以使用中央事件总线的方式</li>
+      <li>vuex状态管理</li>
+    </ul>
+
+    <h3>柏视医疗</h3>
+    <h4>1、开发中有没有实际上的性能问题？比如资源本身就很大如何处理？</h4>
+    <p>gzip压缩，按需加载资源、利用缓存，异步加载？？</p>
+    <h4>2、项目中会不会遇到什么比较难的问题？如何解决？</h4>
+    <h4>3、闭包一般用于什么情况？有没有相应的规定？因为大量使用闭包可能会造成内存泄露</h4>
+    <section>
+      <p>使用场景：创建私有变量，延长变量的生命周期</p>
+      <p>具体场景：自执行函数、防抖节流、函数柯里化、链式调用、迭代器</p>
+      <p>参考：<a href="https://juejin.cn/post/7264183910597279799"
+          target="_blank">https://juejin.cn/post/7264183910597279799</a></p>
+    </section>
+    <h4>4、防抖和节流是什么？通常用于什么场景？</h4>
+    <h4>5、你的职业规划是什么？</h4>
+    <h4>6、对于不同行业的跨度？你会如何处理？</h4>
+    <h4>7、您有其他的面试吗？一般是什么类型的公司？</h4>
+    <h4>8、跟面试官聊得咋样？</h4>
+    <h4>9、css优先级，如何代码子代选择器可以跟class类名吗？</h4>
+    <section>
+      <h5>结构</h5>
+      <p>
+        <code>
+          <div class="content">
+            <div>
+              <div class="box"></div>
+              <div></div>
+            </div>
+          </div>
+        </code>
+      </p>
+      <h5>样式</h5>
+      <p>
+        <code>
+          .content>div.box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+          }
+        </code>
+      </p>
+    </section>
+    <p><strong>注意：</strong>如果下content没有第一层div那么是可以获取到颜色为红色的。也就是子代选择器可以跟类名。</p>
+    <h4>10、下面代码运行结果是：</h4>
+    <section>
+      <p>
+        <code>
+          var a = 0;
+          function foo() {
+            function bar() {
+              a++;
+            }
+            bar();
+          }
+          console.log(a, foo());  //0 undefined
+        </code>
+      </p>
+      <p>运行结果是0 undefined</p>
+    </section>
+    <h4>11、使用ES6以及箭头函数，把数组arr=[5,01,03,9,4,6,12,02,07,08]中所有的偶数都提取出来并按降序排列</h4>
+    <h4>12、编写一个ES6语句，去除数组let arr=[undefined,NaN,'',0,false,null]中所有的假值，并注释写出最终结果：</h4>
+    <h4>13、查找arr=[1,1,0,1,1,1]中连续1的最大数目。</h4>
+    <h4>14、function的length属性是什么？</h4>
+
+    <h3>FunPlus</h3>
+    <h4>1、如何将一个树形结构的对象转成数组？比如{id:xxx,children:[{id:xxx},{id:xxx},{id:xxx}]}id求和</h4>
+    <p>参考：<a href="https://juejin.cn/post/6952442048708345863"
+        target="_blank">https://juejin.cn/post/6952442048708345863</a></p>
+    <h4>2、reduce适用于什么场景？数组->对象？</h4>
+    <p>参考：<a href="https://cloud.tencent.com/developer/article/1885382"
+        target="_blank">https://cloud.tencent.com/developer/article/1885382</a></p>
+    <p>数组格式化成对象，用reduce</p>
+    <h4>3、数组常用的方法有哪些？</h4>
+    <section>
+      <p>数组常用方法：</p>
+      <ul>
+        <li>Array.concat()连接数组</li>
+        <li>Array.join()将数组连接起来以构建一个字符串</li>
+        <li>Array.pop()删除并返回数组的最后一个元素</li>
+        <li>Array.push()给数组添加元素</li>
+        <li>Array.reverse()颠倒数组中元素的顺序</li>
+        <li>Array.slice()返回数组的一部分</li>
+        <li>Array.sort()对数组元素进行排序</li>
+        <li>Array.splice()插入、删除或替换数组的元素</li>
+        <li>Array.toLocalString()将数组转换成局部字符串</li>
+        <li>Array.toString()将数组转换成一个字符串</li>
+        <li>Array.unshift()从数组头部插入一个元素</li>
+        <li>Array.shift()从数组头部删除一个元素</li>
+        <li>迭代方法：every(),some(),filter(),map(),forEach()</li>
+        <li>Array.reduce()</li>
+      </ul>
+    </section>
+    <h4>4、介绍项目，项目中有什么难点吗？</h4>
+    <h4>5、ref和reactive区别？如果互换调用会怎样？比如ref一个对象，reactive一个基础类型</h4>
+    <section>
+      <ul>
+        <li>1.ref可以存储原始类型，而reactive不能</li>
+        <li>2.ref需要通过.value访问数据，而reactive可直接用作常规对象</li>
+        <li>3.可以分配一个全新的对象给ref的value值，而reactive不能</li>
+        <li>4.watch默认值观察ref的value，而reactive则执行深度箭头</li>
+        <li>5.ref默认会用reactive对象类型的原始值进行深层响应转换</li>
+      </ul>
+      <p>参考：<a href="https://juejin.cn/post/7211055301205934138"
+          target="_blank">https://juejin.cn/post/7211055301205934138</a></p>
+    </section>
+    <p>或者说：ref 适用于简单数据类型的响应式处理，而 reactive 则适用于复杂数据类型的响应式处理。此外，ref 可以通过 .value 访问值，而 reactive 则可以直接访问对象的属性。</p>
+    <h4>6、vue2和vue3的区别？</h4>
+    <h4>7、如何管理你开发的组件？如果组件中用到其他的插件会怎样？有考虑过单独上传npm吗？</h4>
+    <p>可以使用npm包管理：参考：<a href="https://developer.aliyun.com/article/1094295"
+        target="_blank">https://developer.aliyun.com/article/1094295</a></p>
+    <h4>8、微信小程序api有关注它的变化吗？</h4>
+    <h4>9、react用过哪些插件吗？umi用过吗</h4>
+
+    <h3>广东省电力设计院</h3>
+    <h4>1.fiber有了解吗？</h4>
+    <h4>2.说说vue从模板到显示到浏览器的过程？</h4>
+    <section>
+      <p>Vue数据挂载流程如下：</p>
+      <p>1. 初始化阶段：</p>
+      <ul>
+        <li>Vue实例创建时，会初始化数据、方法、计算属性等。</li>
+        <li>Vue会将data中的数据进行响应式处理，即通过Object.defineProperty或Proxy监听数据变化。</li>
+      </ul>
+      <p>2. 模板编译阶段：</p>
+      <ul>
+        <li>Vue会将模板编译为渲染函数。</li>
+        <li>渲染函数包含了对数据的引用和更新逻辑。</li>
+      </ul>
+      <p>3. 挂载阶段：</p>
+      <ul>
+        <li>Vue将渲染函数执行，生成虚拟DOM。</li>
+        <li>Vue会将虚拟DOM与实际DOM进行比对，找出差异。</li>
+      </ul>
+      <p>4. 更新阶段：</p>
+      <ul>
+        <li>当数据发生变化时，Vue会重新执行渲染函数，生成新的虚拟DOM。</li>
+        <li>Vue会比对新旧虚拟DOM，找出变化的部分，然后更新实际DOM。</li>
+      </ul>
+      <p>5. DOM更新：</p>
+      <ul>
+        <li>Vue会将变化的部分更新到实际DOM上，实现页面的更新。</li>
+      </ul>
+    </section>
+    <h4>3.说说虚拟dom以及他的优缺点？</h4>
+    <h4>4.说说react是如何实现的？生成虚拟dom->更新页面？react的合成事件机制？</h4>
+    <section>
+      <p>React数据挂载流程如下：</p>
+      <p>1. 初始化阶段：</p>
+      <ul>
+        <li>创建React元素树，即虚拟DOM。</li>
+        <li>初始化组件的state和props。</li>
+      </ul>
+      <p>2. 挂载阶段：</p>
+      <ul>
+        <li>将虚拟DOM渲染到实际DOM上，即首次渲染。</li>
+        <li>调用组件的生命周期方法：constructor -> componentWillMount -> render -> componentDidMount。</li>
+      </ul>
+      <p>3. 更新阶段：</p>
+      <ul>
+        <li>当组件的state或props发生变化时，触发重新渲染。</li>
+        <li>调用组件的生命周期方法：shouldComponentUpdate -> componentWillUpdate -> render -> componentDidUpdate。</li>
+      </ul>
+      <p>4. 卸载阶段：</p>
+      <ul>
+        <li>当组件被销毁时，触发卸载操作。</li>
+        <li>调用组件的生命周期方法：componentWillUnmount。</li>
+      </ul>
+      <p>在React中，数据的变化会触发重新渲染组件，React使用虚拟DOM和Diff算法来高效更新实际DOM，确保页面的性能和用户体验。</p>
+      <p>回答二：jsx->render函数->虚拟节点-></p>
+    </section>
+    <h4>5.性能优化方案有哪些？</h4>
+    <h4>6.白屏检测，有用过哪些工具吗？</h4>
+    <h4>7.echats在大屏下展示不对如何解决？</h4>
+    <h4>8.有哪些设计模式？</h4>
+    <h4>9.发布订阅者模式和观察者模式的区别？</h4>
+    <h4>10.有实时通信的经验吗？websocket用过没？用的是哪些协议？跟传统http有啥区别？</h4>
+    <h4>11.nodejs方面除了使用fs,path等模块？还用了其他哪些包吗？</h4>
+    <p>path,fs,child_process,http,url,events,console等</p>
+    <h4>12.运维方面nginx配置会吗？</h4>
+    <h4>13.你的职业规划？希望一直做开发吗？有做负责人的打算吗？</h4>
+    <h4>14.项目启动的时候你是如何跟同事之间合作的？</h4>
+    <h4>15.对于35岁瓶颈你是如何理解？</h4>
+    <h4>16.公司目前业务瓶颈：大屏、数据过导致大白屏</h4>
+
+  </div>
+
   <script>
 
+
+    // try {
+    //   console.log(a)
+    // } catch (e) {
+    //   console.log(e);
+    // } finally {
+    //   console.log('finally')
+    // }
+    // console.log(123['toString']['length'] + '12345'.substring(1, 4) + '12345'.substr(1, 4))
+
+    // function random(min, max, n) {
+    //   let arr = [];
+    //   for (let i = 0; i < n; i++) {
+    //     arr.push(Math.floor(Math.random() * (max - min) + min));
+    //   }
+    //   arr.sort((a, b) => a - b);
+    //   return arr;
+    // }
+    // console.log(random(10, 100, 10))
   </script>
 </body>
 

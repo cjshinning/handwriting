@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>zf每日一题</title>
+</head>
+
+<body>
+  <div style="width:1000px;margin:0 auto; padding-left: 250px;">
+    <h3>1、vue双向绑定原理是什么？</h3>
+    <p>
+      vue.js是采用数据劫持结合发布者-订阅者模式的方式，通过ES5提供的的Object.defineProperty()方法来劫持（监听）各个属性的setter,getter，在数据变动的时候发布消息给订阅者，触发相应的监听回调。并且，由于在不同的数据上触发同步，可以精确的将变更发送给绑定的视图，而不是对所有的数据都执行一次检测。
+    </p>
+    <h3>2、请解释react中props和state的区别？</h3>
+    <p>state是组件自己管理数据，控制自己的状态，可变；props是外部传入的数据参数，不可变；没有state的叫做无状态组件，有state的叫做有状态组件；多用props，少用state。也就是多写无状态组件。</p>
+    <h3>3、vue中计算属性computed和普通属性method的区别是什么？</h3>
+    <p>
+      computed属性是vue计算属性，是数据层到视图层的数据转化映射；计算属性基于他们的依赖进行缓存的，只有在相关依赖发生改变时，他们才会重新求值，也就是说，只要他的依赖没有发生变化，那么每次访问的时候计算属性都会去立即返回之前的计算结果，不再执行函数；
+    </p>
+    <ul>
+      <li>computed是响应式的，methods并非响应式；</li>
+      <li>调用方式不一样，computed的定义成员像属性一样访问，methods定义的成员必须以函数形式调用</li>
+      <li>computed中的成员可以只定义一个函数做为只读属性，也可以定义get/set变成可读写属性，这点是methods中成员做不到的</li>
+      <li>computed不支持异步，当computed中有异步操作时无效，无法监听数据的变化；</li>
+    </ul>
+    <p>如果声明的计算属性计算量非常大的时候，而且访问量次数非常多，改变的时机却很小，那就需要用到computed；缓存会让我们减少很多计算量。</p>
+    <h3>4、webpack中source map是什么？生产环境怎么用？</h3>
+    <p>source map是将编译、打包、压缩后的代码映射回源代码的过程。打包压缩后的代码不具备良好的可读写，想要调试源码就需要source map。</p>
+    <p>map文件只要不打开开发者工具，浏览器是不会加载的</p>
+    <p>线上环境一般有三种处理方案：</p>
+    <ul>
+      <li>hidden-source-map：借助第三方错误监控平台Sentry使用</li>
+      <li>nosource-source-map：只会显示具体行数以及查看源代码的错误栈。安全性比source map高</li>
+      <li>source：通过nginx设置将.map文件只对白名单开放</li>
+    </ul>
+    <h3>5、react-router里的Link标签和a标签有什么区别？</h3>
+    <p>
+      从最终渲染的DOM来看，这两者都是链接，都是a标签，区别是：Link标签是react-router里实现路由跳转的链接，一般配置Route使用，react-router接下了其默认的链接跳转行为，区别于传统的页面跳转，Link标签的跳转行为只会触发相匹配的Route对应的页面内容刷新，而不会刷新整个页面。
+    </p>
+    <h3>6、Vuex和localStorage的区别是什么？</h3>
+    <p>（1）存放位置不一样</p>
+    <ul>
+      <li>vuex存储在内存中；</li>
+      <li>locatorage以文件的方式存储在本地；</li>
+    </ul>
+    <p>（2）应用场景不一样</p>
+    <ul>
+      <li>vuex是一个专门为Vue应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。vuex用于组件之间的传值。</li>
+      <li>locationstorage是本地存储，是将数据存储到浏览器的方法，一般是在跨页面传递数据时使用的。</li>
+      <li>vuex能做到数据响应式，localstorage不能做到；</li>
+    </ul>
+    <p>（3）永久性</p>
+    <p>刷新页面时vuex存储的值会丢失，locastorage不会丢失；</p>
+    <h3>7、webpack热更新的原理</h3>
+    <p>启动阶段</p>
+    <ul>
+      <li>1、webpack Compiler将对应的文件打包成bundle.js，发送给Bundle Server</li>
+      <li>2、浏览器即可访问服务器的方式去获取bundle.js</li>
+    </ul>
+    <p>更新阶段（文件发生变化）</p>
+    <ul>
+      <li>1、webpack compiler重新编译，发送给HMR Server；</li>
+      <li>2、HMR Server可以知道有哪些资源、哪些模块发生了变化，通知HMR Runtime；</li>
+      <li>3、HRM Runtime更新代码；</li>
+    </ul>
+    <h3>8、浏览器缓存位置有哪些？</h3>
+    <p>当强缓存命中或者协商缓存中服务器返回304，我们直接从缓存中获取资源。那么这种资源究竟存在什么位置呢？</p>
+    <p>浏览器中缓存位置一共有四种：按优先级从高到低排列分别是：</p>
+    <p>Service Worker、Memory Cache、Disk Cache、Push Cache；</p>
+    <h3>9、react组件通信有几种，分别怎么通信？</h3>
+    <ul>
+      <li>父组件向子组件通信：通过props传递需要的信息；</li>
+      <li>子组件向父组件通信：props+回调的方式；</li>
+      <li>跨级组件通信：使用context</li>
+      <li>非嵌套关系的组件通信：redux</li>
+    </ul>
+    <h3>10、说一下栈和堆的区别，垃圾回收时栈和堆的区别？</h3>
+    <p>
+      栈：由操作系统自动分配释放，存放函数的参数值和局部变量的值等。其操作方式类似于数据结构中的栈。简单的理解就是将当定义一个变量时，计算机会在内存中开辟一块存储空间来存放这个变量的值，这块空间叫做栈，然而栈中一般存放的是基本数据类型，栈的特点是先进后出。
+    </p>
+    <p>
+      堆：一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回收，分配方式类似于链表。其中在堆中存放变量的是一些对象类型。
+    </p>
+    <ul>
+      <li>
+        <h4>存储大小</h4>
+        <p>栈内存的存储大小是固定的，申请时由系统自动分配内容空间，运行的效率比较快，但是因为存储的大小固定，所以容易存储的大小超过存储的大小，导致溢栈。</p>
+        <p>堆内存的存储的值是大小不定，由程序员自己申请并且指明大小。因为堆内存是new分配的内存，所以运行的效率会比较低。</p>
+      </li>
+      <li>
+        <h4>存储对象</h4>
+        <p>栈内存存储的是基础数据类型，并且是按值访问的，因为栈是一块连续的内存区域，以先进后出的原则存储调用的，所以是连续存储的。</p>
+        <p>堆内存是向高地址扩展的数据结构，是不连续的内存区域，系统也是用链表来存储空闲的内存地址，所以是不连续的，因为是记录的内存地址，所以获取是通过引用，存储的是对象居多。</p>
+      </li>
+      <li>
+        <h4>回收</h4>
+        <p>栈的回收是系统控制实现的。</p>
+        <p>堆内存的回收是人为控制的，当程序结束后，系统会自动回收。</p>
+      </li>
+    </ul>
+    <h3>11、布局都有什么方式，float和position有什么区别？</h3>
+    <ul>
+      <li>
+        <h4>布局方式</h4>
+        <p>静态块级、弹性布局、网络布局、自适应布局、响应式布局、浮动布局、定位布局。</p>
+      </li>
+    </ul>
+    <h3>12、介绍React高阶函数，适用于什么场景？</h3>
+    <p>
+      高阶组件就是一个函数，且该函数接受一个组件为参数，并返回一个新的组件，他只是一个组件的设计模式，这种设计模式是由react自身的组合性质必然产生的。我们也称为纯组件，因为它们可以接受任何动态提供的子组件，但它们不会修改或复制其输入组件的任何行为。
+    </p>
+    <ul>
+      <li>
+        <h4>hoc的优缺点</h4>
+        <p>优点：逻辑复用，不影响被包裹组件的内部逻辑。</p>
+        <p>缺点：hoc传递给被包裹组件的props容易和被包裹后的组件重名，进而被覆盖。</p>
+      </li>
+      <li>
+        <h4>适用场景：</h4>
+        <p>代码复用，逻辑抽象</p>
+        <p>渲染劫持</p>
+        <p>state抽象和更改</p>
+        <p>props更改</p>
+      </li>
+    </ul>
+    <h3>13、说一下Vue的keep-alive是如何实现的，具体缓存的是什么？</h3>
+    <ul>
+      <li>
+        <h4>props</h4>
+        <p>include字符串或正则表达式，只有名称匹配的组件会被匹配</p>
+        <p>exclude字符串或正则表达式，任何名称匹配的组件都不会被缓存</p>
+        <p>max数字，最多可以缓存多少组件实例</p>
+        <p>keep-alive包裹动态组件时，会缓存不活动的组件实例</p>
+      </li>
+      <li>
+        <h4>主要流程</h4>
+        <p>判断组件name，不在include或者exclude中，直接返回vnode，说明该组件不被缓存；</p>
+        <p>获取组件实例key，如果有获取实例的key，否则重新生成；</p>
+        <p>key生成规则，cid+'::'+tag，仅靠cid是不够的，因为相同的构造函数可以注册为不同的本地组件；</p>
+        <p>如果缓存对象内存在，则直接从缓存对象中获取组件实例给vnode，不存在则添加到缓存对象中</p>
+        <p>最大缓存数量，当缓存数量超过max值时，清除keys数组内的第一个组件；</p>
+      </li>
+    </ul>
+    <h3>14、react组件如何实现事件代理？它的原理是什么？</h3>
+    <p>React基于Virtual
+      DOM实现了一个SyntheticEvent（合成事件层），定义的事件处理器会接收到一个合成事件对象的实例，它符合W3C标准，且与元素的浏览器事件拥有相同的接口，支持冒泡机制，所有的事件都自动绑定在最外层上。</p>
+    <p>在React底层，主要对合成事件做了：事件委托和自动绑定</p>
+    <ul>
+      <li>事件委托：React会把所有的事件绑定到结构的最外层，使用统一的事件监听器，这个事件监听器上维持了一个映射来保存所有组件内部事件监听和处理函数。</li>
+      <li>自动绑定：React组件中，每个方法的上下文都会指向该组件的实例，即自动绑定this为当前组件。</li>
+    </ul>
+    <h3>15、CSS预处理器的概念？</h3>
+    <p>概念：</p>
+    <ul>
+      <li>为css增加编程特性的扩展性语言，可以使用变量、简单逻辑判断、函数等基本编程技巧；</li>
+      <li>Less、Sass都是动态的样式语言，是css预处理器，css上的一种抽象层。他们是一种特殊的语法/语言而编译成css；</li>
+      <li>Less的变量符号是@，Sass的变量符号是$</li>
+    </ul>
+    <p>解决的问题：</p>
+    <ul>
+      <li>css语法不够强大，因为无法嵌套导致很多重复的选择器</li>
+      <li>没有变量和合理的样式复用机制，导致逻辑上相关的属性值只能以字面量的形式重复输出，难以维护。</li>
+    </ul>
+    <p>常用规范</p>
+    <p>变量、嵌套语法、混入、@import、运算、函数、继承等</p>
+    <h3>16、shouldComponentUpdate是为了解决什么问题？</h3>
+    <p>shouldComponentUpdate是为了解决重复渲染的问题。</p>
+    <p>
+      使用shouldComponentUpdate()以让React知道当前状态或属性的改变是否不影响组件的输出，默认返回true，返回false时不时重写render，而且该方法并不会在初始化渲染或当使用forceUpdate()时被调用。
+    </p>
+    <h3>17、React里setState到底是同步还是异步？</h3>
+    <p>setState只在合成事件和钩子函数是异步的，在原生事件和setTimeout中时同步的。</p>
+    <h3>18、react-redux的工作流程是什么？</h3>
+    <dl>
+      <dt>redux</dt>
+      <dd>工作流程：dispatch(action)=>middleware=>reducer=>state</dd>
+    </dl>
+    <dl>
+      <dt>react-redux</dt>
+      <dd>
+        <p>前置工作</p>
+        <ul>
+          <li>通过Provider将store绑定到context上
+          </li>
+          <li>通过connect监听并获取state，将处理后的state、dispatch通过props传递给组件；</li>
+        </ul>
+        <p>工作流程</p>
+        <ul>
+          <li>组件触发dispatch(action)：如果有middleware处理发送给reducer；</li>
+          <li>reducer接受action，修改state；</li>
+          <li>connect中监听到state发生变化，在context上获取最新的state；</li>
+          <li>处理state，调用setState触发react生命周期；</li>
+          <li>组件接收到新props。</li>
+        </ul>
+      </dd>
+    </dl>
+    <h3>19、添加原生事件不移除为什么会内存泄露，还有哪些地方会存在内存泄露？</h3>
+    <p>添加原生事件的问题：</p>
+    <code>
+      var btn = document.getElementById('button');
+      function onClick(event) {
+        btn.innerHTML = 'text';
+      }
+      btn.addEventListener('click', onClick);
+    </code>
+    <ul>
+      <li>给元素button添加了一个事件处理器onClick，而处理器里面使用了button的引用。老版的IE是无法检测DOM节点和JS的代码之间的循环引用，因此会造成内存泄露。</li>
+      <li>如今，现代的浏览器使用了更先进的垃圾回收算法，已经正确检测和处理循坏引用了。换言之，回收节点内存时，不必非要调用removeEventListener了。</li>
+    </ul>
+    <p>其他内存泄露</p>
+    <ul>
+      <li>意外的全局变量（如果必须使用全局变量存储大量数据时，确保用完以后把它设置为null或者重新定义。与全局变量相关的增加内存消耗的一个主因是缓存。缓存数据是为了重用，缓存必须有一个大小上限才有用）</li>
+      <li>被遗忘的定时器：尽管这个定时器不再需要，里面的回调也不再需要，可是计时器回调函数并没有被回收，这样如果存储了大量的数据，也是无法被回收，因此需要把定时器清除。</li>
+      <li>脱离DOM的引用：当你保存了一个dom的引用，然后将该DOM从html中删除后，你应该将这个引用赋值为null，否则GC不会回收，这个dom仍然在内存中。保存DOM元素引用的时候，要小心谨慎。</li>
+      <li>闭包，闭包包含外面函数的活动对象，无法被GC回收。</li>
+    </ul>
+    <h3>20、怎么处理项目中的异常捕获问题？</h3>
+    <p>一、代码执行的错误捕获：</p>
+    <p>（1）try...catch</p>
+    <ul>
+      <li>能捕获到代码执行的错误</li>
+      <li>捕获不到语法的错误</li>
+      <li>无法处理异步中的错误</li>
+      <li>使用try...catch包裹，影响代码可读性</li>
+    </ul>
+    <p>（2）window.onerror</p>
+    <ul>
+      <li>无论是异步还是非异步错误，onerror都能捕获到运行时的错误</li>
+      <li>onerror主要是来捕获预料之外的错误，而try...catche则是用来在可预见情况下监控特定的错误，两者结合使用更高效</li>
+      <li>window.onerror函数只有在返回true的时候，异常才不会向上抛出，否则即使是知道异常的发生，控制台还是会显示：Uncaught Error:xxx</li>
+      <li>当我们遇到报404网路请求异常的时候，onerror是无法帮助我们捕获到异常的</li>
+    </ul>
+    <p>（3）window.addEventListener('error', function,boolean)</p>
+    <ul>
+      <li>可以监听到资源加载报错，也可以注册多个事件处理函数。</li>
+      <li>但是这种方式虽然可以捕捉到网络请求的异常，却无法判断HTTP状态是404还是比如其他500等等，所以还需要配合服务端日志进行排查分析才可以</li>
+    </ul>
+    <p>（4）window.addEventListener('unhandledrejection')</p>
+    <ul>
+      <li>捕获Promise错误，当Promise被reject处理器的时候，会触发unhandledrejection事件；这可能发生在widow下，但也可能发生在worker中，这对于调试回退错误处理非常有用。</li>
+    </ul>
+    <p>二、资源加载的错误捕获</p>
+    <ul>
+      <li>imgObj.onerror()，图片不存在的时候就会触发onerror事件</li>
+      <li>performance.getEntries()，获取到成功加载的资源，对比可以间接的捕获错误</li>
+      <li>window.addEventListener('error', function, true)，会捕获但是不冒泡，所以window.onerror不会触发，捕获阶段可以触发。</li>
+    </ul>
+    <h3>21、点击一个按钮，浏览器会做些什么事情？</h3>
+    <ul>
+      <li>点击按钮后创建一个event实例</li>
+      <li>然后把事件放到事件队列中，让它等候处理</li>
+      <li>event循环线程处理这个事件</li>
+      <li>沿着DOM路径找到触发事件的元素</li>
+      <li>如果这个元素上有处理这个事件的默认行为，并且要在DOM事件处理阶段周期之前执行，就执行它的默认行为</li>
+      <li>捕获阶段</li>
+      <li>目标阶段</li>
+      <li>冒泡阶段</li>
+      <li>如果这个元素上有处理这个事件的默认行为，并且要在DOM事件处理阶段周期之后执行，就执行它的默认行为</li>
+    </ul>
+    <h3>22、Promise有没有解决异步的问题？</h3>
+    <p>
+      Promise对象是JS的异步操作解决方案，为异步操作提供统一接口。它起到代理作用（proxy），充当异步操作和回调函数之间的中介，使得异步操作具备同步操作的接口。Promise可以让异步操作写起来，就像写同步操作的流程，而不必一层层的嵌套回调函数。
+    </p>
+    <p>Promise解决了callback回调地狱的问题，async、await是异步的终极解决方案。</p>
+    <p>（1）回调函数 callback</p>
+    <code>
+      setTimeout(()=>{
+        // callback函数体
+      },1000)
+    </code>
+    <p>缺点：回调地狱，不用try...catch捕获错误，不能return</p>
+    <p>回调地狱的根本问题在于：</p>
+    <ul>
+      <li>缺乏顺序性：回调地狱导致的调试困难，和大脑的思维方式不符合</li>
+      <li>嵌套函数存在耦合性：一旦有所改动，就会牵一发而动全身</li>
+      <li>嵌套函数过多的话，很难处理错误</li>
+    </ul>
+    <p>优点：解决了同步的问题——只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。</p>
+    <p>（2）Promise</p>
+    <p>
+      Promise就是为了解决callback的问题而产生的。Promise实现了链式调用，也就是说每次then后返回的都是一个全新的Promise，如果我们在then的return，return的结果会被Promise.resolve()包装。
+    </p>
+    <p>优点：解决了回调地狱的问题</p>
+    <code>
+      ajax('x1').then(res => {
+        // 操作
+        return ajax('x2');
+      }).then(res => {
+        // 操作
+        return ajax('x3');
+      }).then(res => {
+        // 操作
+      })
+    </code>
+    <p>缺点：无法取消Promise，错误需要通过回调函数来捕获</p>
+    <p>（3）Genarator</p>
+    <p>特点：可以控制函数的执行，可以配合co函数库使用</p>
+    <code>
+      function* fetch() {
+        yield ajax('x1', () => { });
+        yield ajax('x2', () => { });
+        yield ajax('x3', () => { });
+      }
+      let it = fetch();
+      let result1 = it.next();
+      let result2 = it.next();
+      let result3 = it.next();
+    </code>
+    <p>（4）Async/await</p>
+    <p>优点：代码清晰，不用像Promise写一堆then链，处理了回调地狱的问题</p>
+    <p>缺点：await将异步代码改造成同步代码，如果多个异步操作没有依赖性而使用await会导致性能上的降低。</p>
+    <code>
+      async function test() {
+        // 以下代码如果没有依赖性的话，完全可以使用Promise.all的方式
+        // 如果有依赖性的话，其实就是解决回调地狱的例子了
+        await fetch('x1');
+        await fetch('x2');
+        await fetch('x3');
+      }
+    </code>
+    <h3>23、css预处理器的好处有哪些？</h3>
+    <ul>
+      <li>css代码更加整洁，更易维护，代码量更少；</li>
+      <li>修改很快，基础颜色使用变量，一处动牵全身；</li>
+      <li>常用代码使用代码块，节省大量代码；</li>
+      <li>css嵌套减少了大量的重复选择器，避免一些低级错误；</li>
+      <li>变量、混入大大提升了样式的复用性；</li>
+      <li>额外的工具类似颜色函数（lighten/darken/transparentize等等），mixins，loops，这些方法使css更像一个编程语言，让开发者能够有能力生成更加复杂的css样式。</li>
+    </ul>
+    <h3>24、CDN有哪些优化资源加载速度的机制？</h3>
+    <ul>
+      <li>资源调度：CDN会根据用户接入的网络ip寻找距离用户最优路径的服务器。调度的方式主要有DNS调度、http302调度、使用HTTP进行的DNS调度（多用于移动端）</li>
+      <li>
+        缓存策略和数据检索：CDN服务器使用高效的算法和数据结构，快速的检索资源和更新读取缓存；
+        <ul>
+          <li>网络优化：从OSI七层模型进行优化，达到网络优化的目的</li>
+          <li>L1物理层：硬件设备升级提高速度</li>
+          <li>L2数据链路层：寻找最快的网络节点，确保lastmile尽量短</li>
+          <li>L3路由层：路径优化，寻找两点间最优路径</li>
+          <li>L4传输层：协议TCP优化，保持长连接、TCP快速打开</li>
+          <li>L7应用层：静态资源压缩，请求合并</li>
+        </ul>
+      </li>
+    </ul>
+    <h3>24、说说你理解的node中间层怎样做的请求合并转发？</h3>
+    <section>
+      重点看，最好结合例子。。。
+    </section>
+    <h3>25、webpack做了什么？使用webpack构建时有误做一些自定义操作？</h3>
+    <section>
+      <p>webpack做了什么？</p>
+      <ul>
+        <li>webpack本质上只是一个js应用程序的静态打包器，它能够基于文件的依赖，递归的构建一个文件依赖关系图，最终将文件打包成为一个或多个bundle；</li>
+        <li>webpack基于entry识别哪个/哪些模块是构建打包的入口；</li>
+        <li>webpack基于output，将构建打包的文件输出到指定目录；</li>
+        <li>从入口文件触发，调用所有配置的Loader对模块进行翻译，再找出该模块的依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理；</li>
+        <li>经过Loader翻译完所有模块后，得到了每个模块被翻译后的最终内容以及他们之间的依赖关系。根据入口和模块之间的依赖关系，组装成一个个包含多个模块的chunk，再把每个chunk转成成一个单独的文件假如到输出列表；
+        </li>
+      </ul>
+    </section>
+    <h3>26、使用import时，webpack对node_modules里的依赖会做什么？</h3>
+    <section>
+      <P>ES6 Module</P>
+      <p>
+        不同于commoneJS和AMD的模块加载机制，ES6在JS语言层面上实现了模块功能。它的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系。在遇到模块加载命令import时，不会执行模块，而是生成一个引用。等到真的需要用到的时候，再到模块里去取值。这是和CommonJS模块规范的最大不同。
+      </p>
+      <p>webpack对node_modules里的依赖会做什么</p>
+      <p>webpack会根据定义的引入方式判断模块类型，再进行相关编译转化。当使用import引入时，babel默认会把ES6的模块转换成CommonJS规范，然后会将node_module里的依赖打包成自执行函数的样式</p>
+      <code>
+        (function () {
+          // 执行逻辑
+        })([模块数组])
+      </code>
+      <p>在模块数组中将模块传入，在函数体中经过一系列的操作最终将模块通过module.exports到处</p>
+    </section>
+    <h3>27、关于vue项目进行优化，你有哪些方法？</h3>
+    <section>
+      <p>（1）代码层面的优化</p>
+      <ul>
+        <li>v-if和v-show区分使用场景</li>
+        <li>computed和watch区分使用场景</li>
+        <li>v-for遍历必须为item添加key，且避免同事使用v-if</li>
+        <li>长列表性能优化</li>
+        <li>事件的销毁</li>
+        <li>图片资源懒加载</li>
+        <li>第三方插件按需引入</li>
+        <li>优化无限列表性能</li>
+        <li>服务端渲染或者预渲染</li>
+      </ul>
+      <p>（2）webpack层面的优化</p>
+      <ul>
+        <li>webpack对图片进行压缩</li>
+        <li>减少ES6转为ES5的冗余代码</li>
+        <li>提取公共代码</li>
+        <li>模板预编译</li>
+        <li>提取组件的css</li>
+        <li>优化sourcemap</li>
+        <li>建构结果输出分析</li>
+        <li>vue项目的编译优化</li>
+      </ul>
+      <p>（3）基础的web技术的优化</p>
+      <ul>
+        <li>开启gzip压缩</li>
+        <li>浏览器缓存</li>
+        <li>CDN的使用</li>
+        <li>使用Chrome Performance查找性能瓶颈</li>
+      </ul>
+    </section>
+    <h3>28、redux和vuex的区别是什么？</h3>
+    <section>
+      <ul>
+        <li>Vuex改进了Redux中的Action和Reducer函数，以mutations变化函数取代Reducer，无需switch，只需在对应的mutation函数里改变state值即可</li>
+        <li>Vuex由于Vue自动重新渲染的特性，无需订阅重新渲染函数，只要生成新的State即可</li>
+        <li>Vuex数据流的顺序是∶View调用store.commit提交对应的请求到Store中对应的mutation函数->store改变（vue检测到数据变化自动渲染）</li>
+      </ul>
+      <p>参考：<a href="https://worktile.com/kb/ask/30155.html" target="_blank">https://worktile.com/kb/ask/30155.html</a>
+      </p>
+    </section>
+    <h3>29、React.Component和React.PureComponent有什么区别？</h3>
+    <section>
+      <ul>
+        <li>React.Component需要自己实现shouldComponentUpdate()</li>
+        <li>React.PureComponent通过props和state的浅比较来实现shouldComponentUpdate()</li>
+        <li>如果定义了shouldComponentUpdate()，无论组件是否PureComponent，都会执行shouldComponentUpdate()</li>
+        <li>React.PureComponent优点：不需要开发者自己实现shouldComponentUpdate，就可以进行简单的判断来提升性能</li>
+        <li>React.PureComponent缺点：可能会因深层的数据不一致而产生错误的否定判断，从而shouldComponentUpdate结果返回false，界面得不到更新。</li>
+      </ul>
+    </section>
+    <h3>30、说一说你对react Context的理解</h3>
+    <section>
+      <p>
+        在React中，数据传递一般使用props传递数据，维护单向数据流，这样可以让组件之间的关系变得简单且可预测，但是单向数据流在某些场景中并不适用。单纯一对父子组件传递并无问题，但是组件之间层层依赖深入，props就需要层层传递，很显然这样做太繁琐了。
+      </p>
+      <p>Context提供了一种在组件之间共享此类值的方式，而不必显示的通过组件层层传递props。</p>
+      <p>可以把context当做特定一个组件树内共享的store，用来当做数据传递。简单来说，当你不想在组件树种通过层层传递props或者state的方式来传递数据时，可以使用context来实现跨层级的组件数据传递。</p>
+      <p>JS的代码在执行期间，会创建一个相应的作用域链，这个作用域记录这运行时JS代码执行期间所能访问的活动对象，包括变量和函数，JS程序通过作用域访问到代码块内部或者外部的变量和函数。</p>
+      <p>假如以JS的作用域链做为类比，React组件提供的context对象其实好比一个提供给子组件访问的作用域，而context对象的属性可以看成作用域上的活动对象。</p>
+      <p>参考：<a href="https://juejin.cn/post/6844903566381940744"
+          target="_blank">https://juejin.cn/post/6844903566381940744</a></p>
+    </section>
+    <h3>31、</h3>
+  </div>
+</body>
+<script>
+  // 1、谈一下你对MVVM的理解？
+  // 2、请说一下响应式数据的原理？
+  // 3、vue是如何检测数组变化？
+  // 4、为何vue采用异步渲染？
+  // 5、nextTick实现原理？
+  // 6、Vue中computed的特点？
+  // 7、watch中的deep:true是如何实现的？
+  // 8、vue组件的生命周期？
+  // 9、ajax请求放在哪个生命周期中？
+  // 10、何时需要使用beforeDestroy？
+  // 解绑事件、清除定时器、解除时间绑定
+  // 11、vue中模板编译原理？
+  // 12、vue中v-if和v-show的区分？
+  // 13、为什么v-if和v-for不能连用？
+  // v-for优先级比v-if高
+  // 14、如何用vnode表示一个dom结构？
+  // 15、diff算法的时间复杂度？
+  // O(n)，因为前端跨层级的操作特别少
+  // 16、简述vue中的diff算法原理
+  // 先同级比较，再比较子节点
+  // 先判断一方有儿子一方没儿子的情况
+  // 比较都有儿子的情况
+  // 递归比较子节点
+
+  // 1、v-for中为什么要用key？
+  // 2、描述组件渲染和更新过程？
+  // 渲染组件时，会通过Vue.extends方法构建子组件的构造方法，并进行实例化。最终手动调用$mount()进行挂载。更新组件时会进行patchVnode流程，核心就是diff算法。（一张图）
+  // 3、vue中的data为什么是一个函数？
+  // 4、vue中的事件绑定的原理
+  // 5、v-model中的实现原理？
+  // v-model可以看出是value+input的语法糖（如果是input、checkbox、select）
+  // 6、vue中v - html会导致哪些问题？
+  // 7、vue父子组件生命周期调用顺序
+  // 8、vue组件如何通信？单向数据流？
+</script>
+
+</html>

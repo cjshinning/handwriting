@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nodejs事件机制</title>
+</head>
+
+<body>
+  <div style="width:1000px;margin:0 auto; padding-left: 250px;">
+    <h3>nodejs时间循环：</h3>
+    <section>
+      <h4>概述：</h4>
+      <p>Node.js 做为 JavaScript 的服务端运行时，主要与网络、文件打交道，没有了浏览器中事件循环的渲染阶段。</p>
+      <h4>事件环的六个阶段：</h4>
+      <p>
+        <img src="./img/node-eventloop-1.jpg" width="800" alt="">
+      </p>
+      <p>左侧 Node.js 官网展示的事件循环分为 6 个阶段，每个阶段都有一个 FIFO（先进先出）队列执行回调函数，这几个阶段之间执行的优先级顺序还是明确的。</p>
+      <p>右侧更详细的描述了，在事件循环迭代前，先去判断循环是否处于活动状态（有等待的异步 I/O、定时器等），如果是活动状态开始迭代，否则循环将立即退出。</p>
+      <h3>timers（定时器阶段）</h3>
+      <p>首先事件循环进入定时器阶段，该阶段包含两个 API setTimeout(cb, ms)、setInterval(cb, ms) 前一个是仅执行一次，后一个是重复执行。</p>
+      <p>这个阶段检查是否有到期的定时器函数，如果有则执行到期的定时器回调函数，和浏览器中的一样，定时器函数传入的延迟时间总比我们预期的要晚，它会受到操作系统或其它正在运行的回调函数的影响。</p>
+      <p>
+        <code>
+          const now = Date.now();
+          setTimeout(function timer1() {
+            console.log(`delay ${Date.now() - now} ms`);
+          }, 1000);
+          setTimeout(function timer1() {
+            console.log(`delay ${Date.now() - now} ms`);
+          }, 5000);
+          someOperation();
+          function someOperation() {
+            // sync operation
+            while (Date.now() - now < 3000) { }
+          }
+        </code>
+      </p>
+      <p>在我们这个示例中，假设执行完 someOperation() 函数的当前时间为 T + 3000：</p>
+      <ul>
+        <li>检查 timer1 函数，当前时间为 T + 3000 - T > 1000，已超过预期的延迟时间，取出回调函数执行，继续检查。</li>
+        <li>检查 timer2 函数，当前时间为 T + 3000 - T < 5000，还没达到预期的延迟时间，此时退出定时器阶段。</li>
+      </ul>
+      <h4>pending callbacks</h4>
+      <p>定时器阶段完成后，事件循环进入到pending callbacks阶段，这个阶段执行上一轮事件循环遗留的I/O回调。</p>
+      <h4>idle, prepare</h4>
+      <p>idle, prepare阶段是给系统内部使用。</p>
+      <h4>poll</h4>
+      <p>poll是一个重要阶段，这里有一个概念观察者，有文件I/O观察者，网络I/O观察者等，它会观察是否有新的请求进入，包含读取文件等待响应，等待新的socket请求，这个阶段在某些情况下是会阻塞的。</p>
+      <p>当 poll 阶段队列为空时，并且脚本被 setImmediate() 调度过，此时，事件循环也会结束 poll 阶段，进入下一个阶段 check。</p>
+      <p>当 poll 阶段队列为空时，并且脚本被 setImmediate() 调度过，此时，事件循环也会结束 poll 阶段，进入下一个阶段 check。</p>
+      <h4>check</h4>
+      <p>check 阶段在 poll 阶段之后运行，这个阶段包含一个 API setImmediate(cb) 如果有被 setImmediate 触发的回调函数，就取出执行，直到队列为空或达到系统的最大限制。</p>
+      <h4>close callbacks</h4>
+      <p>在 Libuv 中，如果调用关闭句柄 uv_close()，它将调用关闭回调，也就是事件循环的最后一个阶段 close callbacks。这个阶段的工作更像是做一些清理工作.</p>
+      <h3>Node.js 11.x 前后差异</h3>
+      <p>
+        <code>
+          setImmediate(() => {
+            console.log('setImmediate1');
+            Promise.resolve('Promise microtask 1')
+              .then(console.log);
+          });
+          setImmediate(() => {
+            console.log('setImmediate2');
+            Promise.resolve('Promise microtask 2')
+              .then(console.log);
+          });
+        </code>
+      </p>
+      <p>在 Node.js v11.x 之前，当前阶段如果存在多个可执行的 Task，先执行完毕，再开始执行微任务。基于 v10.22.1 版本运行结果如下：</p>
+      <p>
+        <code>
+          setImmediate1
+          setImmediate2
+          Promise microtask 1
+          Promise microtask 2
+        </code>
+      </p>
+      <p>在 Node.js v11.x 之后，当前阶段如果存在多个可执行的 Task，先取出一个 Task 执行，并清空对应的微任务队列，再次取出下一个可执行的任务，继续执行。基于 v14.15.0 版本运行结果如下：</p>
+      <p>
+        <code>
+          setImmediate1
+          Promise microtask 1
+          setImmediate2
+          Promise microtask 2
+        </code>
+      </p>
+      <p>参考：<a href="https://www.developers.pub/article/616">https://www.developers.pub/article/616</a></p>
+      </p>
+    </section>
+    <section>
+      <h3>事件循环 圈</h3>
+      <p>
+        <img width="676" src="./img/node-eventloop-2.jpg" alt="">
+      </p>
+      <p>一次循环要经过六个阶段：</p>
+      <ul>
+        <li>timers：计时器（setTimeout、setInterval等的回调函数存放在里边）</li>
+        <li>pending callback</li>
+        <li>idle prepare</li>
+        <li>poll：轮询队列（除timers、check之外的回调存放在这里）</li>
+        <li>check：检查阶段（使用 setImmediate 的回调会直接进入这个队列）</li>
+        <li>close callbacks</li>
+      </ul>
+      <p>参考（更通俗）：<a href="https://juejin.cn/post/7010308647792148511">https://juejin.cn/post/7010308647792148511</a>
+    </section>
+    <section>
+      <h3>nodejs的异步IO与事件模块机制（重要！！！）</h3>
+      <p>
+        <a
+          href="https://www.cnblogs.com/ZheOneAndOnly/p/15946930.html">https://www.cnblogs.com/ZheOneAndOnly/p/15946930.html</a>
+      </p>
+    </section>
+  </div>
+
+  <script>
+    // timers（定时器阶段）
+    // const now = Date.now();
+    // setTimeout(function timer1() {
+    //   console.log(`delay ${Date.now() - now} ms`);
+    // }, 1000);
+    // setTimeout(function timer1() {
+    //   console.log(`delay ${Date.now() - now} ms`);
+    // }, 5000);
+    // someOperation();
+    // function someOperation() {
+    //   // sync operation
+    //   while (Date.now() - now < 3000) { }
+    // }
+    // delay 3005 ms
+    // delay 5013 ms
+    // 先执行someOperation函数，耗时大概3000ms
+    // 完成以上同步任务后，进入一次事件循环，先检查定时器是否有到期的任务，有timer1，取出执行
+    // 进入等待态，当timer2到时间再次进入事件循环，执行timer2
+
+    // check
+    setTimeout(() => {
+      console.log('setTimeout');
+    })
+    setImmediate(() => {
+      console.log('setImmediate');
+    })
+
+  </script>
+</body>
+
+</html>

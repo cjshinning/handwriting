@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <button id="button">button</button>
     <ul id="container"></ul>
     <script>
-        document.getElementById('button').addEventListener('click', function(){
+        document.getElementById('button').addEventListener('click', function () {
             let now = Date.now();
             const total = 10000;
             const ul = document.getElementById('container');
-            for(let i = 0; i < total; i++){
+            for (let i = 0; i < total; i++) {
                 const li = document.createElement('li');
                 li.innerText = ~~(Math.random() * total);
                 ul.appendChild(li);
@@ -25,7 +27,8 @@
             }, 0)
         })
 
-        // 虚拟列表其实是按需显示的一种实现，即支队可见区域锦霞渲染，对非可见区域中的数据不渲染或部分渲染的技术，从而达到极高的渲染性能。
+        // 虚拟列表其实是按需显示的一种实现，即只对可见区域进行渲染，对非可见区域中的数据不渲染或部分渲染的技术，从而达到极高的渲染性能。
     </script>
 </body>
+
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大量数据处理</title>
+</head>
+
+<body>
+  <h3>求斐波纳茨数列的第38项：</h3>
+  <div style="width:100px;height:100px;background-color:red;"></div>
+  <script>
+    // 普通实现
+    // document.querySelector('div').onclick = function () {
+    //   console.log('hello world');
+    // }
+    // function fibonacci(n) {
+    //   return n < 2 ? n : arguments.callee(n - 1) + arguments.callee(n - 2);
+    // }
+    // console.log(fibonacci(38));
+
+    // 使用worker
+    console.log(window.Worker)
+    var worker = new Worker('worker.js');
+    worker.postMessage(40);
+    worker.onmessage = function (event) {
+      var data = event.data;
+      console.log(data)
+    };
+    worker.onerror = function (event) {
+      console.log(event.fileName, event.lineo, event.message);
+    };
+  </script>
+</body>
+
+</html>
